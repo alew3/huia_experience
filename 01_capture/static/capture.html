@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>Capture Video from Webcam</title>
-    <style>
-    body {
+    <style>body {
         font-family: 'Roboto', sans-serif;
         font-size: 14px;
         margin: 25px;
@@ -69,9 +68,7 @@
 
     .lowercase {
         text-transform: lowercase;
-    }
-
-    </style>
+    }</style>
 </head>
 
 <body id="main">
@@ -96,35 +93,33 @@
 
             <div id="options"> 
 
-                Initial Number: <input type="text" id="image_counter" size="4" maxlength="3" value="0" data-mask="999"/><br/>
-                Pose Name: &nbsp;&nbsp;&nbsp; <input type="text" id="filename" value="name" size="10" maxlength="10" value="normal" data-mask="SSSSSSSS" class="lowercase" /> <br/><br/>
+                Initial Number: <input type="text" id="image_counter" size="4" maxlength="3" value="0" data-mask="999"><br>
+                Pose Name: &nbsp;&nbsp;&nbsp; <input type="text" id="filename" value="name" size="10" maxlength="10" data-mask="SSSSSSSS" class="lowercase"> <br><br>
 
-                <input id="single" type="radio" name="mode" value="single" checked="checked"/> Capture Single Frame <br/>
-                <button id="single_picture">Capture</button> <br/><br/>
+                <input id="single" type="radio" name="mode" value="single" checked="checked"> Capture Single Frame <br>
+                <button id="single_picture">Capture</button> <br><br>
 
-                <input id="multiple" type="radio" name="mode" value="multiple" />Capture Multiple Frames<br/> 
+                <input id="multiple" type="radio" name="mode" value="multiple">Capture Multiple Frames<br> 
 
-                <button id="start_record" disabled>Start Recording</button>&nbsp;<button id="stop_record" disabled>Stop Recording</button>
+                <button id="start_record" disabled="">Start Recording</button>&nbsp;<button id="stop_record" disabled="">Stop Recording</button>
                 <span id="countdown" style="font-size:60px; text-align:center;"></span>
 
-                <br/><br/>
+                <br><br>
                 
      
             </div>
 
             <div id="file">
 
-                <button id="new_zip">Create new Zip file (Reset)</button>&nbsp; <button id="download_zip" value="save" disabled>Download Zip</button><br/><br/>
+                <button id="new_zip">Create new Zip file (Reset)</button>&nbsp; <button id="download_zip" value="save" disabled="">Download Zip</button><br><br>
                 
-                Files in Zip: <span id="total">0</span><br/>
-                <div id="files">
-                    
-                </div>
+                Files in Zip: <span id="total">0</span><br>
+                <div id="files"></div>
 
                 
             </div>
     </div>
-    <script src="camera.js"></script>
+    <script src="/camera.283d5d54.js"></script>
 </body>
 
 </html>

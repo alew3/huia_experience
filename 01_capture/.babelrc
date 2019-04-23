@@ -1,0 +1,18 @@
+{
+    "presets": [
+      [
+        "env",
+        {
+          "esmodules": false,
+          "targets": {
+            "browsers": [
+              "> 5%"
+            ]
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+}

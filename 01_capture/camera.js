@@ -1,19 +1,23 @@
-import $ from 'jquery';
-import dat from 'dat.gui';
-import Stats from 'stats.js';
+
 import * as posenet from '@tensorflow-models/posenet';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
-import {drawBoundingBox, drawKeypoints, drawSkeleton} from '/js/demo_util';
-import 'babel-polyfill';
+import {drawBoundingBox, drawKeypoints, drawSkeleton} from './demo_util';
+import $ from 'jquery';
 import 'jquery-mask-plugin';
+import dat from 'dat.gui';
+import Stats from 'stats.js';
+import flash from './static/flash.mp3';
 
 // setup variables
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+navigator.getUserMedia = navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia;
 
-const tick = new Audio('flash.mp3');
-const interval = 1000; // ms
+let tick = new Audio(flash);
+const interval = 3000; // ms
 let timer;
+let last_keypoints;
 
 const stats = new Stats();
 let zip = new JSZip();
@@ -60,6 +64,19 @@ async function setupCamera() {
       throw new Error(
           'Browser API navigator.mediaDevices.getUserMedia not available');
     }
+
+    console.log("mediadevices", navigator.mediaDevices);
+
+
+    // List cameras and microphones.
+
+    navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+      devices.forEach(function(device) {
+        console.log(device.kind + ": " + device.label +
+                    " id = " + device.deviceId);
+      });
+    })
   
     const video = document.getElementById('video');
     video.width = videoWidth;
@@ -68,11 +85,17 @@ async function setupCamera() {
     const stream = await navigator.mediaDevices.getUserMedia({
       'audio': false,
       'video': {
+        deviceId: '413c333f15980debc49118b552c7d243a1aba16ece3417132f47ff05cd7387ce',
+        // FaceTime HD Camera (05ac:8514) id = 7c67134ce2b1b2b877d4562f92b13003deb8f782235048328fb2c62e908789b7
+        // Logitech HD Pro Webcam C920 (046d:082d) id = 413c333f15980debc49118b552c7d243a1aba16ece3417132f47ff05cd7387ce
+        // Monitor Display iSight (05ac:8508) id = fbbf4804b3600b7899a2a7fb5f5b6afebf8637d94defd20f3fd166485a797532
+        // Live! Cam inPerson HD VF0720 (041e:4089) id = c4aba1b13c2211e67260c8eb8e124194e3b00683e53b8ef93d40d0ea5c40788a
         facingMode: 'user',
         width: videoWidth,
         height: videoHeight,
       },
     });
+    console.log("media devices",stream);
     video.srcObject = stream;
   
     return new Promise((resolve) => {
@@ -98,6 +121,7 @@ function setupGui(cameras, net) {
   
     if (cameras.length > 0) {
       guiState.camera = cameras[0].deviceId;
+      console.log("cameras found",cameras);
     }
   
     const gui = new dat.GUI({width: 300, closed: true});
@@ -239,6 +263,7 @@ function detectPoseInRealTime(video, net) {
         poses = getMainPose(poses);
   
       poses.forEach(({score, keypoints}) => {
+        last_keypoints = keypoints;
         if (score >= minPoseConfidence) {
           if (guiState.output.showPoints) {
             drawKeypoints(keypoints, minPartConfidence, ctx);
@@ -363,19 +388,21 @@ function newZip() {
 
 function startRecording() {
   console.log('begin recording');
+  window.clearInterval(timer);
+
+  timer = setInterval(()=>{tick.play(); saveCanvas()}, interval);
+
   $('#stop_record').show();
   $('#start_record').hide();
-  timer = window.setInterval(saveCanvas, interval);
   console.log('recording');
 }
 
 function stopRecording() {
-  console.log('stop recording');
   window.clearInterval(timer);
+  console.log('stop recording');
   $('#stop_record').hide();
   $('#start_record').show();
 }
-
 
 function singlePicture() {
   saveCanvas();
@@ -385,30 +412,33 @@ function saveZip() {
   stopRecording();
   console.log('saving zip');
 
-  zip.generateAsync({type:'blob'})
-  .then(function (zip) {
-      saveAs(zip, fileName + '.zip');
+  zip.generateAsync({type: 'blob'})
+  .then(function(zip) {
+      saveAs(zip, 'capture_images.zip');
   });
 }  
 
 function saveCanvas() {
-    $('#download_zip').removeAttr('disabled');
-    let file = $('#filename').val() + '_' + $('#image_counter').val() + '.png';
-    console.log('adding canvas to zip', file);
-    zip.file(file, dataURItoBlob(canvas2.toDataURL('image/png')),{binary: true});
+    let name = $('#filename').val() + '_' + $('#image_counter').val();
+    zip.file(`./json/${name}.json`, JSON.stringify(last_keypoints,null,4));
+    //console.log('adding canvas to zip', file);
+    
+    let blob = dataURItoBlob(canvas2.toDataURL('image/png'));
+    zip.file(`./imgs/${name}.png`, blob, {binary: true});
 
     $('#image_counter').val(+$('#image_counter').val()+1);
-    // $('#total').val(zip.files);
+
     let i = 0;
-    let strFiles = "";
-    zip.folder().forEach(function(relativePath, file) {
-      strFiles += file.name + "\n";
+    let strFiles = '';
+    zip.folder('./imgs/').forEach(function(relativePath, file) {
+      strFiles += '<img width=\'100\' height=\'100\' src=\'data:image/png;'+ canvas2.toDataURL('image/png') + '\'>' + file.name + '<br/>';
       i++;
-      //console.log(file);
     });
 
-    $('#files').text(strFiles);
+    $('#files').html(strFiles);
     $('#total').text(i);
+
+    $('#download_zip').removeAttr('disabled');   
 
     //timer = { countdown: 1};
     //var tween = TweenLite.to(timer, 1, {countdown:0, onUpdate:showTimer, onComplete:flash})
