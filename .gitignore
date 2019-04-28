@@ -9,6 +9,7 @@ build
 #logs
 npm-debug.log*
 *.log
+logs
 
 # yarn
 .yarn-integrity
@@ -25,3 +26,7 @@ yarn-error.log*
 .vscode
 todo.txt
 bkp
+training_data
+models
+models_tfjs
+.ipy*

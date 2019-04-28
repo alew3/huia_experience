@@ -19,27 +19,44 @@ import * as tf from '@tensorflow/tfjs';
 
 const color = 'aqua';
 const boundingBoxColor = 'red';
-const lineWidth = 2;
+const lineWidth = 8;
+const circleWidth = 6;
 
-const colors = {
-  "nose" : "yellow",
-  "leftEye" : "red",
-  "rightEye" : "blue",
-  "leftEar" : "black",
-  "rightEar" : "green",
-  "leftShoulder" : "RosyBrown",
-  "rightShoulder" : "MediumBlue",
-  "leftElbow" : "MediumTurquoise",
-  "rightElbow" : "MediumVioletRed	",
-  "leftWrist" : "OliveDrab",
-  "rightWrist" : "OrangeRed",
-  "leftHip" : "DarkKhaki",
-  "rightHip" : "Maroon",
-  "leftKnee" : "Teal",
-  "rightKnee" : "DeepPink",
-  "leftAnkle" : "DarkOrchid",
-  "rightAnkle" : "Navy",
+const keyp_colors = {
+  'nose' : 'yellow',
+  'leftEye' : 'red',
+  'rightEye' : 'blue',
+  'leftEar' : 'black',
+  'rightEar' : 'green',
+  'leftShoulder' : 'RosyBrown',
+  'rightShoulder' : 'Wheat',
+  'leftElbow' : 'MediumTurquoise',
+  'rightElbow' : 'MediumVioletRed',
+  'leftWrist' : 'OliveDrab',
+  'rightWrist' : 'OrangeRed',
+  'leftHip' : 'DarkKhaki',
+  'rightHip' : 'Maroon',
+  'leftKnee' : 'Teal',
+  'rightKnee' : 'DeepPink',
+  'leftAnkle' : 'DarkOrchid',
+  'rightAnkle' : 'Navy'
 }
+
+const segment_colors = {
+  'leftElbow|leftShoulder' :  'DarkSalmon', 
+  'leftElbow|leftWrist' : 'LIME', 
+  'leftHip|leftKnee' : 'Olive', 
+  'leftKnee|leftAnkle' : 'Sienna',
+  'rightHip|rightShoulder' : 'FUCHSIA', 
+  'rightElbow|rightShoulder' : 'SlateBlue',
+  'rightElbow|rightWrist' : 'Tomato',
+  'rightHip|rightKnee' : 'yellow',
+  'leftHip|leftShoulder' : 'DodgerBlue',
+  'rightKnee|rightAnkle' : 'MediumSeaGreen',
+  'leftShoulder|rightShoulder' : 'DarkMagenta',
+  'leftHip|rightHip' : 'DeepPink'
+} 
+
 
 function toTuple({y, x}) {
   return [y, x];
@@ -47,7 +64,7 @@ function toTuple({y, x}) {
 
 export function drawPoint(ctx, y, x, r, color) {
   ctx.beginPath();
-  ctx.arc(x, y, 6, 0, 2 * Math.PI);
+  ctx.arc(x, y, circleWidth, 0, 2 * Math.PI);
   ctx.fillStyle = color;
   ctx.fill();
 }
@@ -59,7 +76,7 @@ export function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
   ctx.beginPath();
   ctx.moveTo(ax * scale, ay * scale);
   ctx.lineTo(bx * scale, by * scale);
-  ctx.lineWidth = 4; //lineWidth;
+  ctx.lineWidth = lineWidth;
   ctx.strokeStyle = color;
   ctx.stroke();
 }
@@ -67,33 +84,45 @@ export function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
 /**
  * Draws a pose skeleton by looking up all adjacent keypoints/joints
  */
-export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
+export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1, withLegs=true) {
   const adjacentKeyPoints =
       posenet.getAdjacentKeyPoints(keypoints, minConfidence);
+  let i = 0;
   adjacentKeyPoints.forEach((keypoints) => {
-    //console.log(keypoints[0].part);
+    let paintColor = segment_colors[keypoints[0].part + '|' + keypoints[1].part];
 
-    drawSegment(
-        toTuple(keypoints[0].position), toTuple(keypoints[1].position), colors[keypoints[0].part],
-        scale, ctx);
+    if (!withLegs && !(keypoints[0].part=="leftKnee" || keypoints[0].part=="rightKnee" || (keypoints[0].part=="rightHip" && keypoints[1].part=="rightKnee") || (keypoints[0].part=="leftHip" && keypoints[1].part=="leftKnee")    )) {
+          drawSegment(
+                toTuple(keypoints[0].position), toTuple(keypoints[1].position), paintColor,
+                scale, ctx);
+          i++;
+      } else if (withLegs) {
+        drawSegment(
+          toTuple(keypoints[0].position), toTuple(keypoints[1].position), paintColor,
+          scale, ctx);
+          i++;
+      }
   });
+  //console.log("segments drawn:", i);
+  return i;
 }
-
 
 /**
  * Draw pose keypoints onto a canvas
  */
-export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
+export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1, withLegs=true) {
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];
 
     if (keypoint.score < minConfidence) {
       continue;
     }
-
     const {y, x} = keypoint.position;
-     
-    drawPoint(ctx, y * scale, x * scale, 3, colors[keypoint.part]);
+    if (withLegs==false && keypoint.part!="leftKnee" && keypoint.part!="rightKnee" && keypoint.part!="leftAnkle" && keypoint.part!="rightAnkle") { 
+      drawPoint(ctx, y * scale, x * scale, 4, keyp_colors[keypoint.part]);
+     } else if (withLegs) {
+       drawPoint(ctx, y * scale, x * scale, 4, keyp_colors[keypoint.part]);
+    }
   }
 }
 

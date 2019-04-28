@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detect Huia Pose</title>
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        margin: 25px;
+        line-height: 20px;
+    }
+
+    #dash {
+        width: '100%';
+        display: block;
+    }
+
+    #info {
+        width: '100%';    
+    }
+
+    #video, #output, #skeleton {
+        padding: 0 0 15px 0;
+        width: 640px;
+        height: 500px; 
+    }
+
+    figure {
+        float: left;
+        padding: 0;
+        margin: 0;
+        caption-side: top;
+    }
+
+    figcaption {
+        font-weight: bold;
+        width: 640px;
+        text-align: center;
+        caption-side: top;
+
+    }
+
+    #options {
+        width: 640px;
+        float: left;
+    }
+
+    #stats {
+        position: absolute;
+        top: 64px;
+    }
+
+
+    #predictions {
+        font-size : 20px;
+        line-height: 1.5;
+    }
+
+    </style>
+</head>
+
+<body id="main">
+    <h1>Detect Pose</h1>
+    <div id="info">Loading...</div>
+
+    <div id="dash">
+            <figure>
+                <video id="video" playsinline="" style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1);display: none;"></video>
+                <canvas id="output"></canvas>
+                <figcaption>Video Feed</figcaption>
+            </figure>    
+
+            <figure>
+                <div id="stats"></div>
+                <canvas id="skeleton"></canvas>
+                <figcaption>Skeleton Image</figcaption>
+            </figure>
+    </div>
+    <div style="clear:both"></div>
+    <div id="predictions">
+       <!--  <button id="predict">Predict Pose</button> -->
+    </div>
+    <div id="last_moves"></div>
+    <script src="detect.js"></script>
+</body>
+
+</html>

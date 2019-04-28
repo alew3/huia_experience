@@ -1,4 +1,3 @@
-
 import * as posenet from '@tensorflow-models/posenet';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
@@ -15,9 +14,9 @@ navigator.getUserMedia = navigator.getUserMedia ||
                          navigator.mozGetUserMedia;
 
 let tick = new Audio(flash);
-const interval = 3000; // ms
 let timer;
-let last_keypoints;
+const interval = 3000; // ms
+let lastKeypoints;
 
 const stats = new Stats();
 let zip = new JSZip();
@@ -25,13 +24,13 @@ let zip = new JSZip();
 const videoWidth  = $('#video').width();
 const videoHeight = $('#video').height();
 
-const canvas  = document.getElementById('output');
-const canvas2 = document.getElementById('skeleton');
+let canvas  = $('#output')[0];
+let canvas2 = $('#skeleton')[0];
 
 const guiState = {
     algorithm: 'multi-pose',
     input: {
-      mobileNetArchitecture: '0.75',
+      mobileNetArchitecture: '1',
       outputStride: 16,
       imageScaleFactor: 0.5,
     },
@@ -40,10 +39,10 @@ const guiState = {
       minPartConfidence: 0.5,
     },
     multiPoseDetection: {
-      maxPoseDetections: 5,
-      minPoseConfidence: 0.15,
-      minPartConfidence: 0.1,
-      nmsRadius: 30.0,
+      maxPoseDetections: 2,
+      minPoseConfidence: 0.12,
+      minPartConfidence: 0.07,
+      nmsRadius: 20.0,
     },
     output: {
       showVideo: true,
@@ -68,13 +67,14 @@ async function setupCamera() {
     console.log("mediadevices", navigator.mediaDevices);
 
 
-    // List cameras and microphones.
-
+    // List cameras id and microphones.
     navigator.mediaDevices.enumerateDevices()
     .then(function(devices) {
       devices.forEach(function(device) {
-        console.log(device.kind + ": " + device.label +
+        if (device.kind=="videoinput") {
+          console.log(device.kind + ": " + device.label +
                     " id = " + device.deviceId);
+                  }
       });
     })
   
@@ -85,17 +85,14 @@ async function setupCamera() {
     const stream = await navigator.mediaDevices.getUserMedia({
       'audio': false,
       'video': {
-        deviceId: '413c333f15980debc49118b552c7d243a1aba16ece3417132f47ff05cd7387ce',
-        // FaceTime HD Camera (05ac:8514) id = 7c67134ce2b1b2b877d4562f92b13003deb8f782235048328fb2c62e908789b7
-        // Logitech HD Pro Webcam C920 (046d:082d) id = 413c333f15980debc49118b552c7d243a1aba16ece3417132f47ff05cd7387ce
-        // Monitor Display iSight (05ac:8508) id = fbbf4804b3600b7899a2a7fb5f5b6afebf8637d94defd20f3fd166485a797532
-        // Live! Cam inPerson HD VF0720 (041e:4089) id = c4aba1b13c2211e67260c8eb8e124194e3b00683e53b8ef93d40d0ea5c40788a
+        // this is my external webcam id, it  will use another if it doesn't find it
+        deviceId: '0165df6b12fef3ba881da9a0bf01b898860f7c2d254d972cab487a9d18a355be',
         facingMode: 'user',
         width: videoWidth,
         height: videoHeight,
       },
     });
-    console.log("media devices",stream);
+    //console.log("media devices",stream);
     video.srcObject = stream;
   
     return new Promise((resolve) => {
@@ -188,19 +185,24 @@ function setupFPS() {
 
 function detectPoseInRealTime(video, net) {
 
-    var ctx = canvas.getContext('2d');
-    var ctx2 = canvas2.getContext('2d');
+    let hiddenCanvas = document.createElement('canvas');
+    hiddenCanvas.width = videoWidth;
+    hiddenCanvas.height = videoHeight;
+    let ctxH = hiddenCanvas.getContext('2d');
+
+    let ctx = canvas.getContext('2d');
+    let ctx2 = canvas2.getContext('2d');
   
     // since images are being fed from a webcam
     const flipHorizontal = true;
-    var savedCanvas = false;
   
     canvas.width = videoWidth;
     canvas.height = videoHeight;
     canvas2.width = videoWidth;
     canvas2.height = videoHeight;
-  
+
     async function poseDetectionFrame() {
+
       if (guiState.changeToArchitecture) {
         // Important to purge variables and free up GPU memory
         guiState.net.dispose();
@@ -261,25 +263,34 @@ function detectPoseInRealTime(video, net) {
   
       if (poses.length>0)
         poses = getMainPose(poses);
-  
+      
+
+      // clear hidden canvas before redrawing
+      ctxH.clearRect(0, 0, ctxH.canvas.width, ctxH.canvas.height);
+      console.log(ctxH.height);
+
       poses.forEach(({score, keypoints}) => {
-        last_keypoints = keypoints;
+        lastKeypoints = keypoints;
         if (score >= minPoseConfidence) {
-          if (guiState.output.showPoints) {
-            drawKeypoints(keypoints, minPartConfidence, ctx);
-            drawKeypoints(keypoints, minPartConfidence, ctx2);
-          }
           if (guiState.output.showSkeleton) {
-            drawSkeleton(keypoints, minPartConfidence, ctx);
-            drawSkeleton(keypoints, minPartConfidence, ctx2);
+            drawSkeleton(keypoints, minPartConfidence, ctxH, 1, true);
+            //drawSkeleton(keypoints, minPartConfidence, ctx2, 1, true);
+          }
+          if (guiState.output.showPoints) {
+            drawKeypoints(keypoints, minPartConfidence, ctxH, 1, true);
+            //drawKeypoints(keypoints, minPartConfidence, ctx2, 1, true);
           }
           if (guiState.output.showBoundingBox) {
-            drawBoundingBox(keypoints, ctx);
-            drawBoundingBox(keypoints, ctx2);
+            drawBoundingBox(keypoints, ctxH);
+            //drawBoundingBox(keypoints, ctx2);
           }
         }
       });
-      
+
+      // copy hidden canvas to webcam overlay and skeleton image
+      ctxH.globalAlpha = 1;
+      ctx.drawImage(ctxH.canvas,0,0);
+      ctx2.drawImage(ctxH.canvas,0,0);
   
       // End monitoring code for frames per second
       stats.end();
@@ -347,6 +358,8 @@ export async function bindPage() {
     setupFPS();
     detectPoseInRealTime(video, net);
 
+    $('#stop_record').hide();
+
     // radio single frame
     $('#single').click(function() {
       $('#single_picture').removeAttr('disabled');
@@ -390,7 +403,7 @@ function startRecording() {
   console.log('begin recording');
   window.clearInterval(timer);
 
-  timer = setInterval(()=>{tick.play(); saveCanvas()}, interval);
+  timer = setInterval( () => {tick.play(); saveCanvas()}, interval);
 
   $('#stop_record').show();
   $('#start_record').hide();
@@ -419,33 +432,33 @@ function saveZip() {
 }  
 
 function saveCanvas() {
-    let name = $('#filename').val() + '_' + $('#image_counter').val();
-    zip.file(`./json/${name}.json`, JSON.stringify(last_keypoints,null,4));
-    //console.log('adding canvas to zip', file);
-    
-    let blob = dataURItoBlob(canvas2.toDataURL('image/png'));
-    zip.file(`./imgs/${name}.png`, blob, {binary: true});
+  // enable download button
+  $('#download_zip').removeAttr('disabled');
 
-    $('#image_counter').val(+$('#image_counter').val()+1);
+  // filename comes from pose name and number
+  let name = $('#filename').val() + '_' + $('#image_counter').val();
+  
+  // convert to blob and add to zip
+  let blob = dataURItoBlob(canvas2.toDataURL('image/png'));
+  zip.file(`./imgs/${name}.png`, blob, {binary: true});
+  // save keypoints as json in case we want to use them
+  zip.file(`./json/${name}.json`, JSON.stringify(lastKeypoints,null,4)); 
 
-    let i = 0;
-    let strFiles = '';
-    zip.folder('./imgs/').forEach(function(relativePath, file) {
-      strFiles += '<img width=\'100\' height=\'100\' src=\'data:image/png;'+ canvas2.toDataURL('image/png') + '\'>' + file.name + '<br/>';
-      i++;
-    });
+  // show thumbnails
+  let strFiles = $('#files').html();
+  strFiles += '<figure><img width=\'100\' height=\'100\' src=\'data:image/png;'+ canvas2.toDataURL('image/png') + '\'><figcaption>' + name + '</figcaption></figure>';
+  $('#files').html(strFiles);
 
-    $('#files').html(strFiles);
-    $('#total').text(i);
+  // count files in zip
+  let total = 0;
+  zip.folder('').forEach(function(relativePath, file) {
+    //console.log(relativePath,file);
+    if (!file.dir) total++;
+  }); 
 
-    $('#download_zip').removeAttr('disabled');   
-
-    //timer = { countdown: 1};
-    //var tween = TweenLite.to(timer, 1, {countdown:0, onUpdate:showTimer, onComplete:flash})
-}
-
-function showTimer() {
-  //$("#countdown").text(timer.countdown.toFixed(0);
+  // update counters
+  $('#image_counter').val(+$('#image_counter').val()+1);
+  $('#total').text(total);
 }
 
 // start aplication
