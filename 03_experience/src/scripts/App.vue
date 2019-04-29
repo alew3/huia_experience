@@ -81,7 +81,7 @@ const POSE_CLASSES = {
   2: 'fly',
   3: 'moonwalk',
   4: 'normal',
-  5: 'radouken',
+  5: 'hadouken',
   6: 'underarm',
   7: 'wings',
   }
