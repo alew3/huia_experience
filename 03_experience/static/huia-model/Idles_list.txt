@@ -1,0 +1,19 @@
+0 StandBy 0-80  (80)
+1 Abre asas 81-155 (74)
+2 Cisca D 156-205 (49) 
+3 Cisca E 206-255 () 
+4 Decolar 256-291
+5 Voando 292-339
+6 Pousar 340-368
+7 Pulo Curto 369-429
+8 Pulo Longo 430-514
+9 Vira para Lado 515-530
+10 Volta para o centro 531-550
+11 Cocar asa 551-600 (esse preciso que desligue o track da cabeça)
+12 Pulo para lado volta 601-693 (esse preciso que desligue o track da cabeça)
+13 Virar de costas 694-810 (esse preciso que desligue o track da cabeça)  116 / 30 = 3.86
+14 Fingir de morto 811-1080  = 269 / 30 = 8.96  
+15 Hadouken 1081-1167   (86) /30   = 2.86
+16 Dancinha Backpack 1168-1300  (132) / 30 = 4.4
+17 Moon Walk 1301-1461 (precisamos inserir o chapeu)  160/30 = 5.33
+18 Piscada 1462-1514

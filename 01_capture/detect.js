@@ -20,7 +20,8 @@ import * as tf from '@tensorflow/tfjs';
 import dat from 'dat.gui';
 import Stats from 'stats.js';
 import $ from 'jquery';
-import {drawBoundingBox, drawKeypoints, drawSkeleton} from './demo_util';
+import {drawBoundingBox, drawKeypoints, drawSkeleton} from 'demo_util';
+
 
 // setup variables
 let last_moves = [];
@@ -55,7 +56,7 @@ hiddenCanvas.height = videoHeight;
 
 const predictionsElement = $('#predictions');
 
-const MOBILENET_MODEL_PATH = 'http://localhost:1234/tfjs_huia_mob_224_teste_2_q/model.json';
+const MOBILENET_MODEL_PATH = 'http://localhost:1234/tfjs_huia_mob_224_teste_4_q/model.json';
 const POSE_CLASSES = {
   0: 'backpack',
   1: 'dramatic',

@@ -1,0 +1,127 @@
+{
+  "metatags-pt_br" : {
+    "home" : {
+      "title" : "Huia Tech Studio: bringing ideas to life.",
+      "description" : "Huia is a digital production studio founded in 2012. We use bleeding edge technology to create immersive digital experiences.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Get to know Huia: a digital production studio that produces inovation and technology in all senses.",
+      "ogUrl" : "http://www.huia.com.br",
+      "keywords" : "technology,tecnologia,creative,ideas,criação,design,seo,innovation,production,3d,virtual reality, augmented reality"
+    },
+
+    "contact/" : {
+      "title" : "Huia Tech Studio | Contact",
+      "description" : "Get in touch with us and find out more about Huia Tech Studio studio",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Keep in touch with us: contact@huia.com.br",
+      "ogUrl" : "http://www.huia.com.br/contact/",
+      "keywords" : "tecnology,tecnologia,creation,criacao,design,seo,inovation,production"
+    },
+
+    "team/" : {
+      "title" : "Huia Tech Studio | Team",
+      "description" : "See our team Huia and get to know more about us!",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Get to know now our Team Huia",
+      "ogUrl" : "http://www.huia.com.br/team/",
+      "keywords" : "tecnology,tecnologia,creation,criacao,design,seo,inovation,production"
+    },
+
+    "projects/" : {
+      "title" : "Huia Tech Studio | Projects",
+      "description" : "Explore the Huia projects for brands around the world.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "See now all the Huia projects",
+      "ogUrl" : "http://www.huia.com.br/projects/",
+      "keywords" : "tecnology,tecnologia,creation,criacao,design,seo,inovation,production"
+    },
+
+    "about/" : {
+      "title" : "Huia Tech Studio | About us",
+      "description" : "Learn more about digital producer studio Huia.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Get to know more about digital producer studio Huia",
+      "ogUrl" : "http://www.huia.com.br/about/",
+      "keywords" : "tecnology,tecnologia,creation,criacao,design,seo,inovation,production"
+    }
+  },
+
+
+
+
+
+
+
+
+  "metatags-en_us" : {
+    "home" : {
+      "title" : "Huia Tech Studio",
+      "description" : "We are Huia, a Tech Studio dedicated to bringing ideas to life.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Huia is a Tech Studio dedicated to bringing ideas to life.",
+      "ogUrl" : "http://www.huia.com.br",
+      "keywords" : "technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+
+    "contact/" : {
+      "title" : "Huia Tech Studio | Contact",
+      "description" : "Get in touch with us and find out more about Huia Tech Studio studio",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Get in touch with us: contact@huia.com.br",
+      "ogUrl" : "http://www.huia.com.br/contact/",
+      "keywords" : "contact,technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+
+    "team/" : {
+      "title" : "Huia Tech Studio | Team",
+      "description" : "Discover the keypeople in team Huia and get to know a bit more about us!",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Discover the keypeople at Huia.",
+      "ogUrl" : "http://www.huia.com.br/team/",
+      "keywords" : "team,technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+
+    "projects/" : {
+      "title" : "Huia Tech Studio | Projects",
+      "description" : "Explore our projects for brands all over the world.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Explore our projects for brands all over the world.",
+      "ogUrl" : "http://www.huia.com.br/projects/",
+      "keywords" : "projects,technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+
+    "about/" : {
+      "title" : "Huia Tech Studio | About us",
+      "description" : "Learn more about our studios.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Learn more about our studios.",
+      "ogUrl" : "http://www.huia.com.br/about/",
+      "keywords" : "about,technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+
+    "about/experience/" : {
+      "title" : "Huia Tech Studio | About us: Experience Studio",
+      "description" : "Learn out about our experience studio. Immersive experiences with the latest technology.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Learn out about our experience studio. Immersive experiences with the latest technology.",
+      "ogUrl" : "http://www.huia.com.br/about/experience/",
+      "keywords" : "experience,technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    },
+    "about/media/" : {
+      "title" : "Huia Tech Studio | About us: Media Studio",
+      "description" : "Discover our media platforms with inovation and criativity for your brand.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Discover our media platforms with inovation and criativity for your brand.",
+      "ogUrl" : "http://www.huia.com.br/about/media/",
+      "keywords" : "media,display banner,production"
+    },
+    "about/technology/" : {
+      "title" : "Huia Tech Studio | About us: Technology Studio",
+      "description" : "Learn about our tech studio. We use the latest technologies to innovate.",
+      "ogTitle" : "Huia Tech Studio",
+      "ogDescription" : "Learn about our tech studio. We use the latest technologies to innovate.",
+      "ogUrl" : "http://www.huia.com.br/about/technology/",
+      "keywords" : "technology,creative,idea,design,seo,innovation,production,3d,virtual reality,augmented reality"
+    }
+  }
+}

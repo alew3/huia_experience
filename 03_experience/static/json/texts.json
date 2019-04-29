@@ -1,0 +1,187 @@
+{
+  "studio-en_us" : "studio",
+  "studio-pt_br" : "estúdio",
+
+  "connect-en_us" : "connect to fly",
+  "connect-pt_br" : "conecte para começar",
+
+  "type-en_us" : "Type here...",
+  "type-pt_br" : "Type here...",
+
+  "sending-en_us" : "sending...",
+  "sending-pt_br" : "sending...",
+
+  "flap-en_us" : "flap wings",
+  "flap-pt_br" : "bater asas",
+
+  "interact-pt_br" : "click to interact",
+  "interact-en_us" : "click to interact",
+
+  "copyLink-en_us" : "copy link",
+  "copyLink-pt_br" : "copiar link",
+
+
+ "skip-pt_br" : "Continuar",
+ "skip-en_us" : "Continue",
+
+ "fullscreen-pt_br" : "fullscreen",
+ "fullscreen-en_us" : "fullscreen",
+
+ "abouttext-pt_br" : [
+   "We have an interactive process where we explore, prototype, test, adapt, design and code our ideas.", "We believe great projects come from collaborative work with our clients.", "We are a creative technology company with a passion for innovation."
+ ],
+
+ "abouttext-en_us" : [
+   "We are a creative technology company with a passion for innovation.", "We believe great projects come from collaborative work with our clients.", "Our interactive process is used to explore, prototype, adapt, design and code our ideas."
+ ],
+
+
+ "textname-pt_br" : "<p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>",
+ "textname-en_us" : "<p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>",
+
+ "textcity-pt_br" : "<p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>",
+ "textcity-en_us" : "<p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>",
+
+ "notrequired-pt_br" :  "* informações não obrigatórias.",
+ "notrequired-en_us" :  "* not required.",
+
+ "cityPlaceholder-pt_br" : "type your city...",
+ "cityPlaceholder-en_us" : "type your city...",
+
+ "nicknamePlaceholder-pt_br" : "type your nickname...",
+ "nicknamePlaceholder-en_us" : "type your nickname...",
+
+  "copied-en_us" : "done!",
+  "copied-pt_br" : "copiado!",
+
+  "shortJump-en_us" : "short jump",
+  "shortJump-pt_br" : "pulo curto",
+
+  "longJump-en_us" : "long jump",
+  "longJump-pt_br" : "pulo longo",
+
+  "fly-en_us" : "fly",
+  "fly-pt_br" : "voar",
+
+  "land-en_us" : "land",
+  "land-pt_br" : "pousar",
+
+  "sendingSuccess-en_us" : "Your message was sent! Thank you! ❤",
+  "sendingSuccess-pt_br" : "Your message was sent! Thank you! ❤",
+
+  "send-en_us" : "send",
+  "send-pt_br" : "send",
+
+  "reset-en_us" : "reset",
+  "reset-pt_br" : "reset",
+
+  "file-en_us" : "click or drop here.",
+  "file-pt_br" : "click or drop here.",
+
+  "selectFile-en_us" : "Please select one file.",
+  "selectFile-pt_br" : "Please select one file.",
+
+  "generalError-en_us" : "An error occurred. Try again.",
+  "generalError-pt_br" : "An error occurred. Try again.",
+
+  "contact" : {
+    "hello" : [
+      {"title-en_us" : "Hello! We are Huia!",
+       "title-pt_br" : "olar!"},
+     {"title-en_us" : "Hello! We are Huia!",
+      "title-pt_br" : "olar2!"},
+    {"title-en_us" : "Hello! I'm Huia!",
+     "title-pt_br" : "olar3!"}
+   ],
+
+   "hello_emoji" : [
+     {"title-en_us" : "🦅",
+      "title-pt_br" : "olar!"},
+    {"title-en_us" : "🦅",
+     "title-pt_br" : "olar2!"},
+   {"title-en_us" : "🦅",
+    "title-pt_br" : "olar3!"}
+  ],
+
+   "introduction" : [
+     {"title-en_us" : "How can I help you? I can help you to send a message, or send your cv.",
+      "title-pt_br" : "Eu sou a Huia!"},
+    {"title-en_us" : "How can I help you? I can help you to send a message, or send your cv.",
+     "title-pt_br" : "How can I help you?"},
+   {"title-en_us" : "How can I help you? I can help you to send a message, or send your cv.",
+    "title-pt_br" : "How can I help you?"}
+  ],
+  "name" : [
+    {"title-en_us" : "What is your name?",
+     "title-pt_br" : "Eu sou a Huia!"},
+   {"title-en_us" : "What is your name?",
+    "title-pt_br" : "How can I help you?"},
+  {"title-en_us" : "What is your name?",
+   "title-pt_br" : "How can I help you?"}
+ ],
+ "validateemail" : [
+   {"title-en_us" : "Please inform a valid email.",
+    "title-pt_br" : "Informe um e-mail válido."}
+],
+"validateurl" : [
+  {"title-en_us" : "Please inform a valid portfolio URL.",
+   "title-pt_br" : "Informe um e-mail válido."}
+],
+ "email" : [
+   {"title-en_us" : "Your email?",
+    "title-pt_br" : "Eu sou a Huia!"},
+  {"title-en_us" : "Your email?",
+   "title-pt_br" : "How can I help you?"},
+ {"title-en_us" : "Your email?",
+  "title-pt_br" : "How can I help you?"}
+],
+"phone" : [
+  {"title-en_us" : "Your phone?",
+   "title-pt_br" : "Eu sou a Huia!"},
+ {"title-en_us" : "Your phone?",
+  "title-pt_br" : "How can I help you?"},
+{"title-en_us" : "Your phone?",
+ "title-pt_br" : "How can I help you?"}
+],
+"message" : [
+  {"title-en_us" : "Your message?",
+   "title-pt_br" : "Eu sou a Huia!"},
+ {"title-en_us" : "Your message?",
+  "title-pt_br" : "How can I help you?"},
+{"title-en_us" : "Your message?",
+ "title-pt_br" : "How can I help you?"}
+],
+"resume" : [
+  {"title-en_us" : "Your resume?",
+   "title-pt_br" : "Eu sou a Huia!"},
+ {"title-en_us" : "Your resume?",
+  "title-pt_br" : "How can I help you?"},
+{"title-en_us" : "Your resume?",
+ "title-pt_br" : "How can I help you?"}
+],
+"portfolio" : [
+  {"title-en_us" : "Your portfolio?",
+   "title-pt_br" : "Eu sou a Huia!"},
+ {"title-en_us" : "Your portfolio?",
+  "title-pt_br" : "How can I help you?"},
+{"title-en_us" : "Your portfolio?",
+ "title-pt_br" : "How can I help you?"}
+],
+"recipient" : [
+  {"title-en_us" : "and who do you want to contact?",
+   "title-pt_br" : "Eu sou a Huia!"},
+ {"title-en_us" : "and who do you want to contact?",
+  "title-pt_br" : "How can I help you?"},
+{"title-en_us" : "and who do you want to contact?",
+ "title-pt_br" : "How can I help you?"}
+],
+"confirmation_contact" : [
+  {"title-en_us" : "So, just double checking:<br/><br/>I'm going to this message to the Huia team, and I would like to confirm the details. Is this correct ? 😃<br/><br/>Your name: $name <br/>Your email: $email <br/>Recipient of your message: $recipient <br/>Your message: $message <br/><br/>If you think is everything ok, please click SEND. If not, try again.",
+   "title-pt_br" : "Eu sou a Huia!"}
+],
+"confirmation_resume" : [
+  {"title-en_us" : "So, just double checking:<br/><br/>I'm going send this message the Huia team, and I would like to confirm the details. Is this correct ? 😃<br/><br/>Your name: $name <br/>Your email: $email <br/>Your resume: $resume <br/>Your portfolio: $portfolio <br/><br/>If you think is everything ok, please click SEND. If not, try again.",
+   "title-pt_br" : "Eu sou a Huia!"}
+]
+  }
+}
