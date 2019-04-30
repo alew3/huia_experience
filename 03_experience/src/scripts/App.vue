@@ -62,6 +62,7 @@ let scale = 2.232;
 const videoWidth = 640/scale;
 const videoHeight = 500/scale;
 rescale(scale);
+
 const stats = new Stats();
 let lastPredict = new Date();
 const hiddenCanvas = document.createElement('canvas');

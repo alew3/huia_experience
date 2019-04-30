@@ -3,8 +3,6 @@ node_modules
 .cache
 dist
 
-# production
-build
 
 #logs
 npm-debug.log*
