@@ -1,8 +1,8 @@
 {
-  "name": "huia-site-2017",
+  "name": "huia-experience-2019",
   "version": "1.0.0",
   "description": "Huia Website 2017 version",
-  "author": "Luiz Sordi",
+  "author": "Luiz Sord, Alessandro Cauduro",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js open",
@@ -117,7 +117,8 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
-    "webpack-merge": "^2.6.1"
+    "webpack-merge": "^2.6.1",
+    "yalc": "^1.0.0-pre.27"
   },
   "engines": {
     "node": ">= 8.9.0",

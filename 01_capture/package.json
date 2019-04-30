@@ -25,6 +25,7 @@
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel capture.html --no-hmr --open --public-url /",
     "detect": "cross-env NODE_ENV=development parcel detect.html --no-hmr --open ",
+    "demo": "cross-env NODE_ENV=development parcel camera2.html --no-hmr --open ",
     "build": "cross-env NODE_ENV=production parcel build capture.html --no-minify --public-url /",
     "build-capture": "cross-env NODE_ENV=production parcel build capture.html  --no-minify --public-url /",
     "lint": "eslint ."

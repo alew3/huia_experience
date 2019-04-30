@@ -1,0 +1,19 @@
+StandBy 0-80
+Abre asas 81-155
+Cisca D 156-205
+Cisca E 206-255
+Decolar 256-291
+Voando 292-339
+Pousar 340-368
+Pulo Curto 369-429
+Pulo Longo 430-514
+Vira para Lado 515-530
+Volta para o centro 531-550
+Cocar asa 551-600 (esse preciso que desligue o track da cabeça)
+Pulo para lado volta 601-693 (esse preciso que desligue o track da cabeça)
+Virar de costas 694-810 (esse preciso que desligue o track da cabeça)
+Fingir de morto 811-1080
+Hadouken 1081-1167
+Dancinha Backpack 1168-1300
+Moon Walk 1301-1461 (precisamos inserir o chapeu)
+Piscada 1462-1514

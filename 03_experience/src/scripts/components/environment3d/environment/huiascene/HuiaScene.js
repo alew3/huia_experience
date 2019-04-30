@@ -8,9 +8,6 @@ import Globals from '../../../../core/Globals';
 import SoundsLoader from '../../../../loaders/SoundsLoader';
 import GPUParticleSystem from '../particlesscene/particlesystem/GPUParticleSystem.js';
 
-
-
-
 export default class HuiaScene extends THREE.Scene {
 
   get camera () {
@@ -231,36 +228,58 @@ export default class HuiaScene extends THREE.Scene {
     }
   }
 
-
-
-  dramatic() {
-    console.log("dramatic anim ....");
+  shortJump() {
+    console.log("JUMP....");
     TweenMax.set(this.shadow.material, {opacity : 0.5});
     TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
+    this.bird.playAnimation(7,false);
+  }
+
+  underarm() {
+    console.log("UNDERARM anim ....");
+    SoundsLoader.playSound("scratch", false, 0.5, 0);
+    this.bird.playAnimation(11,false);
+  }
+
+  dramatic() {
+    console.log("DRAMATIC anim ....");
+    // TweenMax.set(this.shadow.material, {opacity : 0.5});
+    // TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
     this.bird.playAnimation(14,false);
   }
 
   hadouken() {
-    console.log("hadouken anim .... ESCIROT ERRADO");
+    console.log("HADOUKEN anim ....");
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
     this.bird.playAnimation(15,false);
   }
 
   backpack() {
-    console.log("backpack anim ....");
+    console.log("BACKPACK anim ....");
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
+    const rX = this.bird.rotation.x;
+    const rY = this.bird.rotation.y;
+
+    TweenMax.to(this._camera.position, 1.5, {z : 6, ease : Quad.easeOut});
+    TweenMax.to(this.bird.rotation, 1.5, {x : -0.3, y: -0.3, ease : Quad.easeInOut});
+
+    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 4.4, overwrite:false});
+    TweenMax.to(this.bird.rotation, 1, {x : rX, y: rY, ease : Quad.easeOut, delay : 4.4});
+
     this.bird.playAnimation(16,false);
+
   }
 
   moonwalk() {
-    console.log("moonwalk anim ....");
+    console.log("MOONWALK anim ....");
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
     this.bird.playAnimation(17,false);
   }
 
+  
   // piscada() {
   //   console.log("blink anim ....");
   //   //TweenMax.set(this.shadow.material, {opacity : 0.5});
@@ -268,12 +287,6 @@ export default class HuiaScene extends THREE.Scene {
   //   this.bird.playAnimation(18,false);
   // }
 
-  shortJump() {
-    console.log("jump....");
-    TweenMax.set(this.shadow.material, {opacity : 0.5});
-    TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
-    this.bird.playAnimation(7,false);
-  }
 
   longJump(){
     TweenMax.set(this.shadow.material, {opacity : 0.5});
@@ -282,9 +295,7 @@ export default class HuiaScene extends THREE.Scene {
     this.bird.playAnimation(8,false);
   }
 
-  underArm() {
-    this.environment.huiaScene.bird.playAnimation(11,false);
-  }
+
 
   jumping360 () {
     this.bird.jumping360();

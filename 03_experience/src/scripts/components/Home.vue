@@ -113,7 +113,7 @@ export default{
     if(window.mainMenu){
       window.mainMenu.changeColor("#8C6EE5");
     }else{
-     // TweenMax.to(this, 1, {onComplete:()=>{window.mainMenu.changeColor("#8C6EE5");}});
+      // TweenMax.to(this, 1, {onComplete:()=>{window.mainMenu.changeColor("#8C6EE5");}});
     }
 
     window.homeTimer = this.$refs.timer;

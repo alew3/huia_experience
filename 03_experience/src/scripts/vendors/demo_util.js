@@ -19,8 +19,8 @@ import * as tf from '@tensorflow/tfjs';
 
 const color = 'aqua';
 const boundingBoxColor = 'red';
-const lineWidth = 8;
-const circleWidth = 6;
+let lineWidth = 8;
+let circleWidth = 6;
 
 const KeypColors = {
   'nose': 'yellow',
@@ -57,6 +57,11 @@ const segmentColors = {
   'leftHip|rightHip': 'DeepPink'
 };
 
+
+export function rescale(scale) {
+  lineWidth = lineWidth/scale;
+  circleWidth = circleWidth/scale;
+}
 
 function toTuple({y, x}) {
   return [y, x];

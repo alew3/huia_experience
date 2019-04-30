@@ -14,12 +14,9 @@ import SimplifyModifier from './SimplifyModifier';
 import JSZipUtils from 'jszip-utils';
 import VerticalBlurShader from '../postprocessing/gaussianblur/VerticalBlurShader';
 
-
-
 export default class HuiaBird extends THREE.Object3D {
   constructor(){
     super();
-
     JDLoader(THREE);
     SimplifyModifier(THREE);
 
@@ -29,11 +26,11 @@ export default class HuiaBird extends THREE.Object3D {
     this.mousemovementTimerEffectStartFrames = 15;
 
     this.walkingDuration = 0.66;
-    this.durations = [5.6, 2.06, 1, 1, 1.56, 1.56, 0.93, 2, 2.8,0.25,2,1.5,3,3.2,3.86,8.96,2.86, 4.4, 5.33 ];
+
+    this.durations =    [5.6, 2.06, 1, 1, 1.56, 1.56, 0.93, 2, 2.8, 0.25, 2, 1.5, 3,3.86,8.96,2.86, 4.4, 5.33 ];
     // this.durations = [5.6, 2.06, 1, 1, 10.56, 1.56, 0.93, 2, 2.8,0.25,2,0.25,this.walkingDuration*0.37,this.walkingDuration,this.walkingDuration*1.33];
     this.animations = [];
     this.lookingDirection = "left";
-
 
 
     //animated wireframe shader
@@ -228,18 +225,11 @@ export default class HuiaBird extends THREE.Object3D {
 
     window.pointDirectional = this.pointLightDirectional;
     window.point = this.pointLight;
-
-    //this.bones.bonesByName.Bone_neck_01.add(this.cartola)
-    this.eyeLeft.add(this.cartola);
-    this.cartola.position.set(-0.5 , 0.2, -0.5);
-    this.cartola.scale.set(0.8,0.8,0.8);
-
-    this.cartola.material =  new THREE.MultiMaterial([this.eyeMaterial]); 
-    //this.animatedWireframeMaterial,
-
-    //this.cartola.material.add(this.animatedWireframeMaterial);
-    //this.wireContainer.add(this.cartola);
-    //this.cartola.add(this.headBone);
+    /* ADD CARTOLA */
+    // this.eyeLeft.add(this.cartola);
+    // this.cartola.position.set(-0.5 , 0.2, -0.5);
+    // this.cartola.scale.set(0.8,0.8,0.8);
+    // this.cartola.material =  new THREE.MultiMaterial([this.eyeMaterial]); 
   }
 
   updateMixers(delta) {
@@ -265,12 +255,9 @@ export default class HuiaBird extends THREE.Object3D {
     var data = this.loader.parse(ContentLoader.DATA_MODEL_HUIA);
     var modifier = new THREE.SimplifyModifier();
 
-    var prop = this.loader.parse(ContentLoader.DATA_MODEL_CARTOLA);
-    this.cartola = new THREE.SkinnedMesh(prop.geometries[0]);
-
-
-
-    
+    /** LOAD CARTOLA */
+    // var prop = this.loader.parse(ContentLoader.DATA_MODEL_CARTOLA);
+    // this.cartola = new THREE.SkinnedMesh(prop.geometries[0]);
 
     this.neckBone = null;
     this.neckBone2 = null;
@@ -346,8 +333,6 @@ export default class HuiaBird extends THREE.Object3D {
         mesh.material = this.tailMaterial;
       }
 
-      //this.wireContainer.add(this.cartola);
-
 
       // {
       //   uniforms: params[ i ][ 1 ],
@@ -391,7 +376,6 @@ export default class HuiaBird extends THREE.Object3D {
 
           if(name.indexOf("head") > -1){
             this.headBone = skeleton.bones[q];
-
           }else if(name.indexOf("neck_01") > -1){
             this.neckBone = skeleton.bones[q];
           }else if(name.indexOf("neck_02") > -1){
@@ -420,16 +404,6 @@ export default class HuiaBird extends THREE.Object3D {
             this.topBeak = skeleton.bones[q];
           }
         }
-
-        
-        //skeleton.bones[0].updateMatrixWorld(true);
-        //this.attach(this.cartola, window.huiaScene, this.headBone);
-
-        //this.headBone.add(this.cartola);
-
-        //this.cartola.updateMatrixWorld(true);
-        //this.cartola.bind(skeleton);
-
 
         var mixer = new THREE.AnimationMixer(mesh);
         this.mixer = mixer;
@@ -482,8 +456,6 @@ export default class HuiaBird extends THREE.Object3D {
   }
 
   playAnimation(index, crossfade, time){
-
-
     var nextAnim = this.animations[index];
 
     TweenMax.killTweensOf(this.bones.bonesByName.CTRL_pelvis.rotation);
@@ -574,8 +546,6 @@ export default class HuiaBird extends THREE.Object3D {
       TweenMax.to(this.position, rotateTime/2, {y : 0.2, ease : Quad.easeOut, yoyo:true, repeat : 1, onComplete:this.endRotate.bind(this)});
     }
    
-
-
     this.lookingDirection = dir;
   }
 
@@ -792,13 +762,6 @@ export default class HuiaBird extends THREE.Object3D {
 
   updateShaders(){
 
-    //var b = this.headBone.getWorldPosition();
-    //var c = this.headBone.rotation;
-
-    //TweenMax.set(this.cartola.position,{x:b.x,y:b.y,z:b.z});
-    //TweenMax.set(this.cartola.rotation,c);
-
-
     //aqui eu atualizo os valores do shader de wireframe animado
     var elapsedMilliseconds = Date.now() - this.startTime;
     var elapsedSeconds = elapsedMilliseconds/1000;
@@ -859,37 +822,5 @@ export default class HuiaBird extends THREE.Object3D {
     //console.log("point l: " + this.pointLight.position.x);
 
   } 
-
-
-  createMultiMaterialObject( geometry, materials ) {
-
-		var group = new THREE.Group();
-
-		for ( var i = 0, l = materials.length; i < l; i ++ ) {
-
-			group.add( new THREE.Mesh( geometry, materials[ i ] ) );
-
-		}
-
-		return group;
-
-	}
-
-	detach ( child, parent, scene ) {
-
-		child.applyMatrix( parent.matrixWorld );
-		parent.remove( child );
-		scene.add( child );
-
-	}
-
-	attach ( child, scene, parent ) {
-
-		child.applyMatrix( new THREE.Matrix4().getInverse( parent.matrixWorld ) );
-
-		scene.remove( child );
-		parent.add( child );
-
-	}
 
 }

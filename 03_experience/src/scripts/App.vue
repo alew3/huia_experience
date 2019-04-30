@@ -18,7 +18,7 @@
       </div>
       <canvas id="output" style='position:relative;z-index:1000;border:1px solid white' />
       <div id="predictions" style='position:relative;z-index:1000;border:1px solid white;float:right;'></div>
-      <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;font-color:white'></div>
+      <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;color:white'></div>
       <Environment3d ref="environment3d" v-if="isDesktopEnvironment()"/>
       <!--<Environment3dMobile ref="environment3dmobile" v-if="isMobileEnvironment()"/>-->
       <IntroLogo v-on:endAnim="onEndIntroLogo" v-if="preloaded && !introCompleted"/>
@@ -55,21 +55,24 @@ import * as posenet from '@tensorflow-models/posenet';
 import $ from 'jquery';
 import dat from 'dat.gui';
 import Stats from 'stats.js';
-import {drawBoundingBox, drawKeypoints, drawSkeleton, drawPoint} from './vendors/demo_util';
+import {drawBoundingBox, drawKeypoints, drawSkeleton, drawPoint, rescale} from './vendors/demo_util';
 import { EventBus } from './core/event-bus.js';
-const videoWidth = 640;
-const videoHeight = 500;
+
+let scale = 2.232;
+const videoWidth = 640/scale;
+const videoHeight = 500/scale;
+rescale(scale);
 const stats = new Stats();
-let lastAnimation = new Date();
 let lastPredict = new Date();
 const hiddenCanvas = document.createElement('canvas');
 let ctxH = hiddenCanvas.getContext('2d');
 ctxH.imageSmoothingEnabled = false;
 hiddenCanvas.width = videoWidth;
 hiddenCanvas.height = videoHeight;
+let canvas;
+let ctx;
 let last_moves = [];
-
-
+let mobilenet;
 
 // huia tf model
 import * as tf from '@tensorflow/tfjs';
@@ -90,10 +93,7 @@ const TOPK_PREDICTIONS = Object.keys(POSE_CLASSES).length;
 
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-
 // =======================  end pose info
-
 
 export default {
   // registering
@@ -179,14 +179,13 @@ export default {
         SoundsLoader.startWindowEvents();
         this.introCompleted = true;
       }
-      // kick off the demo
-      lastAnimation = Date.now();
+      // start pose detection
       bindPage();
     });
   }
 }
 
-
+/* =================== custom pose net ========== */
 // posenet
 function isAndroid() {
   return /Android/i.test(navigator.userAgent);
@@ -201,13 +200,6 @@ function isMobile() {
 }
 
 
-
-
-/* =================== custom pose net ========== */
-
-
-
-let mobilenet;
 
 const mobilenetDemo = async () => {
 
@@ -243,19 +235,35 @@ async function setupCamera() {
   video.width = videoWidth;
   video.height = videoHeight;
 
+  // search for my webcam and use it if available;
+  let deviceId;
+    // List cameras id and microphones.
+    navigator.mediaDevices.enumerateDevices()
+    .then(function(devices) {
+      devices.forEach(function(device) {
+        if (device.kind=="videoinput") {
+          console.log(device.kind + ": " + device.label +
+                    " id = " + device.deviceId);
+                    if (device.label.includes("BRIO")) {
+                        deviceId = device.deviceId;
+                        console.log(`DeviceID: ${deviceId} Name: ${device.label}`);
+                      }
+                  }
+      });
+    })
+
   const mobile = isMobile();
   const stream = await navigator.mediaDevices.getUserMedia({
     'audio': false,
     'video': {
       // my external webcam id, it  will use another if it doesn't exist
-      deviceId: '0165df6b12fef3ba881da9a0bf01b898860f7c2d254d972cab487a9d18a355be',
+      deviceId: deviceId,
       facingMode: 'user',
       width: mobile ? undefined : videoWidth,
       height: mobile ? undefined : videoHeight,
     },
   });
   video.srcObject = stream;
-
   return new Promise((resolve) => {
     video.onloadedmetadata = () => {
       resolve(video);
@@ -273,19 +281,19 @@ async function loadVideo() {
 const guiState = {
   algorithm: 'multi-pose',
   input: {
-    mobileNetArchitecture: isMobile() ? '0.50' : '0.75',
+    mobileNetArchitecture: '0.75',
     outputStride: 16,
-    imageScaleFactor: 0.5,
+    imageScaleFactor: 1,
   },
   singlePoseDetection: {
     minPoseConfidence: 0.1,
     minPartConfidence: 0.5,
   },
   multiPoseDetection: {
-    maxPoseDetections: 3,
-    minPoseConfidence: 0.10,
-    minPartConfidence: 0.05,
-    nmsRadius: 5.0,
+     maxPoseDetections: 5,
+      minPoseConfidence: 0.40,
+      minPartConfidence: 0.04,
+      nmsRadius: 10.0,
   },
   output: {
     showVideo: true,
@@ -395,8 +403,8 @@ function setupFPS() {
  */
 function detectPoseInRealTime(video, net) {
 
-const canvas = document.getElementById('output');
-const ctx = canvas.getContext('2d');
+canvas = document.getElementById('output');
+ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 
 
@@ -459,6 +467,24 @@ ctx.imageSmoothingEnabled = false;
     ctxH.clearRect(0, 0, videoWidth, videoHeight);
     ctx.clearRect(0, 0, videoWidth, videoHeight);
 
+    //let grey = tf.mul(tf.browser.fromPixels(video).toFloat(),tf.tensor1d([0.2989, 0.5870, 0.1140],'float32').toInt());
+    // let grey = tf.browser.fromPixels(video,1); //.reshape([224,224,2]).toInt();
+    // tf.browser.toPixels(grey,canvas);
+
+        //console.log("img", img.print());
+    // console.log("convert to GRAY");
+    // let grey = tf.mul(img,tf.tensor1d([0.2989, 0.5870, 0.1140],'float32'));
+    // console.log("grey",grey.print());
+    // tf.browser.toPixels(grey, ctx).then(() => {
+    //   //console.log("ok");
+    //   grey.dispose()
+    // })
+    // .catch((err) => {
+    //   // Handle any error that occurred in any of the previous
+    //   // promises in the chain.
+    //   console.log("error converting",err);
+    // });;
+
     if (guiState.output.showVideo) {
       ctx.save();
       ctx.scale(-1, 1);
@@ -471,8 +497,8 @@ ctx.imageSmoothingEnabled = false;
     // and draw the resulting skeleton and keypoints if over certain confidence
     // scores
 
-    if (poses.length>0)
-      poses = getMainPose(poses);
+    // if (poses.length>0)
+    //    poses = [poses[0]]; //getMainPose(poses);
 
     let segments = 0;
     poses.forEach(({score, keypoints}) => {
@@ -554,7 +580,7 @@ ctx.imageSmoothingEnabled = false;
 
     // only predict when we have at least 8 body parts on screen and every 200ms
     //console.log("elapsed time since last predict", new Date() - lastPredict);
-    if ((segments >= 8) && ((new Date() - lastPredict)>200)) {
+    if (!false && !environment3d.huiaScene.bird.mouseBlocked && (segments >= 8) && ((new Date() - lastPredict)>100)) {
       console.log("predicting..");
       realTimePredict();
       lastPredict = Date.now();
@@ -628,6 +654,8 @@ async function predict(imgElement) {
   let ctxT = tempCanvas.getContext('2d');
   tempCanvas.width = IMAGE_SIZE;
   tempCanvas.height = IMAGE_SIZE;
+  ctxT.imageSmoothingEnabled = true;
+  ctxT.imageSmoothingQuality = "high";
   ctxT.drawImage(imgElement,0,0,IMAGE_SIZE,IMAGE_SIZE);
 
   // The first start time includes the time it takes to extract the image
@@ -640,8 +668,8 @@ async function predict(imgElement) {
     // tf.browser.fromPixels() returns a Tensor from an image element.
     const img = tf.browser.fromPixels(tempCanvas).toFloat();
 
-    const offset = tf.scalar(127.5);
     // Normalize the image from [0, 255] to [-1, 1].
+    const offset = tf.scalar(127.5);
     const normalized = img.sub(offset).div(offset);
 
     //console.log(normalized);

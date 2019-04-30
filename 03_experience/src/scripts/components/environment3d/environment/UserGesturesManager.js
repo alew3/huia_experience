@@ -17,8 +17,6 @@ import SoundsLoader from '../../../loaders/SoundsLoader';
 
 import { EventBus } from '../../../core/event-bus.js';
 
-let lastPlay = new Date();
-
 
 export default class UserGesturesManager  {
 
@@ -56,6 +54,9 @@ export default class UserGesturesManager  {
 
     EventBus.$on('move-head', head => {
       //console.log(`Oh, that's nice. It's gotten ${head.x} clicks! :)`)
+      if(this.environment.huiaScene.bird.mouseBlocked)
+      return;
+
       head.x = (head.x/600) * window.innerWidth;
       head.y = (head.y/400) * window.innerHeight;
 
@@ -65,13 +66,12 @@ export default class UserGesturesManager  {
 
     EventBus.$on('pose-activation', pose => { 
       //console.log("capture animation event", pose);
-      if (pose!="normal" && (Date.now() - lastPlay > 3000)) {
-        lastPlay = Date.now();
+      if (!this.environment.huiaScene.bird.mouseBlocked && pose!="normal") {
         switch (pose) {
           case "dramatic":
             this.environment.huiaScene.dramatic();
             break;
-          case "radouken": // ERRADO..
+          case "hadouken":
             this.environment.huiaScene.hadouken();
             break;
           case "backpack":
@@ -80,31 +80,22 @@ export default class UserGesturesManager  {
           case "moonwalk":
             this.environment.huiaScene.moonwalk();
             break;
-          // case "piscada":
-          //   this.environment.huiaScene.piscada();
-          //   break;
           case "fly":
-            this.performFlap();
+            this.environment.huiaScene.longJump();
             break;
           case "wings":
-            this.environment.huiaScene.piscada();
+            this.performFlap();
             break;
           case "underarm":
-            this.environment.huiaScene.piscada();
+            this.environment.huiaScene.underarm();
             break;
-          case "normal":
+          default:
             // do nothing
         }
       };
     });
-
-    // EventBus.$on('jump', head =>  {
-    //   //console.log(`Oh, that's nice. It's gotten ${head.x} clicks! :)`)
-    //   this.environment.huiaScene.shortJump();
-    // });
   }
 
-  
 
 
   shuffle(array) {
@@ -350,6 +341,7 @@ export default class UserGesturesManager  {
   }
 
   performFlap(){
+    console.log("FLAPPING Wings")
     this.environment.huiaScene.bird.playAnimation(1,false);
     TweenMax.to(this.environment.huiaScene._camera.position, 1.5, {z : 6, ease : Quad.easeOut});
     TweenMax.to(this.environment.huiaScene._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 1.5, overwrite:false});

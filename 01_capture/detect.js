@@ -20,7 +20,7 @@ import * as tf from '@tensorflow/tfjs';
 import dat from 'dat.gui';
 import Stats from 'stats.js';
 import $ from 'jquery';
-import {drawBoundingBox, drawKeypoints, drawSkeleton} from 'demo_util';
+import {drawBoundingBox, drawKeypoints, drawSkeleton} from './demo_util';
 
 
 // setup variables
@@ -41,9 +41,9 @@ canvas2.width = videoWidth;
 
 
 let ctx = canvas.getContext('2d');
-let ctx2 = canvas2.getContext('2d');
-ctx.imageSmoothingEnabled = false;
-ctx2.imageSmoothingEnabled = false;
+// let ctx2 = canvas2.getContext('2d');
+// ctx.imageSmoothingEnabled = false;
+// ctx2.imageSmoothingEnabled = false;
 
 
 let hiddenCanvas = document.createElement('canvas');
@@ -111,7 +111,7 @@ async function setupCamera() {
     'audio': false,
     'video': {
      // my external webcam id, it  will use another if it doesn't exist
-      deviceId: '0165df6b12fef3ba881da9a0bf01b898860f7c2d254d972cab487a9d18a355be',
+      deviceId: 'bea7c800aed2a9b16d1d5274906bed627b6b37b46ae534ea57f3e68010ee34d8',
       facingMode: 'user',
       width: videoWidth,
       height: videoHeight,
@@ -145,10 +145,10 @@ const guiState = {
   },
   multiPoseDetection: {
     maxPoseDetections: 3,
-    minPoseConfidence: 0.10,
-    minPartConfidence: 0.05,
+    minPoseConfidence: 0.12,
+    minPartConfidence: 0.07,
     // minimum distance in pixels between the root parts of poses
-    nmsRadius: 10.0,
+    nmsRadius: 20.0,
   },
   output: {
     showVideo: true,
@@ -311,7 +311,7 @@ function detectPoseInRealTime(video, net) {
 
     // clear hidden canvas before redrawing
     ctxH.clearRect(0, 0, videoWidth, videoHeight);
-    ctx2.clearRect(0, 0, videoWidth, videoHeight);
+  //  ctx2.clearRect(0, 0, videoWidth, videoHeight);
 
     if (guiState.output.showVideo) {
       ctx.save();
@@ -349,14 +349,14 @@ function detectPoseInRealTime(video, net) {
     // copy hidden canvas to webcam overlay and skeleton image
     //ctxH.globalAlpha = 1;
     ctx.drawImage(ctxH.canvas,0,0);
-    ctx2.drawImage(ctxH.canvas,0,0);
+    //ctx2.drawImage(ctxH.canvas,0,0);
 
     // only predict when we have at least 8 body parts on screen and every 200ms
-    if ((segments >= 8) && ((new Date() - lastPredict)>200)) {
-      //console.log("predicting");
-      realTimePredict();
-      lastPredict = Date.now();
-    }
+    // if ((segments >= 8) && ((new Date() - lastPredict)>200)) {
+    //   //console.log("predicting");
+    //   realTimePredict();
+    //   lastPredict = Date.now();
+    // }
 
     // End monitoring code for frames per second
     stats.end();

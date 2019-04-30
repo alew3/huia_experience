@@ -39,10 +39,10 @@ const guiState = {
       minPartConfidence: 0.5,
     },
     multiPoseDetection: {
-      maxPoseDetections: 2,
+      maxPoseDetections: 5,
       minPoseConfidence: 0.12,
       minPartConfidence: 0.07,
-      nmsRadius: 20.0,
+      nmsRadius: 10.0,
     },
     output: {
       showVideo: true,
@@ -86,7 +86,7 @@ async function setupCamera() {
       'audio': false,
       'video': {
         // this is my external webcam id, it  will use another if it doesn't find it
-        deviceId: '0165df6b12fef3ba881da9a0bf01b898860f7c2d254d972cab487a9d18a355be',
+        deviceId: 'bea7c800aed2a9b16d1d5274906bed627b6b37b46ae534ea57f3e68010ee34d8',
         facingMode: 'user',
         width: videoWidth,
         height: videoHeight,
@@ -261,8 +261,8 @@ function detectPoseInRealTime(video, net) {
       // and draw the resulting skeleton and keypoints if over certain confidence
       // scores
   
-      if (poses.length>0)
-        poses = getMainPose(poses);
+      // if (poses.length>0)
+      //   poses = getMainPose(poses);
       
 
       // clear hidden canvas before redrawing

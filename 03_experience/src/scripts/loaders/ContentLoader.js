@@ -676,7 +676,7 @@ class ContentLoader{
               self.PROGRESS = Math.round(self.PROGRESS/2);
             }
             self._onProgress(); 
-              zip.file("model.jd").async("string").then(function(txt){
+              zip.file("HUIA_ANIMAS_COMPILACAO_INTERACOES_03.JD").async("string").then(function(txt){
                 console.log("loading new model");
               //zip.file("model.jd").async("string").then(function(txt){
                 ContentLoader.DATA_MODEL_HUIA = JSON.parse(txt);
@@ -690,11 +690,11 @@ class ContentLoader{
                   self.loadProjectDetail(self.loadingWithProject,self._onProgress,self._onComplete);
                 }
 
-                zip.file("cartola.jd").async("string").then(function(txt){
+               /* zip.file("cartola.jd").async("string").then(function(txt){
                   ContentLoader.DATA_MODEL_CARTOLA = JSON.parse(txt);
                   self.PROGRESS = 100;
                   self._onProgress();
-                });
+                }); */ 
               });
               // console.log(file["model."])
           });
