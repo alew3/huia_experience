@@ -16,8 +16,17 @@
         ">
       </video>
       </div>
-      <canvas id="output" style='position:relative;z-index:1000;border:1px solid white' />
-      <div id="predictions" style='position:relative;z-index:1000;border:1px solid white;float:right;'></div>
+      <canvas id="output"/>
+      <div id="predictions"></div>
+      <div id="icons" style="z-index:1000;"></div>
+      <div id="layer">
+        <select id="layers">
+        </select>
+
+        <div id="visualize">
+        </div>
+      </div>
+
       <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;color:white'></div>
       <Environment3d ref="environment3d" v-if="isDesktopEnvironment()"/>
       <!--<Environment3dMobile ref="environment3dmobile" v-if="isMobileEnvironment()"/>-->
@@ -28,7 +37,7 @@
       <!--<MainMenu v-if="introCompleted && !isMobile() && !experience"/>
       <MainMenuMobile v-if="introCompleted && isMobile() && !experience"/>-->
       <!--<SectionTitle v-if="introCompleted && !experience"/>-->
-      <!--<QualityAndSoundUI ref="qualitysound" v-if="introCompleted && !isMobile()" v-on:dragQualityChanged="onDragQualityChanged"/>-->
+      <QualityAndSoundUI ref="qualitysound" v-if="introCompleted && !isMobile()" v-on:dragQualityChanged="onDragQualityChanged"/>
     </div>
     <div class="rotate-layer" v-if="isMobile()"><div class="gradient"></div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><path d="M27.252,71.997H7.48c-0.198,0-0.359-0.161-0.359-0.36V24.602c0-0.199,0.161-0.36,0.359-0.36h26.531   c0.199,0,0.36,0.161,0.36,0.36V51.57h1.889V19.206c0-2.186-1.772-3.957-3.958-3.957h-0.904c-0.057-0.123-0.18-0.21-0.325-0.21   h-3.447c-0.145,0-0.268,0.087-0.325,0.21H9.1c-2.186,0-3.958,1.771-3.958,3.957v5.112c-0.123,0.058-0.209,0.18-0.209,0.325v1.308   c0,0.145,0.086,0.268,0.209,0.324v1.521c-0.123,0.057-0.209,0.18-0.209,0.325v1.308c0,0.144,0.086,0.267,0.209,0.324v47.161   c0,2.186,1.772,3.957,3.958,3.957h18.152V71.997z M20.582,17.797c0.332,0,0.599,0.268,0.599,0.599c0,0.332-0.268,0.6-0.599,0.6   c-0.331,0-0.6-0.269-0.6-0.6C19.982,18.065,20.25,17.797,20.582,17.797z M18.483,20.615h4.497c0.199,0,0.359,0.161,0.359,0.359   c0,0.198-0.161,0.359-0.359,0.359h-4.497c-0.198,0-0.36-0.161-0.36-0.359C18.123,20.775,18.285,20.615,18.483,20.615z    M20.941,79.37c-1.719,0-3.117-1.397-3.117-3.116s1.398-3.117,3.117-3.117c1.72,0,3.118,1.398,3.118,3.117   S22.661,79.37,20.941,79.37z"></path><path d="M20.956,73.826c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.397,2.398,2.397c1.323,0,2.398-1.074,2.398-2.397   C23.354,74.902,22.278,73.826,20.956,73.826z"></path><path d="M33.667,66.631c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.399,2.398,2.399s2.398-1.076,2.398-2.399   C36.064,67.707,34.989,66.631,33.667,66.631z"></path><path d="M94.672,75.391V57.188c0-2.187-1.77-3.957-3.958-3.957h-5.112c-0.055-0.124-0.179-0.21-0.324-0.21H83.97   c-0.144,0-0.268,0.086-0.322,0.21h-1.522c-0.057-0.124-0.181-0.21-0.326-0.21h-1.306c-0.146,0-0.268,0.086-0.324,0.21H33.007   c-2.186,0-3.957,1.771-3.957,3.957v23.203c0,2.187,1.771,3.957,3.957,3.957h57.707c2.188,0,3.958-1.771,3.958-3.957v-0.904   c0.123-0.057,0.21-0.179,0.21-0.325v-3.447C94.882,75.569,94.795,75.447,94.672,75.391z M33.667,72.146   c-1.719,0-3.118-1.397-3.118-3.118c0-1.718,1.399-3.118,3.118-3.118s3.118,1.4,3.118,3.118   C36.784,70.749,35.386,72.146,33.667,72.146z M85.68,82.1c0,0.199-0.163,0.359-0.361,0.359H38.283c-0.199,0-0.359-0.16-0.359-0.359   V55.568c0-0.199,0.161-0.359,0.359-0.359h47.035c0.198,0,0.361,0.16,0.361,0.359V82.1z M89.306,71.068   c0,0.197-0.161,0.359-0.359,0.359s-0.359-0.162-0.359-0.359v-4.497c0-0.199,0.161-0.36,0.359-0.36s0.359,0.161,0.359,0.36V71.068z    M91.523,69.268c-0.33,0-0.6-0.267-0.6-0.598s0.27-0.6,0.6-0.6c0.332,0,0.601,0.269,0.601,0.6S91.855,69.268,91.523,69.268z"></path><path d="M44.382,27.092l-1.828,1.692c9.584,0.961,14.145,6.547,16.289,11.157c2.386,5.135,2.343,10.049,2.343,10.256l-0.008,0.53   H59.74l0.008-0.549c0.004-0.046,0.031-4.835-2.231-9.674c-2.84-6.068-7.858-9.515-14.925-10.268l1.604,1.73l-2.07-0.079   l-2.344-2.53l2.53-2.345L44.382,27.092z"></path> </g></svg><p>Please, rotate your device.</p></div>
   </div>
@@ -73,10 +82,11 @@ hiddenCanvas.height = videoHeight;
 let canvas;
 let ctx;
 let last_moves = [];
-let mobilenet;
+let customMobilenet;
 
 // huia tf model
 import * as tf from '@tensorflow/tfjs';
+import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
 const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
 const POSE_CLASSES = {
@@ -91,6 +101,8 @@ const POSE_CLASSES = {
   }
 const IMAGE_SIZE = 224; 
 const TOPK_PREDICTIONS = Object.keys(POSE_CLASSES).length;
+
+
 
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -182,8 +194,7 @@ export default {
       }
       // start pose detection
       bindPage();
-    });
-  }
+    }); }
 }
 
 /* =================== custom pose net ========== */
@@ -202,17 +213,35 @@ function isMobile() {
 
 
 
-const mobilenetDemo = async () => {
+const loadCustomMobilenet = async () => {
 
   //status('Loading model...');
   console.log('loading model: ', MODEL_HUIA_URL);
   
-  mobilenet = await tf.loadLayersModel(MODEL_HUIA_URL); //, {strict:false});
+  customMobilenet = await tf.loadLayersModel(MODEL_HUIA_URL); //, {strict:false});
+
+  const selLay = $('#layers');
+  customMobilenet.layers.forEach((layer)=> {
+    if (layer.layers!=null) {
+      layer.layers.forEach((nestedLayer) => {
+      const option = document.createElement('option');
+      option.value = nestedLayer.name;
+      option.innerText = nestedLayer.name;
+      selLay.append(option);
+      });
+    } else {
+      const option = document.createElement('option');
+      option.value = layer.name;
+      option.innerText = layer.name;
+      selLay.append(option);
+    }
+
+  })
 
  // Warmup the model. This isn't necessary, but makes the first prediction
  // faster. Call `dispose` to release the WebGL memory allocated for the return
  // value of `predict`.
- //mobilenet.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3])).dispose();
+ //customMobilenet.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3])).dispose();
 
   predict(hiddenCanvas);
 
@@ -282,7 +311,7 @@ async function loadVideo() {
 const guiState = {
   algorithm: 'multi-pose',
   input: {
-    mobileNetArchitecture: '0.75',
+    customMobilenetArchitecture: '0.75',
     outputStride: 16,
     imageScaleFactor: 1,
   },
@@ -332,7 +361,7 @@ function setupGui(cameras, net) {
   // accuracy. 1.01 is the largest, but will be the slowest. 0.50 is the
   // fastest, but least accurate.
   const architectureController = input.add(
-      guiState.input, 'mobileNetArchitecture',
+      guiState.input, 'customMobilenetArchitecture',
       ['1.01', '1.00', '0.75', '0.50']);
   // Output stride:  Internally, this parameter affects the height and width of
   // the layers in the neural network. The lower the value of the output stride
@@ -397,6 +426,55 @@ function setupFPS() {
   stats.showPanel(0);  // 0: fps, 1: ms, 2: mb, 3+: custom
   document.body.appendChild(stats.dom);
 }
+
+function poseClicked(posename) {
+  EventBus.$emit('pose-activation', posename);
+}
+
+function setupProbability() {
+  // setup poses and progress bars;
+  Object.values(POSE_CLASSES).forEach((pose_name)=>{
+
+    var aElm = document.createElement("a");
+    aElm.href = "#";    
+
+    var iElm = document.createElement("img");
+    iElm.width = 640/5;
+    iElm.width = 500/5;
+    iElm.src = "/static/images/poses/" + pose_name + ".png";
+    iElm.align="middle";
+    iElm.id = "img_" + pose_name;
+    iElm.className = "poseimg";
+    aElm.append(iElm);
+
+ 
+
+    $("#icons").append(aElm);
+
+    var s1Elm = document.createElement("span");
+    s1Elm.innerText = pose_name;
+    s1Elm.id = "span_" + pose_name;
+    s1Elm.className = "poselabel";
+    $("#icons").append(s1Elm);
+
+    var pElm = document.createElement("progress");
+    pElm.max = 1;
+    pElm.value = 0;
+    pElm.id = "progress_" + pose_name;
+    $("#icons").append(pElm);
+
+    var s2Elm = document.createElement("span");
+    s2Elm.innerText = "0";
+    s2Elm.id = "prob_" + pose_name;
+    s2Elm.className = "poseprob";
+    $("#icons").append(s2Elm);
+
+    $("#img_" + pose_name).on("click",()=> {
+      EventBus.$emit('pose-activation', pose_name);
+    })
+  })
+
+  }
 
 /**
  * Feeds an image to posenet to estimate poses - this is where the magic
@@ -583,6 +661,7 @@ ctx.imageSmoothingEnabled = false;
     //console.log("elapsed time since last predict", new Date() - lastPredict);
     if (!false && !environment3d.huiaScene.bird.mouseBlocked && (segments >= 8) && ((new Date() - lastPredict)>100)) {
       console.log("predicting..");
+      
       realTimePredict();
       lastPredict = Date.now();
     }
@@ -596,6 +675,7 @@ ctx.imageSmoothingEnabled = false;
   poseDetectionFrame();
 }
 
+// olho central
 function getMainPose(poses) {
   var mainPose = [];
   var width = 0.0;
@@ -638,14 +718,18 @@ export async function bindPage() {
     throw e;
   }
 
-  mobilenetDemo();
+
+  loadCustomMobilenet();
   setupGui([], net);
   setupFPS();
+  setupProbability();
+
+
   detectPoseInRealTime(video, net);
 }
 
 /**
- * Given an image element, makes a prediction through mobilenet returning the
+ * Given an image element, makes a prediction through customMobilenet returning the
  * probabilities of the top K classes.
  */
 async function predict(imgElement) {
@@ -679,8 +763,8 @@ async function predict(imgElement) {
     const batched = normalized.reshape([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
 
     startTime2 = performance.now();
-    // Make a prediction through mobilenet.
-    let preds = mobilenet.predict(batched);
+    // Make a prediction through customMobilenet.
+    let preds = customMobilenet.predict(batched);
     return preds;
   });
 
@@ -688,6 +772,16 @@ async function predict(imgElement) {
   const classes = await getTopKClasses(logits, TOPK_PREDICTIONS);
   const totalTime1 = performance.now() - startTime1;
   const totalTime2 = performance.now() - startTime2;
+
+  // update progress bars
+  classes.forEach((c) => {
+    //$('#progress_' + c.className).val(c.probability);
+    TweenMax.to($('#progress_' + c.className),0.05,{value:c.probability.toFixed(0)});
+    // TweenMax.to($('#prob_' + c.className),0.05,{innerText:c.probability.toFixed(3)});
+    $('#prob_' + c.className).text(c.probability.toFixed(3));
+  });
+
+
   // status(`Done in ${Math.floor(totalTime1)} ms ` +
   //     `(not including preprocessing: ${Math.floor(totalTime2)} ms)`);
 
@@ -735,7 +829,7 @@ async function predict(imgElement) {
 /**
  * Computes the probabilities of the topK classes given logits by computing
  * softmax to get probabilities and then sorting the probabilities.
- * @param logits Tensor representing the logits from MobileNet.
+ * @param logits Tensor representing the logits from customMobilenet.
  * @param topK The number of top predictions to show.
  */
 export async function getTopKClasses(logits, topK) {
@@ -769,9 +863,74 @@ export async function getTopKClasses(logits, topK) {
 async function realTimePredict() {
   // testa se tem numero minimo de pontos p/ predict
   await predict(hiddenCanvas);
+  //await activationVisualization(hiddenCanvas)
 }
 
+// async function activationVisualization(hiddenCanvas) {
+//   const layerId = $("layers").prop("selectedIndex");
+//   activationShape = customMobilenet.layers[layerId].output.shape.slice(1);
+//   console.log(activationShape);  
 
+//   const shapes      = models.map(model => model.outputs[0].shape.slice(1))
+//   const collageDims = shapes.map(shape => toSquareish(shape[2]))
+
+//  const channelNormalize = false;
+//   tf.tidy(() => {
+//       // Feed the input through the model.
+//       let activation = customMobilenet.layers[layerId].predict(hiddenCanvas.expandDims(0)).squeeze();
+
+//       // // Normalize within each channel if the checkbox is checked.
+//       // if (channelNormalize) {
+//       //   // Global pool so we compute normalization params for each channel.
+//       //   const strides = 1; // Doesn't matter
+//       //   const pad = 0;
+//       //   const maxpool = activation.maxPool([activation.shape[0], activation.shape[1]], strides, pad);
+        
+//       //   const minpool = activation.neg().maxPool(
+//       //       [activation.shape[0], activation.shape[1]], strides, pad).neg()
+//       //       // To avoid dividing by zero.
+//       //       .add(tf.scalar(.0000001));
+
+//       //   activation = activation.sub(minpool).div(maxpool.sub(minpool));
+//       // }
+
+//       // Transpose the channels to the outer most dimension and then reshape the activation so we can show
+//       // it in a rectangular collage.
+    
+
+//       const reshaped = activation.transpose([2, 0, 1]).reshape(
+//         [collageDims[layerId][0], collageDims[layerId][1], activation.shape[0], activation.shape[1]]);
+
+//       // Split channels between rows and columns. [16, width, height] becomes [4, width, 4, height]
+//       const transposed = reshaped.transpose([0, 2, 1, 3]);
+
+//       // Combine channels. [4, height, 4, height] becomes [4 * height, 4 * height]
+//       let output = transposed.reshape(
+//         [transposed.shape[0] * transposed.shape[1], transposed.shape[2] * transposed.shape[3]]);
+
+//       // Normalize across the entire activation if the channelNormalize option isn't checked.
+//       if (!channelNormalize) {
+//         const min = output.min();
+//         const max = output.max();
+//         output = output.sub(min).div(max.sub(min));
+//       }
+//       return output.maximum(tf.scalar(0)).minimum(tf.scalar(1));
+//     });
+
+// } 
+
+function toSquareish(x) {
+    let sqrt = Math.sqrt(x);
+    if (Number.isInteger(sqrt)) {
+      return [sqrt, sqrt];
+    }
+    sqrt = Math.floor(sqrt);
+    // Who cares that this is slow.
+    while (!Number.isInteger(x / sqrt)) {
+      sqrt--;
+    }
+    return [sqrt, x / sqrt];
+}
 
 </script>
 <style src="../scss/fonts.css"></style>
@@ -806,6 +965,66 @@ async function realTimePredict() {
   section {
     padding-left : 25vw ;
   }
+
+  #icons {
+    position: relative;
+    float: right;
+    width: 180px;
+    z-index: 1000;
+    color: white;
+    clear: both;
+  }
+
+  #icons progress {
+    color: #0063a6;
+    font-size: .6em;
+    line-height: 1.5em;
+    text-indent: .5em;    
+    width: 15em;
+    height: 1.8em;
+    background: #fff; 
+    padding: 1px;
+  }
+
+  #icons .poselabel {
+    margin-top: 2px;
+    display: block;
+  }
+
+  #icons .poseimg {
+    margin-top: 2px;
+    display: block;
+  }
+
+   #icons .poseprob {
+    margin-left: 5px;
+  }
+
+  #layers {
+    position: relative;
+    z-index: 1000;
+    
+  }
+
+  progress::-moz-progress-bar { background: white; }
+  progress::-webkit-progress-value { background: white; }
+  
+
+
+  #output {
+     position:relative;
+     z-index:1000;
+     border:1px solid white; 
+  }
+
+  #predictions {
+    position:relative;
+    z-index:1000;
+    float:right;
+    display: block;
+    height: 100px;
+  }
+
   div.mobile-gradient {
     position : fixed;
     top : 0px;
@@ -879,6 +1098,8 @@ async function realTimePredict() {
       left : 50%;
       transform : translateX(-50%);
     }
+  
+    
   }
   @media screen and (max-width : 1000px){
     body,html{

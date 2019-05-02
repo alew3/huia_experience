@@ -4,6 +4,10 @@
 
 ## Build Setup
 
+install yarn
+install nodejs
+install npm
+
 ``` bash
 # install dependencies
 npm install

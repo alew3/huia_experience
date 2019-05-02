@@ -28,6 +28,7 @@
     "demo": "cross-env NODE_ENV=development parcel camera2.html --no-hmr --open ",
     "build": "cross-env NODE_ENV=production parcel build capture.html --no-minify --public-url /",
     "build-capture": "cross-env NODE_ENV=production parcel build capture.html  --no-minify --public-url /",
+    "console": "cross-env NODE_ENV=development parcel console.html --no-hmr --open --public-url /",
     "lint": "eslint ."
   },
   "devDependencies": {

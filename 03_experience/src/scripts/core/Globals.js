@@ -1,7 +1,7 @@
 export default class Globals {
   static GENERAL_DELAY = 1;
   static DEBUG = true;
-  static SHOW_INTRO = true;
+  static SHOW_INTRO = false;
   static ENTRANCE_DELAY = 2;
   static ENTRANCE_DURATION = 4;
   static TITLES = {

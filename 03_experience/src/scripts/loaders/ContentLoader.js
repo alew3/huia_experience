@@ -675,10 +675,11 @@ class ContentLoader{
             if(self.loadingWithProject){
               self.PROGRESS = Math.round(self.PROGRESS/2);
             }
-            self._onProgress(); 
-              zip.file("HUIA_ANIMAS_COMPILACAO_INTERACOES_03.JD").async("string").then(function(txt){
-                console.log("loading new model");
-              //zip.file("model.jd").async("string").then(function(txt){
+            self._onProgress();
+              const model = "HUIA_ANIMAS_COMPILACAO_INTERACOES_REFINADOS_01_Obj_SEMPRE_VISIVEIS.JD";
+              //const model = "HUIA_ANIMAS_COMPILACAO_INTERACOES_REFINADOS_01.JD";
+              zip.file(model).async("string").then(function(txt){
+                console.log("loading new model ", model);
                 ContentLoader.DATA_MODEL_HUIA = JSON.parse(txt);
                 self.PROGRESS = 100;
                 if(self.loadingWithProject){

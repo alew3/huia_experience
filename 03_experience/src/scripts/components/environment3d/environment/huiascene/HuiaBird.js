@@ -6,6 +6,8 @@ import MathHelper from "../../../../helpers/MathHelper";
 import SoundsLoader from "../../../../loaders/SoundsLoader";
 import '../../../../vendors/CustomEase';
 import WireframeShader from '../postprocessing/wireframe/WireframeShader';
+import ShaderGodRays from '../postprocessing/godrays/ShaderGodRays';
+
 //import MeshCustomMaterial2 from '../postprocessing/wireframe/WMaterial';
 
 import ContentHelper from '../../../../loaders/ContentLoader';
@@ -27,7 +29,7 @@ export default class HuiaBird extends THREE.Object3D {
 
     this.walkingDuration = 0.66;
 
-    this.durations =    [5.6, 2.06, 1, 1, 1.56, 1.56, 0.93, 2, 2.8, 0.25, 2, 1.5, 3,3.86,8.96,2.86, 4.4, 5.33 ];
+    this.durations =    [5.6, 2.06, 1, 1, 1.56, 1.56, 0.93, 2, 2.8, 0.25, 2, 1.5, 3,3.86,8.96,2.86, 4.4, 6.23, 1.76 ];
     // this.durations = [5.6, 2.06, 1, 1, 10.56, 1.56, 0.93, 2, 2.8,0.25,2,0.25,this.walkingDuration*0.37,this.walkingDuration,this.walkingDuration*1.33];
     this.animations = [];
     this.lookingDirection = "left";
@@ -252,9 +254,14 @@ export default class HuiaBird extends THREE.Object3D {
     this.blockMixers = true;
 
     this.loader = new THREE.JDLoader();
-    var data = this.loader.parse(ContentLoader.DATA_MODEL_HUIA);
+    this.data = this.loader.parse(ContentLoader.DATA_MODEL_HUIA);
+
+    console.log("data",this.data);
     var modifier = new THREE.SimplifyModifier();
 
+
+
+    
     /** LOAD CARTOLA */
     // var prop = this.loader.parse(ContentLoader.DATA_MODEL_CARTOLA);
     // this.cartola = new THREE.SkinnedMesh(prop.geometries[0]);
@@ -280,9 +287,9 @@ export default class HuiaBird extends THREE.Object3D {
     this.wireModel = null;
     this.wireContainer = new THREE.Object3D();
 
-    for (var i = 0; i < data.geometries.length; i++)
+    for (var i = 0; i < this.data.geometries.length; i++)
     {
-      var mesh = new THREE.SkinnedMesh(data.geometries[i]);
+      var mesh = new THREE.SkinnedMesh(this.data.geometries[i]);
       mesh.frustumCulled = false;
       if(i == 0)
       {
@@ -296,7 +303,51 @@ export default class HuiaBird extends THREE.Object3D {
 
       var isOver = false;
       var isBodyMaterial= false;
-      // console.log(mesh.geometry.name);
+
+      var uniforms = {
+        "time": { value: 1.0 }
+      };
+
+      this.basicShader = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: ` varying vec2 vUv;
+
+        void main()
+        {
+          vUv = uv;
+          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+          gl_Position = projectionMatrix * mvPosition;
+        }`,
+
+        fragmentShader: `uniform float time;
+
+        varying vec2 vUv;
+  
+        void main( void ) {
+  
+          vec2 position = - 1.0 + 2.0 * vUv;
+  
+          float red = abs( sin( position.x * position.y + time / 5.0 ) );
+          float green = abs( sin( position.x * position.y + time / 4.0 ) );
+          float blue = abs( sin( position.x * position.y + time / 3.0 ) );
+          gl_FragColor = vec4( red, green, blue, 1.0 );
+  
+        }`
+      });
+      
+      //console.log(mesh);
+      //console.log(mesh.geometry.name);
+      if(mesh.geometry.name.indexOf("Sphere001") > -1) {
+        console.log("SPHERE REF", mesh)
+        this.sphere = mesh;
+        //this.sphere.visible = false;
+        this.sphere.material  = new THREE.MeshBasicMaterial( {color: 0xffff00} ); // this.basicShader;
+      } else if(mesh.geometry.name.indexOf("CHAPEU") > -1) {
+        console.log("CHAPEU REF", mesh)
+        this.hat = mesh;
+        this.hat.visible = true;
+        //this.hat.material = this.basicShader;
+      } else 
 
       //
       // mesh.visible = false;
@@ -305,6 +356,8 @@ export default class HuiaBird extends THREE.Object3D {
       }else if(mesh.geometry.name.indexOf("body") > -1){
         mesh.material = this.huiaMaterial;
         this.materialBody = mesh.material;
+      
+        
 
 
         isBodyMaterial = true;
@@ -762,9 +815,16 @@ export default class HuiaBird extends THREE.Object3D {
 
   updateShaders(){
 
+
+        
+    //this.basicShader.uniforms.time.needsUpdate = true;
+
     //aqui eu atualizo os valores do shader de wireframe animado
     var elapsedMilliseconds = Date.now() - this.startTime;
     var elapsedSeconds = elapsedMilliseconds/1000;
+
+ 
+    
 
 
     //seto os valores das uniformes de tempo
@@ -779,6 +839,8 @@ export default class HuiaBird extends THREE.Object3D {
     this.animatedWireframe.uniforms.timeHighFrequency.needsUpdate = true;
     this.animatedWireframe.uniforms.currentTimeValue.value = elapsedSeconds*1.0;
     this.animatedWireframe.uniforms.currentTimeValue.needsUpdate = true;
+
+
 
     //o needsUpdate = true é uma coisa da propria ThreeJS, precisa aplicar para cada valor sempre
 
@@ -816,6 +878,10 @@ export default class HuiaBird extends THREE.Object3D {
     this.animatedWireframe.uniforms.lightPosition.value.y = this.getBirdMouseOverPosX(this.pointLight.position.x, this.pointLight.position.y);
     this.animatedWireframe.uniforms.lightPosition.value.z = 5.0+(15.0*this.pointLight.position.y);
     this.animatedWireframe.uniforms.lightPosition.needsUpdate = true;
+
+    //this.basicShader.uniforms.time.needsUpdate = true;
+    this.basicShader.uniforms.time += elapsedSeconds*5.0;
+    //console.log(this.basicShader.uniforms.time);
 
 
     //console.log("point lD: " , this.pointLightDirectional.position);

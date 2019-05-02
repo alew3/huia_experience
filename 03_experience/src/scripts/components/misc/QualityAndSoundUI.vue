@@ -39,6 +39,9 @@ export default {
   },
 
   mounted () {
+    // sounds off
+    SoundsLoader.toggleEnabled(false);
+
     this.iniDragY = 0;
     this.currentDragY = 0;
     this.iniMouseY = 0;

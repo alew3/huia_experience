@@ -15,5 +15,28 @@
 14 Fingir de morto 811-1080  = 269 / 30 = 8.96  
 15 Hadouken 1081-1167   (86) /30   = 2.86
 16 Dancinha Backpack 1168-1300  (132) / 30 = 4.4
-17 Moon Walk 1301-1461 (precisamos inserir o chapeu)  160/30 = 5.33
-18 Piscada 1462-1514 (52)  52/30 = 1.73
+17 Moon Walk 1301-1488 (precisamos inserir o chapeu)  187/30 = 6.23
+18 Piscada 1489-1542 (52)  53/30 = 1.76
+
+
+
+
+StandBy 0-80
+Abre asas 81-155
+Cisca D 156-205
+Cisca E 206-255
+Decolar 256-291
+Voando 292-339
+Pousar 340-368
+Pulo Curto 369-429
+Pulo Longo 430-514
+Vira para Lado 515-530
+Volta para o centro 531-550
+Cocar asa 551-600 (esse preciso que desligue o track da cabeça)
+Pulo para lado volta 601-693 (esse preciso que desligue o track da cabeça)
+Virar de costas 694-810 (esse preciso que desligue o track da cabeça)
+Fingir de morto 811-1080
+Hadouken 1081-1167
+Dancinha Backpack 1168-1300
+Moon Walk 1301-1488 (precisamos inserir o chapeu)
+Piscada 1489-1542
