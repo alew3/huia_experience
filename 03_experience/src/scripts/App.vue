@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;color:white'></div>
+      <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;color:white;width:100px'></div>
       <Environment3d ref="environment3d" v-if="isDesktopEnvironment()"/>
       <!--<Environment3dMobile ref="environment3dmobile" v-if="isMobileEnvironment()"/>-->
       <IntroLogo v-on:endAnim="onEndIntroLogo" v-if="preloaded && !introCompleted"/>
@@ -188,6 +188,7 @@ export default {
     }
     this.$refs.preloader.$on('preloaderComplete', ()=>{
       this.preloaded = true;
+      Globals.SHOW_INTRO = false;
       if(!Globals.SHOW_INTRO){
         SoundsLoader.startWindowEvents();
         this.introCompleted = true;

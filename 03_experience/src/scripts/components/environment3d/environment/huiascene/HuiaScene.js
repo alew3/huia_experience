@@ -252,6 +252,12 @@ export default class HuiaScene extends THREE.Scene {
     console.log("HADOUKEN anim ....");
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
+
+    // mostra bola
+    TweenMax.set(this.bird.sphere,{ visible:true, delay: 1.4});
+    TweenMax.set(this.bird.sphere,{  visible:false, delay: 2.8 });
+    
+
     this.bird.playAnimation(15,false);
   }
 
@@ -275,14 +281,19 @@ export default class HuiaScene extends THREE.Scene {
   moonwalk() {
     console.log("MOONWALK anim ....");
 
-    const rX = this.bird.rotation.x;
     const rY = this.bird.rotation.y;
 
-    TweenMax.to(this._camera.position, 1.5, {z : 6, ease : Quad.easeOut});
-    TweenMax.to(this.bird.rotation, 1.5, {x : -0.3, y: -0.3, ease : Quad.easeInOut});
+    // mostra bola
+    TweenMax.set(this.bird.hat,{ visible:true, delay: 2.16});
+    TweenMax.set(this.bird.hat,{ visible:false, delay: 6.03 });
 
-    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 6.7, overwrite:false});
-    TweenMax.to(this.bird.rotation, 1, {x : rX, y: rY, ease : Quad.easeOut, delay : 6.7});
+    TweenMax.to(this._camera.position, 1, {z : 30, ease : Quad.easeOut});
+    TweenMax.to(this.bird.rotation, 1, { y: -2, ease : Quad.easeInOut});
+
+    
+    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 5.8, overwrite:false});
+    TweenMax.to(this.bird.rotation, 1, {y: rY, ease : Quad.easeOut, delay : 5.8});
+
 
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});

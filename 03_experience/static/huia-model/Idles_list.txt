@@ -13,9 +13,9 @@
 12 Pulo para lado volta 601-693 (esse preciso que desligue o track da cabeça) (92) 3
 13 Virar de costas 694-810 (esse preciso que desligue o track da cabeça)  116 / 30 = 3.86
 14 Fingir de morto 811-1080  = 269 / 30 = 8.96  
-15 Hadouken 1081-1167   (86) /30   = 2.86
+15 Hadouken 1081-1167   (86) /30   = 2.86  -> 1123 
 16 Dancinha Backpack 1168-1300  (132) / 30 = 4.4
-17 Moon Walk 1301-1488 (precisamos inserir o chapeu)  187/30 = 6.23
+17 Moon Walk 1301-1488 (precisamos inserir o chapeu)  187/30 = 6.23   // o chapeu surge no 1366 e sai no 1482  (2.16s e some 6.03s)
 18 Piscada 1489-1542 (52)  53/30 = 1.76
 
 
@@ -38,5 +38,5 @@ Virar de costas 694-810 (esse preciso que desligue o track da cabeça)
 Fingir de morto 811-1080
 Hadouken 1081-1167
 Dancinha Backpack 1168-1300
-Moon Walk 1301-1488 (precisamos inserir o chapeu)
+Moon Walk 1301-1488 (precisamos inserir o chapeu)   
 Piscada 1489-1542

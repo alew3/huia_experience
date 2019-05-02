@@ -45,7 +45,7 @@
     "sendgrid": "^5.1.1",
     "shipit-deploy": "^2.4.0",
     "stats.js": "^0.17.0",
-    "three": "^0.84.0",
+    "three": "0.84",
     "three-obj-loader": "^1.0.2",
     "three-shader-fxaa": "^5.1.1",
     "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",

@@ -30,10 +30,8 @@ export default class HuiaBird extends THREE.Object3D {
     this.walkingDuration = 0.66;
 
     this.durations =    [5.6, 2.06, 1, 1, 1.56, 1.56, 0.93, 2, 2.8, 0.25, 2, 1.5, 3,3.86,8.96,2.86, 4.4, 6.23, 1.76 ];
-    // this.durations = [5.6, 2.06, 1, 1, 10.56, 1.56, 0.93, 2, 2.8,0.25,2,0.25,this.walkingDuration*0.37,this.walkingDuration,this.walkingDuration*1.33];
     this.animations = [];
     this.lookingDirection = "left";
-
 
     //animated wireframe shader
     this.animatedWireframe = new WireframeShader();
@@ -119,18 +117,10 @@ export default class HuiaBird extends THREE.Object3D {
       side: THREE.BackSide,
       needsUpdate: true,
       shading: THREE.FlatShading
-      //shading : null
-      //color: new THREE.Color (0xffffff)
 
-      //transparent : true,
-      //alphaTest : 0.3,
-      //fragmentShader:this.animatedWireframe2.fragmentShader,
-      //shading : this.animatedWireframe2
     });
 
-    //this.myShader1 =  new WireframeShader(THREE);
-    //this.mYMaterial = new THREE.ShaderMaterial(this.myShader1);
-    //this.mYMaterial = new THREE.ShaderMaterial(WireframeShader(THREE));
+
 
     this.eyeMaterial = new THREE.MeshPhongMaterial({
       map : ContentLoader.DATA_HUIA_3D_TEXTURES["eye-ball"],
@@ -305,60 +295,69 @@ export default class HuiaBird extends THREE.Object3D {
       var isBodyMaterial= false;
 
       var uniforms = {
-        "time": { value: 1.0 }
+        deltinha: { type: "f", value: 0.5 },
       };
 
-      this.basicShader = new THREE.ShaderMaterial({
-        uniforms: uniforms,
-        vertexShader: ` varying vec2 vUv;
 
-        void main()
-        {
-          vUv = uv;
-          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-          gl_Position = projectionMatrix * mvPosition;
+      this.basicShader = new THREE.ShaderMaterial({
+        uniforms: THREE.UniformsUtils.merge( [
+          uniforms
+        ]), 
+
+        vertexShader:  [
+        THREE.ShaderChunk[ "common" ],
+        THREE.ShaderChunk[ "uv_pars_vertex" ],
+        THREE.ShaderChunk[ "uv2_pars_vertex" ],
+        THREE.ShaderChunk[ "envmap_pars_vertex" ],
+        THREE.ShaderChunk[ "color_pars_vertex" ],
+        THREE.ShaderChunk[ "morphtarget_pars_vertex" ],
+        THREE.ShaderChunk[ "skinning_pars_vertex" ],
+        THREE.ShaderChunk[ "shadowmap_pars_vertex" ],
+        THREE.ShaderChunk[ "logdepthbuf_pars_vertex" ] ].join( "\n" ) +
+        
+        `\nvarying vec3 vNormal; \n
+        varying vec4 position2; \n
+        uniform float deltinha; \n
+        
+        void main () { \n`+ 
+        [THREE.ShaderChunk[ "color_vertex" ],
+        THREE.ShaderChunk[ "skinbase_vertex" ],
+        THREE.ShaderChunk[ "begin_vertex" ],
+        THREE.ShaderChunk[ "morphtarget_vertex" ],
+        THREE.ShaderChunk[ "skinning_vertex" ],
+        THREE.ShaderChunk[ "project_vertex" ],
+        THREE.ShaderChunk[ "worldpos_vertex" ]].join( "\n" ) + `\n
+          position2 = vec4(position,1.0); \n
+          vNormal = normal; \n
+          //gl_Position = projectionMatrix * modelViewMatrix * position2; \n
+          //gl_Position = gl_Position+(translatePosition); \n
         }`,
 
-        fragmentShader: `uniform float time;
+        fragmentShader: `precision highp float;
+        uniform float deltinha;
+        varying vec3 vNormal;
+        
+        void main () {
+          vec3 vNormal2;
+          vNormal2 = vNormal;
+          vNormal2[1] = vNormal[1]* deltinha;
+          gl_FragColor = vec4(vNormal2, 1.0);
+        }`,
 
-        varying vec2 vUv;
-  
-        void main( void ) {
-  
-          vec2 position = - 1.0 + 2.0 * vUv;
-  
-          float red = abs( sin( position.x * position.y + time / 5.0 ) );
-          float green = abs( sin( position.x * position.y + time / 4.0 ) );
-          float blue = abs( sin( position.x * position.y + time / 3.0 ) );
-          gl_FragColor = vec4( red, green, blue, 1.0 );
-  
-        }`
+        wireframe: false,
+        skinning: true
+      
       });
       
-      //console.log(mesh);
-      //console.log(mesh.geometry.name);
-      if(mesh.geometry.name.indexOf("Sphere001") > -1) {
-        console.log("SPHERE REF", mesh)
-        this.sphere = mesh;
-        //this.sphere.visible = false;
-        this.sphere.material  = new THREE.MeshBasicMaterial( {color: 0xffff00} ); // this.basicShader;
-      } else if(mesh.geometry.name.indexOf("CHAPEU") > -1) {
-        console.log("CHAPEU REF", mesh)
-        this.hat = mesh;
-        this.hat.visible = true;
-        //this.hat.material = this.basicShader;
-      } else 
 
-      //
-      // mesh.visible = false;
-      if(mesh.geometry.name.indexOf("plumes") > -1){
+      
+      if (mesh.geometry.name.indexOf("plumes") > -1){
         mesh.material = this.plumesMaterial;
       }else if(mesh.geometry.name.indexOf("body") > -1){
         mesh.material = this.huiaMaterial;
         this.materialBody = mesh.material;
-      
-        
 
+        this.body = mesh;
 
         isBodyMaterial = true;
 
@@ -387,30 +386,12 @@ export default class HuiaBird extends THREE.Object3D {
       }
 
 
-      // {
-      //   uniforms: params[ i ][ 1 ],
-      //   vertexShader: document.getElementById( 'vertexShader' ).textContent,
-      //   fragmentShader: document.getElementById( params[ i ][ 0 ] ).textContent
-      // }
-
-
-      //animatedWireframe["skinning"] = true;
 
       if(isBodyMaterial){
         var materials = [];
         materials.push(this.animatedWireframeMaterial);
         materials.push(this.huiaMaterial2);
-
-        var myMultiMaterisl = new THREE.MultiMaterial( materials );
-        //mesh.material = materials;
-        //  mesh.material = this.animatedWireframeMaterial;
-        //console.log(" Material body shader uniforms: "  , mesh.material);
-
       }
-
-
-
-      //mesh.material = this.wireframeMaterial;
 
       if(!isOver){
         this.add(mesh);
@@ -485,7 +466,22 @@ export default class HuiaBird extends THREE.Object3D {
 
       window.bottomBeak = this.bottomBeak;
       window.topBeak = this.topBeak;
-    }
+
+              //console.log(mesh);
+      //console.log(mesh.geometry.name);
+      if(mesh.geometry.name.indexOf("Sphere001") > -1) {
+        console.log("SPHERE REF", mesh)
+        this.sphere = mesh;
+        this.sphere.material = this.basicShader;
+        this.sphere.visible = false;
+        //this.add(this.sphere);
+      } else if(mesh.geometry.name.indexOf("CHAPEU") > -1) {
+        console.log("CHAPEU REF", mesh)
+       this.hat = mesh;
+       this.hat.visible = false;
+       this.hat.material = this.basicShader;
+      } 
+    } 
 
     this.bones = skeleton;
     this.bones.bonesByName = [];
@@ -879,8 +875,16 @@ export default class HuiaBird extends THREE.Object3D {
     this.animatedWireframe.uniforms.lightPosition.value.z = 5.0+(15.0*this.pointLight.position.y);
     this.animatedWireframe.uniforms.lightPosition.needsUpdate = true;
 
-    //this.basicShader.uniforms.time.needsUpdate = true;
-    this.basicShader.uniforms.time += elapsedSeconds*5.0;
+    //this.sphere.material.uniforms.deltinha.value = Math.random().toFixed(2);
+    //this.sphere.material.uniforms.delta.value.needsUpdate = true;
+    this.basicShader.uniforms.deltinha.value =Math.random().toFixed(2);
+    this.basicShader.needsUpdate = true;
+
+
+    // this.sphere.dynamic = true;
+    // this.sphere.geometry.verticesNeedUpdate = true;
+
+
     //console.log(this.basicShader.uniforms.time);
 
 
