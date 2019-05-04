@@ -17,7 +17,7 @@
       </video>
       </div>
       <canvas id="output"/>
-      <div id="predictions"></div>
+      <div id="status"></div>
       <div id="icons" style="z-index:1000;"></div>
       <div id="layer">
         <select id="layers">
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div id="last_moves" style='position:relative;z-index:1000;border:1px solid white:float:right;color:white;width:100px'></div>
+      <div id="last_moves"></div>
       <Environment3d ref="environment3d" v-if="isDesktopEnvironment()"/>
       <!--<Environment3dMobile ref="environment3dmobile" v-if="isMobileEnvironment()"/>-->
       <IntroLogo v-on:endAnim="onEndIntroLogo" v-if="preloaded && !introCompleted"/>
@@ -36,7 +36,7 @@
       <div class="mobile-gradient-bottom" v-if="introCompleted && isMobile() && !experience"/> -->
       <!--<MainMenu v-if="introCompleted && !isMobile() && !experience"/>
       <MainMenuMobile v-if="introCompleted && isMobile() && !experience"/>-->
-      <!--<SectionTitle v-if="introCompleted && !experience"/>-->
+      <SectionTitle v-if="introCompleted && !experience"/>
       <QualityAndSoundUI ref="qualitysound" v-if="introCompleted && !isMobile()" v-on:dragQualityChanged="onDragQualityChanged"/>
     </div>
     <div class="rotate-layer" v-if="isMobile()"><div class="gradient"></div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><path d="M27.252,71.997H7.48c-0.198,0-0.359-0.161-0.359-0.36V24.602c0-0.199,0.161-0.36,0.359-0.36h26.531   c0.199,0,0.36,0.161,0.36,0.36V51.57h1.889V19.206c0-2.186-1.772-3.957-3.958-3.957h-0.904c-0.057-0.123-0.18-0.21-0.325-0.21   h-3.447c-0.145,0-0.268,0.087-0.325,0.21H9.1c-2.186,0-3.958,1.771-3.958,3.957v5.112c-0.123,0.058-0.209,0.18-0.209,0.325v1.308   c0,0.145,0.086,0.268,0.209,0.324v1.521c-0.123,0.057-0.209,0.18-0.209,0.325v1.308c0,0.144,0.086,0.267,0.209,0.324v47.161   c0,2.186,1.772,3.957,3.958,3.957h18.152V71.997z M20.582,17.797c0.332,0,0.599,0.268,0.599,0.599c0,0.332-0.268,0.6-0.599,0.6   c-0.331,0-0.6-0.269-0.6-0.6C19.982,18.065,20.25,17.797,20.582,17.797z M18.483,20.615h4.497c0.199,0,0.359,0.161,0.359,0.359   c0,0.198-0.161,0.359-0.359,0.359h-4.497c-0.198,0-0.36-0.161-0.36-0.359C18.123,20.775,18.285,20.615,18.483,20.615z    M20.941,79.37c-1.719,0-3.117-1.397-3.117-3.116s1.398-3.117,3.117-3.117c1.72,0,3.118,1.398,3.118,3.117   S22.661,79.37,20.941,79.37z"></path><path d="M20.956,73.826c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.397,2.398,2.397c1.323,0,2.398-1.074,2.398-2.397   C23.354,74.902,22.278,73.826,20.956,73.826z"></path><path d="M33.667,66.631c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.399,2.398,2.399s2.398-1.076,2.398-2.399   C36.064,67.707,34.989,66.631,33.667,66.631z"></path><path d="M94.672,75.391V57.188c0-2.187-1.77-3.957-3.958-3.957h-5.112c-0.055-0.124-0.179-0.21-0.324-0.21H83.97   c-0.144,0-0.268,0.086-0.322,0.21h-1.522c-0.057-0.124-0.181-0.21-0.326-0.21h-1.306c-0.146,0-0.268,0.086-0.324,0.21H33.007   c-2.186,0-3.957,1.771-3.957,3.957v23.203c0,2.187,1.771,3.957,3.957,3.957h57.707c2.188,0,3.958-1.771,3.958-3.957v-0.904   c0.123-0.057,0.21-0.179,0.21-0.325v-3.447C94.882,75.569,94.795,75.447,94.672,75.391z M33.667,72.146   c-1.719,0-3.118-1.397-3.118-3.118c0-1.718,1.399-3.118,3.118-3.118s3.118,1.4,3.118,3.118   C36.784,70.749,35.386,72.146,33.667,72.146z M85.68,82.1c0,0.199-0.163,0.359-0.361,0.359H38.283c-0.199,0-0.359-0.16-0.359-0.359   V55.568c0-0.199,0.161-0.359,0.359-0.359h47.035c0.198,0,0.361,0.16,0.361,0.359V82.1z M89.306,71.068   c0,0.197-0.161,0.359-0.359,0.359s-0.359-0.162-0.359-0.359v-4.497c0-0.199,0.161-0.36,0.359-0.36s0.359,0.161,0.359,0.36V71.068z    M91.523,69.268c-0.33,0-0.6-0.267-0.6-0.598s0.27-0.6,0.6-0.6c0.332,0,0.601,0.269,0.601,0.6S91.855,69.268,91.523,69.268z"></path><path d="M44.382,27.092l-1.828,1.692c9.584,0.961,14.145,6.547,16.289,11.157c2.386,5.135,2.343,10.049,2.343,10.256l-0.008,0.53   H59.74l0.008-0.549c0.004-0.046,0.031-4.835-2.231-9.674c-2.84-6.068-7.858-9.515-14.925-10.268l1.604,1.73l-2.07-0.079   l-2.344-2.53l2.53-2.345L44.382,27.092z"></path> </g></svg><p>Please, rotate your device.</p></div>
@@ -81,8 +81,8 @@ hiddenCanvas.width = videoWidth;
 hiddenCanvas.height = videoHeight;
 let canvas;
 let ctx;
-let last_moves = [];
 let customMobilenet;
+let last_moves = new Array();
 
 // huia tf model
 import * as tf from '@tensorflow/tfjs';
@@ -99,6 +99,17 @@ const POSE_CLASSES = {
   6: 'underarm',
   7: 'wings',
   }
+
+const pColors = {
+  'backpack': 'yellow',
+  'dramatic': 'red',
+  'fly': 'blue',
+  'moonwalk': 'green',
+  'normal': 'white',
+  'hadouken': 'RosyBrown',
+  'underarm': 'Wheat',
+  'wings': 'MediumTurquoise'
+};
 const IMAGE_SIZE = 224; 
 const TOPK_PREDICTIONS = Object.keys(POSE_CLASSES).length;
 
@@ -106,6 +117,11 @@ const TOPK_PREDICTIONS = Object.keys(POSE_CLASSES).length;
 
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
+    navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
+
+  navigator.mediaDevices.getUser
 // =======================  end pose info
 
 export default {
@@ -273,8 +289,9 @@ async function setupCamera() {
     .then(function(devices) {
       devices.forEach(function(device) {
         if (device.kind=="videoinput") {
-          console.log(device.kind + ": " + device.label +
-                    " id = " + device.deviceId);
+         // console.log(device);
+          //console.log(device.kind + ": " + device.label +
+                   // " id = " + device.deviceId);
                     if (device.label.includes("BRIO")) {
                         deviceId = device.deviceId;
                         console.log(`DeviceID: ${deviceId} Name: ${device.label}`);
@@ -432,44 +449,56 @@ function poseClicked(posename) {
   EventBus.$emit('pose-activation', posename);
 }
 
-function setupProbability() {
+function setupIcons() {
   // setup poses and progress bars;
   Object.values(POSE_CLASSES).forEach((pose_name)=>{
 
+    // create icon div
+    var dElm = document.createElement("div");
+    dElm.className = "icon";
+    dElm.id = "id_" + pose_name;
+
+    // link
     var aElm = document.createElement("a");
     aElm.href = "#";    
 
+    // icon img
     var iElm = document.createElement("img");
-    iElm.width = 640/5;
-    iElm.width = 500/5;
+    iElm.width = 100;
+    iElm.height = 90;
     iElm.src = "/static/images/poses/" + pose_name + ".png";
     iElm.align="middle";
     iElm.id = "img_" + pose_name;
-    iElm.className = "poseimg";
+    iElm.className = "img";
+    
+    // add image to link
     aElm.append(iElm);
 
- 
+    // add link to div
+    dElm.append(iElm);
 
-    $("#icons").append(aElm);
-
+    // pose label
     var s1Elm = document.createElement("span");
     s1Elm.innerText = pose_name;
     s1Elm.id = "span_" + pose_name;
     s1Elm.className = "poselabel";
-    $("#icons").append(s1Elm);
 
+    // add label to div
+    dElm.append(s1Elm);
+
+    // progress bar
     var pElm = document.createElement("progress");
     pElm.max = 1;
     pElm.value = 0;
     pElm.id = "progress_" + pose_name;
-    $("#icons").append(pElm);
 
-    var s2Elm = document.createElement("span");
-    s2Elm.innerText = "0";
-    s2Elm.id = "prob_" + pose_name;
-    s2Elm.className = "poseprob";
-    $("#icons").append(s2Elm);
+    // add progress to div
+    dElm.append(pElm);
 
+    // add div to icons
+    $("#icons").append(dElm);
+
+    // setup click events 
     $("#img_" + pose_name).on("click",()=> {
       EventBus.$emit('pose-activation', pose_name);
     })
@@ -547,24 +576,6 @@ ctx.imageSmoothingEnabled = false;
     ctxH.clearRect(0, 0, videoWidth, videoHeight);
     ctx.clearRect(0, 0, videoWidth, videoHeight);
 
-    //let grey = tf.mul(tf.browser.fromPixels(video).toFloat(),tf.tensor1d([0.2989, 0.5870, 0.1140],'float32').toInt());
-    // let grey = tf.browser.fromPixels(video,1); //.reshape([224,224,2]).toInt();
-    // tf.browser.toPixels(grey,canvas);
-
-        //console.log("img", img.print());
-    // console.log("convert to GRAY");
-    // let grey = tf.mul(img,tf.tensor1d([0.2989, 0.5870, 0.1140],'float32'));
-    // console.log("grey",grey.print());
-    // tf.browser.toPixels(grey, ctx).then(() => {
-    //   //console.log("ok");
-    //   grey.dispose()
-    // })
-    // .catch((err) => {
-    //   // Handle any error that occurred in any of the previous
-    //   // promises in the chain.
-    //   console.log("error converting",err);
-    // });;
-
     if (guiState.output.showVideo) {
       ctx.save();
       ctx.scale(-1, 1);
@@ -640,13 +651,14 @@ ctx.imageSmoothingEnabled = false;
         //   }
         // }
         // drawPoint(ctx, parseInt(mousey), parseInt(mousex), 3, 'red');
-        
+        if (guiState.output.showSkeleton) {
+         segments = drawSkeleton(keypoints, minPartConfidence, ctxH,1, true);
+          drawSkeleton(keypoints, minPartConfidence, ctx,1 , true);
+        }
 
         if (guiState.output.showPoints) {
-          drawKeypoints(keypoints, minPartConfidence, ctxH);
-        }
-        if (guiState.output.showSkeleton) {
-         segments = drawSkeleton(keypoints, minPartConfidence, ctxH);
+          drawKeypoints(keypoints, minPartConfidence, ctxH,1,true);
+          drawKeypoints(keypoints, minPartConfidence, ctx,1,true,true);
         }
         // if (guiState.output.showBoundingBox) {
         //   drawBoundingBox(keypoints, ctxH);
@@ -654,15 +666,14 @@ ctx.imageSmoothingEnabled = false;
       }
     });
 
-    // copy hidden canvas to webcam overlay and skeleton image
-    //ctxH.globalAlpha = 1;
-    ctx.drawImage(ctxH.canvas,0,0);
+
+    //ctx.drawImage(ctxH.canvas,0,0);
 
     // only predict when we have at least 8 body parts on screen and every 200ms
     //console.log("elapsed time since last predict", new Date() - lastPredict);
-    if (!false && !environment3d.huiaScene.bird.mouseBlocked && (segments >= 8) && ((new Date() - lastPredict)>100)) {
+    if (typeof(environment3d) != 'undefined' &&   !environment3d.huiaScene.bird.mouseBlocked && (segments >= 8) && ((new Date() - lastPredict)>100)) {
       console.log("predicting..");
-      
+       $('#status').html('> Predicting ...');
       realTimePredict();
       lastPredict = Date.now();
     }
@@ -723,9 +734,7 @@ export async function bindPage() {
   loadCustomMobilenet();
   setupGui([], net);
   setupFPS();
-  setupProbability();
-
-
+  setupIcons();
   detectPoseInRealTime(video, net);
 }
 
@@ -734,7 +743,7 @@ export async function bindPage() {
  * probabilities of the top K classes.
  */
 async function predict(imgElement) {
-  console.log('Predicting...' + imgElement);
+  //console.log('Predicting...' + imgElement);
 
   let tempCanvas = document.createElement('canvas');
   let ctxT = tempCanvas.getContext('2d');
@@ -799,32 +808,54 @@ async function predict(imgElement) {
   //   }
   // }
   let prob = "";
-  
+  const threshold = 0.94;
   // se probbilidade > .93 bota no array de moves
-  if (classes[0].probability>=0.93) {
-        last_moves.unshift(classes[0].className);
-        var strMoves = "";
-        last_moves.forEach ( (move) => {
-          var d = new Date();
-          strMoves += d.getSeconds() + " - " +move + "<br/>";
-        });
-        $('#last_moves').html(strMoves);
-        let lastPose = classes[0].className;
-        // se os ultimos 3 moves foram o mesmo, dispara
-        if ((last_moves[0]==lastPose && last_moves[1]==lastPose && last_moves[2]==lastPose) && (new Date() - lastPredict)<1000) {
-          prob+= "<span style='color:red;font-size:90px'>"
-          prob+= classes[0].className + " : " + classes[0].probability.toFixed(3) + "</span> <br/>";
-          $('#predictions').html(prob);
-          // emit animation
-          console.log("Activate animation: ", classes[0].className);
-          EventBus.$emit('pose-activation', classes[0].className);
+ 
+    // insere nova pose
+    var d = new Date();
+    last_moves.unshift( [d.getSeconds() + (d.getMilliseconds()/1000).toFixed(2) ,classes[0].className,classes[0].probability]);
 
-        } else {
-          $('#predictions').html('');
-        }
-   }
-  //console.log(classes);
-  
+
+    // unselect icons
+    $('div[id^="id_"]').removeClass("selected");
+    
+    var strMoves = "";
+    let styleL = "";
+    last_moves.forEach ( (move) => {
+        styleL = (parseFloat(move[2])>=threshold ? "color:black; background:" + pColors[move[1]] : "");
+        strMoves += `<span style='${styleL}'>['${move[0]}','${move[1]}','${move[2].toFixed(3)}' ]</span><br/>`;
+    });
+    $('#last_moves').html(strMoves); 
+
+    // vamos guardar só os últimos 20
+    if (last_moves.length>60) {
+      last_moves.pop();
+    }
+
+    let lastPose = classes[0].className;
+
+    // if the last 3 predictions within the last second are the same, then play animation 
+    if (last_moves.length > 3 &&  
+          (last_moves[0][1]==lastPose && last_moves[1][1]==lastPose && last_moves[2][1]==lastPose) 
+          && (new Date() - lastPredict)<1000 &&
+          (last_moves[0][2]>=threshold && last_moves[1][2]>=threshold && last_moves[2][2]>=threshold)
+        )
+      {
+      prob+=  "> Probability " + classes[0].probability.toFixed(3) + '<br/>> Playing "' + classes[0].className +'"';
+      if (classes[0].className!="normal") {
+        $('#status').html(prob);
+        // emit animation
+        //console.log("Activate animation: ", classes[0].className);
+        EventBus.$emit('pose-activation', classes[0].className);
+        $('#id_'+classes[0].className).addClass("selected");
+
+      } else {
+        $('#status').html('>');
+      }
+      
+    } else {
+      $('#status').html('>');
+    }  
 }
 
 /**
@@ -940,6 +971,14 @@ function toSquareish(x) {
   * {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
+
+  // @font-face {
+  //     font-family: 'Menlo Regular';
+  //     font-style: normal;
+  //     font-weight: normal;
+  //     src: local('Menlo Regular'), url('static/Menlo-Regular.woff') format('woff');
+  // }
+
   html, body {
       margin : 0;
       padding : 0;
@@ -968,43 +1007,125 @@ function toSquareish(x) {
   }
 
   #icons {
-    position: relative;
+    position: absolute;
+    top: 10px;
+    right: 2px;
     float: right;
     width: 180px;
     z-index: 1000;
     color: white;
     clear: both;
+    font-family: 'Menlo Regular';
+    font-size: 14px;
+
   }
+
+  #icons .icon {
+    position: relative;
+    width: 150px;
+		height: 114px;
+    float: right;
+		clear: both;
+		margin: 2px 0 20px 0;
+		padding: 0;
+		border: 1px solid transparent;
+  }
+
+  #icons .selected {
+		 border: 1px solid rgba(255, 255, 255, 1);
+  }
+  
+  #icons .img {
+		position: absolute;
+		top: 0;
+		right: 0;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 90px;
+    }
+
+   #icons .poselabel {
+		position: absolute;
+		left:5px;
+		text-align: center;
+		bottom: 0;
+    margin-right: 10px;
+		font-size: 16px;
+		font-family: Menlo;
+		color: white;
+    }
 
   #icons progress {
-    color: #0063a6;
-    font-size: .6em;
-    line-height: 1.5em;
-    text-indent: .5em;    
-    width: 15em;
-    height: 1.8em;
-    background: #fff; 
-    padding: 1px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
+		height: 18px;
+		padding: 0 0;
+    width: 150px;
+		mix-blend-mode: exclusion;
+		 -webkit-appearance: none;
   }
 
-  #icons .poselabel {
-    margin-top: 2px;
-    display: block;
+  #last_moves {
+    margin-top: 20px;
+    position:absolute;
+    top: 350px;
+    left: 10px;
+    z-index:1000;
+    color:white;
+    width:250px;
+    line-height: 14px;
+    font-family:'Menlo Regular';
+    font-size: 12px;
   }
 
-  #icons .poseimg {
-    margin-top: 2px;
-    display: block;
+  #last_moves .highlight {
+    color: black;
+    background: white;
+    width: 250px;
   }
 
-   #icons .poseprob {
-    margin-left: 5px;
+
+
+	progress::-webkit-progress-value {
+		border-radius: 0px;
+		padding: 0;
+		margin: 0;
+	}
+	
+  progress::-webkit-progress-value { 
+  background:  rgba(255, 255, 255, .9);
+  padding: 0;
+  margin: 0;
   }
+	
+	progress::-webkit-progress-bar {
+		background:rgba(0, 0, 0, 0);
+		padding: 0;
+		margin: 0;
+	} 
+	
+  progress::-moz-progress-bar { 
+    background: transparent !important;
+    padding: 0;
+    margin: 0;
+  }
+
+  progress::-webkit-progress-bar {
+    background: transparent !important;
+  }
+
 
   #layers {
-    position: relative;
+    position: absolute;
+    left: 5px;
+    top: 240px; 
     z-index: 1000;
-    
+    font-family: 'Menlo Regular';
+
   }
 
   progress::-moz-progress-bar { background: white; }
@@ -1018,12 +1139,15 @@ function toSquareish(x) {
      border:1px solid white; 
   }
 
-  #predictions {
-    position:relative;
+  #status {
+    position: absolute;
+    top: 265px;
+    left: 5px;
     z-index:1000;
-    float:right;
-    display: block;
-    height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    color:white;
+    font-family: 'Menlo Regular';
   }
 
   div.mobile-gradient {

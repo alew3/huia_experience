@@ -660,7 +660,8 @@ class ContentLoader{
 
     // if(!window.MOBILE_DETECT.mobile()){
       // JSZipUtils.getBinaryContent((!window.MOBILE_DETECT.mobile()) ? '/static/huia-model/model.jd.zip' : '/static/huia-model/lowpoly/model.jd.zip', function(err, data) {
-      JSZipUtils.getBinaryContent((!window.MOBILE_DETECT.mobile()) ? '/static/huia-model/model.jd.zip' : '/static/huia-model/head.jd.zip', function(err, data) {
+      //JSZipUtils.getBinaryContent((!window.MOBILE_DETECT.mobile()) ? '/static/huia-model/model.jd.zip' : '/static/huia-model/head.jd.zip', function(err, data) {
+        JSZipUtils.getBinaryContent('/static/huia-model/model.jd.zip' , function(err, data) {
         console.log("downloading:"+data);
           if(err) {
               throw err; // or handle err
@@ -676,7 +677,7 @@ class ContentLoader{
               self.PROGRESS = Math.round(self.PROGRESS/2);
             }
             self._onProgress();
-              const model = "HUIA_ANIMAS_COMPILACAO_INTERACOES_REFINADOS_01_Obj_SEMPRE_VISIVEIS.JD";
+              const model = "huia_obj_visiveis.jd";
               //const model = "HUIA_ANIMAS_COMPILACAO_INTERACOES_REFINADOS_01.JD";
               zip.file(model).async("string").then(function(txt){
                 console.log("loading new model ", model);

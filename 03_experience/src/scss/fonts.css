@@ -12,7 +12,12 @@
 
 }
 
-
+@font-face {
+    font-family: 'Menlo Regular';
+    src: url('./fonts/Menlo-Regular.woff') format('woff');
+    font-style: normal;
+    font-weight: normal,
+}
 
 
 @font-face {

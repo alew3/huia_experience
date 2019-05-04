@@ -67,11 +67,23 @@ function toTuple({y, x}) {
   return [y, x];
 }
 
-export function drawPoint(ctx, y, x, r, color) {
+export function drawPoint(ctx, y, x, r, color,withCoord) {
   ctx.beginPath();
   ctx.arc(x, y, circleWidth, 0, 2 * Math.PI);
   ctx.fillStyle = color;
   ctx.fill();
+
+  if (withCoord) drawText(ctx,y,x);
+
+}
+
+export function drawText(ctx,y,x, color="white", font="9px Menlo Regular") {
+  //ctx.moveTo(x+10,y+10);
+  ctx.fillStyle = color;
+  ctx.font = font;
+  x = parseInt(x);
+  y = parseInt(y);
+  ctx.fillText("["+x+","+y+"]", x+8, y+8);
 }
 
 /**
@@ -115,7 +127,7 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1, withLegs=
 /**
  * Draw pose keypoints onto a canvas
  */
-export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1, withLegs=true) {
+export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1, withLegs=true, withCoord=false) {
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];
 
@@ -124,9 +136,9 @@ export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1, withLegs
     }
     const {y, x} = keypoint.position;
     if (withLegs==false && keypoint.part!="leftKnee" && keypoint.part!="rightKnee" && keypoint.part!="leftAnkle" && keypoint.part!="rightAnkle") { 
-      drawPoint(ctx, y * scale, x * scale, 4, KeypColors[keypoint.part]);
+      drawPoint(ctx, y * scale, x * scale, 4, KeypColors[keypoint.part],withCoord);
      } else if (withLegs) {
-       drawPoint(ctx, y * scale, x * scale, 4, KeypColors[keypoint.part]);
+       drawPoint(ctx, y * scale, x * scale, 4, KeypColors[keypoint.part],withCoord);
     }
   }
 }
