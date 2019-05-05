@@ -15,6 +15,8 @@ import JSZip from 'jszip';
 import SimplifyModifier from './SimplifyModifier';
 import JSZipUtils from 'jszip-utils';
 import VerticalBlurShader from '../postprocessing/gaussianblur/VerticalBlurShader';
+import fire from '../postprocessing/Fire2';
+
 
 export default class HuiaBird extends THREE.Object3D {
   constructor(){
@@ -225,6 +227,13 @@ export default class HuiaBird extends THREE.Object3D {
   }
 
   loadJD() {
+    // create fireball
+    var tex = new THREE.TextureLoader().load("/static/images/fire.png");
+    var ballColor = new THREE.Color( 0x1515eb );
+    this.fire = new THREE.Fire( tex , ballColor );
+    this.fire.scale.set(7,7,7);
+    this.fire.visible = false;
+
     this.animations = [];
 
     this.scale.x = this.scale.y = this.scale.z = 0.7;
@@ -289,32 +298,6 @@ export default class HuiaBird extends THREE.Object3D {
       var uniforms = {
         deltinha: { type: "f", value: 0.5 },
       };
-
-       this.fireBallShader = new THREE.ShaderMaterial(
-        {
-          uniforms: 
-            {
-              viewVector: { type: "v3", value: new THREE.Vector3(0,0,0) } 
-            },
-          vertex: `uniform vec3 viewVector;
-            varying float intensity;
-            void main() {
-              gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4( position, 1.0 );
-              vec3 actual_normal = vec3(modelMatrix * vec4(normal, 0.0));
-              intensity = pow( dot(normalize(viewVector), actual_normal), 6.0 );
-            }`,
-
-          fragment:`varying float intensity;
-          void main() {
-            vec3 glow = vec3(0, 1, 0) * intensity;
-            gl_FragColor = vec4( glow, 1.0 );
-          }`,
-          blending: THREE.AdditiveBlending,
-          transparent: true
-        }
-      );
-
-     // this.fireBallShader.uniforms.tExplosion.value = new THREE.TextureLoader().load( "/static/images/background2.png" );
 
       this.basicShader = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.merge( [
@@ -423,7 +406,7 @@ export default class HuiaBird extends THREE.Object3D {
           skeleton.bones[q].inirotation = {x : skeleton.bones[q].rotation.x, y : skeleton.bones[q].rotation.y, z : skeleton.bones[q].rotation.z};
           skeleton.bones[q].iniposition = skeleton.bones[q].position;
           var name = skeleton.bones[q].name.toLowerCase();
-          // console.log(name);
+          console.log(name);
 
           if(name.indexOf("head") > -1){
             this.headBone = skeleton.bones[q];
@@ -453,7 +436,30 @@ export default class HuiaBird extends THREE.Object3D {
             this.rightWingBones.push(skeleton.bones[q]);
           }else if(name.indexOf("t_beack") > -1){
             this.topBeak = skeleton.bones[q];
-          }
+          } else if (name.indexOf("sphere001")>-1) {
+            console.log("ataching fire to bone");
+            skeleton.bones[q].add(this.fire);
+
+
+            //"Sphere001"
+            // 3.722860097885132
+            // y: 6.098299980163574
+            //z: 14.793399810791016
+
+            // this.fire.position.x = 0
+            // this.fire.position.y = 4;
+            // this.fire.position.y = 0;
+        
+            this.fire.rotation.z = -1.5;
+        
+            // this.fire.material.uniforms.speed.value = 1.5;
+            // this.fire.material.uniforms.magnitude.value = 0.7; 
+            // this.fire.material.uniforms.lacunarity.value = 2.0;
+            // this.fire.material.uniforms.gain.value = 0.4;
+            // this.fire.fireMaterial.uniforms.noiseScaleX.value = 1.0;
+            // this.fire.fireMaterial.uniforms.noiseScaleY.value = 2.0;
+            // this.fire.fireMaterial.uniforms.noiseScaleZ.value = 1.0;
+          } 
         }
 
         var mixer = new THREE.AnimationMixer(mesh);
@@ -489,8 +495,9 @@ export default class HuiaBird extends THREE.Object3D {
       if(mesh.geometry.name.indexOf("Sphere001") > -1) {
         console.log("SPHERE REF", mesh)
         this.sphere = mesh;
-        this.sphere.material =  this.fireBallShader; // 
-        this.sphere.visible = true;
+       // this.sphere.material =  this.basicShader; // 
+        this.sphere.visible = false;
+        
         
       } else if(mesh.geometry.name.indexOf("CHAPEU") > -1) {
         console.log("CHAPEU REF", mesh)
@@ -894,8 +901,9 @@ export default class HuiaBird extends THREE.Object3D {
 
     //this.sphere.material.uniforms.deltinha.value = Math.random().toFixed(2);
     //this.sphere.material.uniforms.delta.value.needsUpdate = true;
-    this.hat.material.uniforms.deltinha.value =Math.random().toFixed(2);
-    this.hat.material.needsUpdate = true;
+    // this.hat.material.uniforms.deltinha.value =Math.random().toFixed(2);
+    // this.hat.material.needsUpdate = true;
+
 
     //this.sphere.material.uniforms.viewVector.value = new THREE.Vector3().subVectors(); 
     this.sphere.material.needsUpdate = true;

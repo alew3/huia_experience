@@ -15,6 +15,8 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
 
+//console.log("loading webpackconfig",webpackConfig.module.rules);
+
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
@@ -24,6 +26,9 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -70,16 +75,24 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-app.use(staticPath, express.static('./static'))
+//app.use(staticPath, express.static('./static'),{index:false,extensions:['bin']})
+//express.static.mime.default_type = "application/x-huia-experience";
+//var router = express.Router([strict=true])
+//app.use(staticPath, express.static('./static',[extensions=[''],index=false,redirect=false]))
+//app.use(staticPath, express.static('./static'))
+app.use(staticPath, express.static('./static',{index:false,extensions:['bin'],fallthrough:false,redirect:false,dotfiles:"allow"}))
+console.log('static path',staticPath)
+//app.use(staticPath, express.static('./static',{index:false,extensions:['bin']}))
 
-var uri = 'http://localhost:' + port
+var uri = 'http://localhost:' + port;
 
 var _resolve
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
-app.all(/.*/, function(req, res, next) {
+//app.all(/.*/, function(req, res, next) {
+app.all('*', function(req, res, next) {
   var host = req.header("host");
   var originalUrl = req.originalUrl;
 

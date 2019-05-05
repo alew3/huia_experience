@@ -7,6 +7,7 @@ import Feathers from './Feathers';
 import Globals from '../../../../core/Globals';
 import SoundsLoader from '../../../../loaders/SoundsLoader';
 import GPUParticleSystem from '../particlesscene/particlesystem/GPUParticleSystem.js';
+import { timingSafeEqual } from 'crypto';
 
 export default class HuiaScene extends THREE.Scene {
 
@@ -111,6 +112,7 @@ export default class HuiaScene extends THREE.Scene {
 
 
     this.createBird();
+
 
     this.cameraContainer.position.y = 5;
     this.cameraContainer.position.z = 16;
@@ -261,8 +263,8 @@ export default class HuiaScene extends THREE.Scene {
 
 
     // mostra bola
-    TweenMax.set(this.bird.sphere,{ visible:true, delay: 1.4});
-    TweenMax.set(this.bird.sphere,{  visible:false, delay: 2.8 });
+    TweenMax.set(this.bird.fire,{ visible:true, delay: 1.4});
+    TweenMax.set(this.bird.fire,{  visible:false, delay: 2.8 });
     
 
     this.bird.playAnimation(15,false);
@@ -466,6 +468,12 @@ export default class HuiaScene extends THREE.Scene {
 
   updateDelta(delta, tick){
     this.bird.updateMixers(delta);
+
+    //var deltaFire = clock.getDelta();
+    var t =  tick * 1.2;
+    this.bird.fire.update(t);
+    
+
 
     if(this.particleSystem){
       this.particleSystem.update(tick);

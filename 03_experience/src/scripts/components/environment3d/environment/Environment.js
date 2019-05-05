@@ -12,9 +12,8 @@ import SoundsLoader from "../../../loaders/SoundsLoader";
 import JDLoader from './loaders/JDLoader';
 
 
+
 export default class Environment {
-
-
 
   constructor(canvas){
     JDLoader(THREE);
@@ -49,6 +48,9 @@ export default class Environment {
     this.huiaScene = new HuiaScene();
     window.huiaScene = this.huiaScene;
 
+
+    
+    
     // if(!window.MOBILE_DETECT.mobile()){
       this.createPostprocessing();
       this.particlesScene = new ParticlesScene();
@@ -229,6 +231,9 @@ export default class Environment {
 
     if(this.backgroundScene)
       this.renderer.render(this.backgroundScene, this.huiaScene.camera);
+
+    if(this.fireScene)
+      this.renderer.render(this.fireScene, this.huiaScene.camera);
 
     this.renderer.clearDepth();
 
