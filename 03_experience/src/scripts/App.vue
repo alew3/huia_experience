@@ -588,8 +588,9 @@ ctx.imageSmoothingEnabled = false;
     // and draw the resulting skeleton and keypoints if over certain confidence
     // scores
 
-    // if (poses.length>0)
-    //    poses = [poses[0]]; //getMainPose(poses);
+    // select the main person in scene, based on nose distance to center
+    if (poses.length>0)
+        poses = getMainPose(poses,minPoseConfidence);
 
     let segments = 0;
     poses.forEach(({score, keypoints}) => {
@@ -687,23 +688,35 @@ ctx.imageSmoothingEnabled = false;
   poseDetectionFrame();
 }
 
-// olho central
-function getMainPose(poses) {
-  var mainPose = [];
-  var width = 0.0;
-  poses.forEach((pose) => { 
-    //console.log(pose.keypoints);
-    var leftShoulderX  = parseFloat(pose.keypoints[5].position.x);
-    var rightShoulderX = parseFloat(pose.keypoints[6].position.x);
-    var newW = Math.abs(rightShoulderX-leftShoulderX);
-   // console.log(newW);
-    if (width<newW)
-    {
-      width = newW;
-      mainPose = pose;
+// most central nose 
+function getMainPose(poses,minPoseConfidence) {
+  var mainPose = poses[0];
+  var center = videoWidth/2;
+  var minDistance = videoWidth;
+  let i =0;
+  let pos = 0;
+  //console.log(poses);
+  poses.forEach((pose) => {
+    if (parseFloat(pose.score) >= minPoseConfidence) {
+      let noseX = parseFloat(pose.keypoints[0].position.x);
+      var currD = Math.abs(noseX-center);
+    // console.log(newW);
+      if (currD<minDistance)
+      {
+        minDistance = currD;
+        mainPose = pose;
+        pos = i;
+      }
+
     }
+    i++;
   });
+  // debugging
+  
+  //console.log("pose selected", mainPose); 
+  //console.log(`${pos} position of total ${poses.length}`); 
   return [mainPose];
+  
 }
 
 /**
@@ -721,7 +734,7 @@ export async function bindPage() {
   let video;
 
   try {
-    //video = await loadVideo();
+    video = await loadVideo();
   } catch (e) {
     let info = document.getElementById('info');
     info.textContent = 'this browser does not support video capture,' +
@@ -731,11 +744,11 @@ export async function bindPage() {
   }
 
 
-  //loadCustomMobilenet();
-  //setupGui([], net);
-  //setupFPS();
+  loadCustomMobilenet();
+  setupGui([], net);
+  setupFPS();
   setupIcons();
-  //detectPoseInRealTime(video, net);
+  detectPoseInRealTime(video, net);
 }
 
 /**
