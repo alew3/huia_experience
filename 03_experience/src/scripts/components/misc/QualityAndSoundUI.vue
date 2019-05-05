@@ -68,7 +68,7 @@ export default {
     this.splits[0] = new SplitText(this.$refs.qualityhd, {type : "chars"});
     this.splits[1] = new SplitText(this.$refs.qualitymd, {type : "chars"});
     this.splits[2] = new SplitText(this.$refs.qualitysd, {type : "chars"});
-    if(!window.qualityEnabled)
+    if(true && !window.qualityEnabled)
       this.disableQuality();
   },
 
@@ -177,8 +177,8 @@ export default {
 <style lang="scss" scoped>
   div.control-ui-container {
     position : absolute;
-    top : 45px;
-    right : 40px;
+    top : 10px;
+    left : 300px;
     display: block;
     float : right;
 
@@ -299,7 +299,7 @@ export default {
 
   @media screen and (max-width : 1024px){
     div.control-ui-container {
-      right : 5vw;
+      left : 5vw;
       top : 5vh;
     }
   }

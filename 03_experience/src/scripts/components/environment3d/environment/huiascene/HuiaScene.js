@@ -243,15 +243,22 @@ export default class HuiaScene extends THREE.Scene {
 
   dramatic() {
     console.log("DRAMATIC anim ....");
+
+    TweenMax.to(this._camera.position, 1.5, {z : 4, ease : Quad.easeOut});
+
     // TweenMax.set(this.shadow.material, {opacity : 0.5});
     // TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
+    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 8.9, overwrite:false});
+
+
     this.bird.playAnimation(14,false);
   }
 
   hadouken() {
-    console.log("HADOUKEN anim ....");
-    //TweenMax.set(this.shadow.material, {opacity : 0.5});
-    //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
+    console.log("HADOUKEN anim ...."); // 2.86s
+
+    TweenMax.to(this._camera.position, .5, {z : 5, ease : Quad.easeOut});
+
 
     // mostra bola
     TweenMax.set(this.bird.sphere,{ visible:true, delay: 1.4});
@@ -265,38 +272,32 @@ export default class HuiaScene extends THREE.Scene {
     console.log("BACKPACK anim ....");
     //TweenMax.set(this.shadow.material, {opacity : 0.5});
     //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
-    const rX = this.bird.rotation.x;
+    //const rX = this.bird.rotation.x;
     const rY = this.bird.rotation.y;
 
-    TweenMax.to(this._camera.position, 1.5, {z : 15, ease : Quad.easeOut});
-    TweenMax.to(this.bird.rotation, 1.5, {x : -0.3, y: -0.3, ease : Quad.easeInOut});
+    TweenMax.to(this._camera.position, 1.5, {z : 10, y:1, ease : Quad.easeOut});
+    TweenMax.to(this.bird.rotation, 1.5, {y: -0.3, ease : Quad.easeInOut});
 
-    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 4.4, overwrite:false});
-    TweenMax.to(this.bird.rotation, 1, {x : rX, y: rY, ease : Quad.easeOut, delay : 4.4});
+    TweenMax.to(this._camera.position, 1, {z : 0, y:0, ease : Quad.easeOut, delay : 4.4, overwrite:false});
+    TweenMax.to(this.bird.rotation, 1, {y: rY, ease : Quad.easeOut, delay : 4.4});
 
     this.bird.playAnimation(16,false);
 
   }
 
   moonwalk() {
-    console.log("MOONWALK anim ....");
-
+    console.log("MOONWALK anim ...."); // 6.23s
     const rY = this.bird.rotation.y;
-
-    // mostra bola
+    // show hat
     TweenMax.set(this.bird.hat,{ visible:true, delay: 2.16});
     TweenMax.set(this.bird.hat,{ visible:false, delay: 6.03 });
 
-    TweenMax.to(this._camera.position, 1, {z : 30, ease : Quad.easeOut});
-    TweenMax.to(this.bird.rotation, 1, { y: -2, ease : Quad.easeInOut});
+    TweenMax.to(this.bird.rotation, 1, {y: -0.3, ease : Quad.easeInOut});
+    TweenMax.to(this._camera.position, .5, {x: 12, z : 20, ease : Quad.easeOut});
 
-    
-    TweenMax.to(this._camera.position, 1, {z : 0, ease : Quad.easeOut, delay : 5.8, overwrite:false});
     TweenMax.to(this.bird.rotation, 1, {y: rY, ease : Quad.easeOut, delay : 5.8});
+    TweenMax.to(this._camera.position, 1, {x: 1, z : 0, ease : Quad.easeOut, delay : 5.8, overwrite:false});
 
-
-    //TweenMax.set(this.shadow.material, {opacity : 0.5});
-    //TweenMax.to(this.shadow.material, 0.5, {opacity:0, yoyo : true, repeat : 1, delay:0.3, ease : Circ.easeOut});
     this.bird.playAnimation(17,false);
   }
 

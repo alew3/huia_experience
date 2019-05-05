@@ -77,7 +77,7 @@ export function drawPoint(ctx, y, x, r, color,withCoord) {
 
 }
 
-export function drawText(ctx,y,x, color="white", font="9px Menlo Regular") {
+export function drawText(ctx,y,x, color="white", font="8px Menlo Regular") {
   //ctx.moveTo(x+10,y+10);
   ctx.fillStyle = color;
   ctx.font = font;
