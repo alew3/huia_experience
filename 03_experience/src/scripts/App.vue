@@ -89,16 +89,27 @@ import * as tf from '@tensorflow/tfjs';
 import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
 const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
-const POSE_CLASSES = {
-  0: 'backpack',
-  1: 'dramatic',
-  2: 'fly',
-  3: 'moonwalk',
-  4: 'normal',
-  5: 'hadouken',
-  6: 'underarm',
-  7: 'wings',
-  }
+// const POSE_CLASSES = {
+//   0: 'backpack',
+//   1: 'dramatic',
+//   2: 'fly',
+//   3: 'moonwalk',
+//   4: 'normal',
+//   5: 'hadouken',
+//   6: 'underarm',
+//   7: 'wings',
+//   }
+
+ const POSE_CLASSES = {
+0: 'backpack',
+1: 'dramatic',
+2: 'fly',
+3: 'hadouken',
+4: 'moonwalk',
+5: 'normal',
+6: 'underarm',
+7: 'wings',
+}
 
 const pColors = {
   'backpack': 'yellow',
@@ -991,6 +1002,10 @@ function toSquareish(x) {
   //     font-weight: normal;
   //     src: local('Menlo Regular'), url('static/Menlo-Regular.woff') format('woff');
   // }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
 
   html, body {
       margin : 0;

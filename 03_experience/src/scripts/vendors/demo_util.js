@@ -68,6 +68,7 @@ function toTuple({y, x}) {
 }
 
 export function drawPoint(ctx, y, x, r, color,withCoord) {
+  withCoord = false;
   ctx.beginPath();
   ctx.arc(x, y, circleWidth, 0, 2 * Math.PI);
   ctx.fillStyle = color;

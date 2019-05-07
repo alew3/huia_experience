@@ -61,7 +61,7 @@ export default class UserGesturesManager  {
       head.y = (head.y/400) * window.innerHeight;
 
       let evt = {'clientX' : head.x, 'clientY': head.y, 'target.id':'home'};
-      this.onMouseMove(evt);
+      //this.onMouseMove(evt);
     });
 
     EventBus.$on('pose-activation', pose => { 
