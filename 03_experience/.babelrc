@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0",
+    "env"
+  ],
+  "plugins": ["transform-class","transform-class-properties","transform-runtime","transform-vue-jsx"],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["env", "stage-0"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+}

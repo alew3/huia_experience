@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Capture Video from Webcam</title>
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        margin: 25px;
+        line-height: 20px;
+    }
+
+    #dash {
+        width: '100%';
+        display: block;
+    }
+
+    #info {
+        width: '100%';    
+    }
+
+    #video, #output, #skeleton {
+        padding: 0 0 15px 0;
+        width: 640px;
+        height: 500px; 
+    }
+
+    /* #video {
+        filter:grayscale(100%);
+    } */
+
+    #keypoints {
+        width: 300px;
+    }
+
+    figure {
+        float: left;
+        padding: 0;
+        margin: 0;
+        caption-side: top;
+        text-align: center;
+    }
+
+    #dash figcaption {
+        font-weight: bold;
+        width: 640px;
+        text-align: center;
+        caption-side: top;
+
+    }
+
+    #controls {
+        padding: 25px 0;
+
+        width: '100%';
+        display: block;
+        min-height: 300px;
+    }
+
+    #options {
+        width: 640px;
+        float: left;
+    }
+
+    #file {
+        width: 640px;
+        float: left;
+    }
+
+    #stats {
+        position: absolute;
+        top: 64px;
+    }
+
+    .lowercase {
+        text-transform: lowercase;
+    }
+
+    #positions { 
+     font-size: 14px;
+    }
+
+    </style>
+</head>
+
+<body id="main">
+    <h1>Capture Data</h1>
+    <div id="info">Loading...</div>
+
+    <div id="dash">
+            <figure>
+                <video id="video" playsinline style="-moz-transform: scaleX(-1); 
+                -o-transform: scaleX(-1); 
+                -webkit-transform: scaleX(-1); 
+                transform: scaleX(-1);
+                display: none;
+                ">
+                </video>
+                <canvas id="output"></canvas>
+                <figcaption>Video Feed</figcaption>
+            </figure>    
+
+            <figure>
+                <div id="stats"></div>
+                <canvas id="skeleton"></canvas>
+                <figcaption>Skeleton Image</figcaption>
+            </figure>
+
+            <!-- <div id="positions">
+                   
+            <ul>   
+                <li>normal (parado - faz nada)</li>
+                <li>wings (bracos na horizontal)</li>
+                <li>fly (2 bracos pra cima)</li>
+                <li> underarm  (cabeca no sovaco)</li>
+                <li> moonwalk  (mao esquerda na cabeca olhando pra esquerda)</li>
+                <li> radouken  (2 bracos p/ direita)</li>
+                <li> backpack  (2 bracos p/ dois lados)</li>
+                <li> dramatic (rezando)</li>
+                <li> piscada  (joinha)v
+            </ul>
+            </div> -->
+    </div>
+    <div style="clear: both"></div>
+    <div id="controls">
+
+            <div id="options"> 
+
+                Initial Number: <input type="text" id="image_counter" size="4" maxlength="3" value="0" data-mask="99999"/><br/>
+                Pose Name: &nbsp;&nbsp;&nbsp; <input type="text" id="filename" value="name" size="10" maxlength="10" value="normal" data-mask="SSSSSSSS" class="lowercase" /> <br/><br/>
+
+                <input id="single" type="radio" name="mode" value="single" checked="checked"/> Capture Single Frame <br/>
+                <button id="single_picture">Capture</button> <br/><br/>
+
+                <input id="multiple" type="radio" name="mode" value="multiple" />Capture Multiple Frames (3s timer)<br/> 
+
+                <button id="start_record" disabled>Start Recording</button>&nbsp;<button id="stop_record" disabled>Stop Recording</button>
+                <span id="countdown" style="font-size:60px; text-align:center;"></span>
+
+                <br/><br/>
+                
+     
+            </div>
+
+            <div id="file">
+
+                <button id="new_zip">Create new Zip file (Reset)</button>&nbsp; <button id="download_zip" value="save" disabled>Download Zip</button><br/><br/>
+                
+                Number of files in zip: <span id="total">0</span><br/>
+                <div id="files">
+                    
+                </div>
+
+                
+            </div>
+    </div>
+    <script src="camera.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+.cache
+dist
+
+
+#logs
+npm-debug.log*
+*.log
+logs
+
+# yarn
+.yarn-integrity
+yarn.lock
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vscode
+todo.txt
+bkp
+training_data
+models
+models_tfjs
+.ipy*

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: *utm_*
+
+Sitemap: http://www.huia.com.br/sitemap.xml
