@@ -88,19 +88,11 @@ let last_moves = new Array();
 import * as tf from '@tensorflow/tfjs';
 import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
-const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
-// const POSE_CLASSES = {
-//   0: 'backpack',
-//   1: 'dramatic',
-//   2: 'fly',
-//   3: 'moonwalk',
-//   4: 'normal',
-//   5: 'hadouken',
-//   6: 'underarm',
-//   7: 'wings',
-//   }
+ const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
+//const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_huia_mob_224_final_q8/model.json';
 
- const POSE_CLASSES = {
+
+const POSE_CLASSES = {
 0: 'backpack',
 1: 'dramatic',
 2: 'fly',
@@ -996,12 +988,6 @@ function toSquareish(x) {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
 
-  // @font-face {
-  //     font-family: 'Menlo Regular';
-  //     font-style: normal;
-  //     font-weight: normal;
-  //     src: local('Menlo Regular'), url('static/Menlo-Regular.woff') format('woff');
-  // }
   ::-webkit-scrollbar {
     display: none;
   }
