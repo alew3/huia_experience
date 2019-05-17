@@ -37,7 +37,7 @@ export default {
         loadCompleted : false,
         stepsLimit : 3,
         timeMin : (Globals.DEBUG) ? 4000 : 14000,
-        text : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>We are Huia, a tech studio dedicated to bringing ideas to life.</p><p>Huia was also a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Enjoy the experience.</p>"),
+        text : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>We are Huia, a tech studio dedicated to bringing ideas to life.</p><p>Huia was also a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Turn on the webcam and enjoy the experience.</p>"),
         text2 : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>We are Huia, a tech studio dedicated to bringing ideas to life.</p><p>Huia was also a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Enjoy the experience.</p>")
     }
   },
@@ -53,7 +53,6 @@ export default {
     }
     var del = 0;
 
-    if(!window.MOBILE_DETECT.mobile()){
       this.splits = [];
       for(var i = 0; i < this.$refs.centertext.children.length; i++){
         var num = (this.$refs.centertext.children[i].innerHTML.length*0.01);
@@ -61,7 +60,6 @@ export default {
         this.splits.push(splitText);
         // del += num;
       }
-    }
 
     this.showTxt(0);
 
@@ -210,19 +208,11 @@ export default {
     onProgressData (data){
       var p = ContentLoader.PROGRESS / 100;
 
-      if(window.MOBILE_DETECT.mobile()){
-        TweenMax.to(this.$refs.percentage, 1, {width : Math.round((window.innerWidth*0.7 * p)-10), ease : Expo.easeOut, onComplete:(ContentLoader.PROGRESS === 100 ? this.onCompleteData.bind(this) : null)});
-        TweenMax.to(this.$refs.percentageShine, 1, {width : Math.round((window.innerWidth*0.7 * p)-10), ease : Expo.easeOut});
-        TweenMax.to(this.$refs.reflect, 1, {width : Math.min(Math.round((window.innerWidth*0.7 * p)-10),40), x : Math.round((window.innerWidth*0.7 * p)-10)-Math.min(Math.round((window.innerWidth*0.7 * p)-10),40), ease : Expo.easeOut});
-        TweenMax.to(this.$refs.particleEmmiter, 1, {x : Math.round((window.innerWidth*0.7 * p)-10), ease : Expo.easeOut});
-      }else{
         TweenMax.to(this.$refs.percentage, 1, {width : 248 * p, ease : Expo.easeOut, onComplete:(ContentLoader.PROGRESS === 100 ? this.onCompleteData.bind(this) : null)});
         TweenMax.to(this.$refs.percentageShine, 1, {width : 248 * p, ease : Expo.easeOut});
         TweenMax.to(this.$refs.reflect, 1, {width : Math.min(248 * p,40), x : (248 * p)-Math.min(248 * p,40), ease : Expo.easeOut});
         TweenMax.to(this.$refs.particleEmmiter, 1, {x : 248 *p, ease : Expo.easeOut});
-      }
-      // this.progress = ContentLoader.PROGRESS.toString() + "%";
-      // TweenMax.to(this.$refs.container, 0.5, {width : ContentLoader.PROGRESS + "%", ease : Quint.easeOut, onComplete:(ContentLoader.PROGRESS == 100 ? this.onCompleteData : null)});
+
 
 
     },

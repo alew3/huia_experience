@@ -5,7 +5,7 @@ export default class SoundsLoader {
 
 
   static playSound(str, loop, volume, fadeintime){
-    if(window.MOBILE_DETECT.mobile()) return;
+    // if(window.MOBILE_DETECT.mobile()) return;
     if(str.indexOf('sing') > -1 && this.background) return;
     if(!this.SOUNDS[str]) return;
 

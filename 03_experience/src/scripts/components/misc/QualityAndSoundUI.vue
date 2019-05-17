@@ -12,9 +12,9 @@
     </div>
     <div class="quality-control" ref="qualityControl" v-if="!isMobile">
       <div class="txt" v-bind:style="{color : this.color}">
-        <div class="hd" ref="qualityhd">HD</div>
+        <!-- <div class="hd" ref="qualityhd">HD</div>
         <div class="md" ref="qualitymd">MD</div>
-        <div class="sd" ref="qualitysd">SD</div>
+        <div class="sd" ref="qualitysd">SD</div> -->
       </div>
       <div class="dragger">
         <div class="line"></div>
@@ -34,13 +34,13 @@ export default {
     return {
       color : "#8c6ee5",
       soundEnabled : true,
-      isMobile : window.MOBILE_DETECT.mobile()
+      isMobile : false // window.MOBILE_DETECT.mobile()
     }
   },
 
   mounted () {
     // sounds off
-    SoundsLoader.toggleEnabled(false);
+    //SoundsLoader.toggleEnabled(false);
 
     this.iniDragY = 0;
     this.currentDragY = 0;
@@ -54,12 +54,7 @@ export default {
     }
 
     TweenMax.fromTo(this.$refs.container, 1, {opacity : 0},{opacity:1, delay:1});
-    // var item = localStorage.getItem("huiasound",true);
-    // item = (item == "true");
-    //
-    // if(item != this.soundEnabled){
-    //   this.toggleSound();
-    // }
+
 
     if(!this.$refs.qualityhd)
       return;

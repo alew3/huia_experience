@@ -383,18 +383,18 @@ class ContentLoader{
 
 
   static load3DImages () {
-    var quality = "low";
+    var quality = "high";
 
-    if(window.IS_CRAWLER){
-      this.load3DModel();
-      return;
-    }
+    // if(window.IS_CRAWLER){
+    //   this.load3DModel();
+    //   return;
+    // }
 
     // if(!window.MOBILE_DETECT.mobile()){
       this.imageQueue = new createjs.LoadQueue(false);
       this.imageQueue.setMaxConnections(10);
       this.imageQueue.maintainScriptOrder = false;
-      if(!window.MOBILE_DETECT.mobile()){
+      // if(!window.MOBILE_DETECT.mobile()){
         this.imageQueue.loadFile({id : "particle1", src : "/static/images/particle1.png", type : createjs.AbstractLoader.IMAGE});
         this.imageQueue.loadFile({id : "particle2", src : "/static/images/particle2.png", type : createjs.AbstractLoader.IMAGE});
         this.imageQueue.loadFile({id : "particle3", src : "/static/images/particle3.png", type : createjs.AbstractLoader.IMAGE});
@@ -463,22 +463,22 @@ class ContentLoader{
 
 
 
-      }else{
-        this.imageQueue.loadFile({id : "huia-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "huia-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "huia-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_normal.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "huia-specular", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_spec.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "feather-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "feather-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "feather-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_normalmap.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "feather-alphamap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "feather-alphamap-plumes", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha_plumes.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "eye-ball", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/eye_ball.jpg", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "particle1", src : "/static/images/particle1.png", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "particle2", src : "/static/images/particle2.png", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "body", src : "/static/huia-model/body.png", type : createjs.AbstractLoader.IMAGE});
-        this.imageQueue.loadFile({id : "body-alpha", src : "/static/huia-model/body-alpha.png", type : createjs.AbstractLoader.IMAGE});
-      }
+      // }else{
+      //   this.imageQueue.loadFile({id : "huia-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "huia-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "huia-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_normal.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "huia-specular", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_spec.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "feather-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "feather-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "feather-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_normalmap.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "feather-alphamap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "feather-alphamap-plumes", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha_plumes.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "eye-ball", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/eye_ball.jpg", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "particle1", src : "/static/images/particle1.png", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "particle2", src : "/static/images/particle2.png", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "body", src : "/static/huia-model/body.png", type : createjs.AbstractLoader.IMAGE});
+      //   this.imageQueue.loadFile({id : "body-alpha", src : "/static/huia-model/body-alpha.png", type : createjs.AbstractLoader.IMAGE});
+      // }
       this.imageQueue.loadFile({id : "notexture-noise-bg", src : "/static/images/noise.png", type : createjs.AbstractLoader.IMAGE});
       this.imageQueue.loadFile({id : "notexture-user-ballon", src : "/static/images/user-message-border.svg", type : createjs.AbstractLoader.IMAGE});
       this.imageQueue.loadFile({id : "notexture-bot-ballon", src : "/static/images/bot-message-border.svg", type : createjs.AbstractLoader.IMAGE});
@@ -568,21 +568,21 @@ class ContentLoader{
     this.imagesQueue.setMaxConnections(10);
     this.imagesQueue.maintainScriptOrder = false;
 
-    if(window.IS_CRAWLER){
+    // if(window.IS_CRAWLER){
 
-      this.DATA_PROJECTS_DETAILS[slug].imagesLoaded = true;
-      this.PROGRESS = 100;
-      if(this.loadingWithProject){
-        this.loadingWithProject = null;
-        if(this.onCompleteDetail)
-          this.onCompleteDetail();
-      }else{
-        if(this.onCompleteDetail)
-          this.onCompleteDetail();
-      }
+    //   this.DATA_PROJECTS_DETAILS[slug].imagesLoaded = true;
+    //   this.PROGRESS = 100;
+    //   if(this.loadingWithProject){
+    //     this.loadingWithProject = null;
+    //     if(this.onCompleteDetail)
+    //       this.onCompleteDetail();
+    //   }else{
+    //     if(this.onCompleteDetail)
+    //       this.onCompleteDetail();
+    //   }
 
-      return;
-    }
+    //   return;
+    // }
 
     for(var i = 0; i < data.pages.length; i++){
       var page = data.pages[i];
@@ -648,21 +648,18 @@ class ContentLoader{
   static load3DModel(){
     var self = this;
 
-    if(window.IS_CRAWLER){
-      if(self.loadingWithProject){
-        self.loadProjectDetail(self.loadingWithProject,self._onProgress,self._onComplete);
-      }else{
-        self.PROGRESS = 100;
-        self._onProgress();
-      }
-      return;
-    }
+    // if(window.IS_CRAWLER){
+    //   if(self.loadingWithProject){
+    //     self.loadProjectDetail(self.loadingWithProject,self._onProgress,self._onComplete);
+    //   }else{
+    //     self.PROGRESS = 100;
+    //     self._onProgress();
+    //   }
+    //   return;
+    // }
 
-    // if(!window.MOBILE_DETECT.mobile()){
-      // JSZipUtils.getBinaryContent((!window.MOBILE_DETECT.mobile()) ? '/static/huia-model/model.jd.zip' : '/static/huia-model/lowpoly/model.jd.zip', function(err, data) {
-      //JSZipUtils.getBinaryContent((!window.MOBILE_DETECT.mobile()) ? '/static/huia-model/model.jd.zip' : '/static/huia-model/head.jd.zip', function(err, data) {
-        JSZipUtils.getBinaryContent('/static/huia-model/model.jd.zip' , function(err, data) {
-        console.log("downloading:"+data);
+    JSZipUtils.getBinaryContent('/static/huia-model/model.jd.zip' , function(err, data) {
+        //console.log("downloading:"+data);
           if(err) {
               throw err; // or handle err
           }
@@ -680,7 +677,7 @@ class ContentLoader{
               const model = "huia_obj_visiveis.jd";
               //const model = "HUIA_ANIMAS_COMPILACAO_INTERACOES_REFINADOS_01.JD";
               zip.file(model).async("string").then(function(txt){
-                console.log("loading new model ", model);
+                //console.log("loading new model ", model);
                 ContentLoader.DATA_MODEL_HUIA = JSON.parse(txt);
                 self.PROGRESS = 100;
                 if(self.loadingWithProject){
@@ -692,19 +689,9 @@ class ContentLoader{
                   self.loadProjectDetail(self.loadingWithProject,self._onProgress,self._onComplete);
                 }
 
-               /* zip.file("cartola.jd").async("string").then(function(txt){
-                  ContentLoader.DATA_MODEL_CARTOLA = JSON.parse(txt);
-                  self.PROGRESS = 100;
-                  self._onProgress();
-                }); */ 
               });
-              // console.log(file["model."])
           });
       });
-    // }else{
-    //   self.PROGRESS = 100;
-    //   self._onProgress();
-    // }
   }
 
   static getRandomMessage(array){
