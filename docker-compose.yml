@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+    huia-experience:
+      build:
+        context: ./
+        dockerfile: experience.docker
+      container_name: huia-experience
+      restart: unless-stopped
+      ports:
+          - "8085:80"

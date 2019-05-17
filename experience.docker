@@ -1,0 +1,27 @@
+#---------------------------------
+# Building project
+#---------------------------------
+
+from alpine
+
+RUN mkdir /run/nginx
+
+RUN apk update && \
+    apk add --no-cache nodejs nodejs-npm yarn nginx git  
+
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./03_experience /var/www
+RUN cd /var/www && yarn install
+RUN cd /var/www && yarn build
+
+#-----------------------------------------------------------------
+# Redirect NGINX logs to stderr
+#-----------------------------------------------------------------
+RUN ln -sf /dev/stderr /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+
+EXPOSE 80
+
+STOPSIGNAL SIGTERM
+
+CMD ["nginx", "-g", "daemon off;"]
