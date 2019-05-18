@@ -18,7 +18,7 @@ RUN cd /var/www && yarn build
 # Redirect NGINX logs to stderr
 #-----------------------------------------------------------------
 RUN ln -sf /dev/stderr /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 EXPOSE 80
 
