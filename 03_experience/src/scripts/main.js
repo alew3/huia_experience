@@ -26,53 +26,60 @@ if(window.location.href.indexOf("localhost") > -1){
   window.ASSETS_URL = "http://52.42.29.202:2052/";
   window.ROOT_URL = "http://localhost:8080/";
   window.WS_URL = "ws://localhost:2657";
-}else if(window.location.href.indexOf("172") > -1){
+} else if(window.location.href.indexOf("172") > -1){
   window.API_URL = "http://172.20.129.21:3000/api/";
   window.ASSETS_URL = "http://172.20.129.21:3000/";
   window.ROOT_URL = "http://172.20.129.21:8080/";
   window.WS_URL = "ws://172.20.129.21:2657";
-}else if(window.location.href.indexOf("192") > -1){
-  window.API_URL = "http://52.42.29.202:2052/api/";
-  window.ASSETS_URL = "http://52.42.29.202:2052/";
-  window.ROOT_URL = "http://192.161.1.101:8080/";
-  window.WS_URL = "ws://localhost:2657";
-}else if(window.location.href.indexOf("http://107.170.19.138/") > -1) {
-  window.API_URL = "http://107.170.19.138:3001/api/";
-  window.ASSETS_URL = "http://107.170.19.138:3001/";
-  window.ROOT_URL = "http://107.170.19.138/";
-  window.WS_URL = "ws://107.170.19.138:2657";
-}else if(window.location.href.indexOf("https://www.huia.com.br/") > -1) {
-  window.API_URL = "https://www.huia.com.br:3001/api/";
-  window.ASSETS_URL = "https://www.huia.com.br:3001/";
-  window.ROOT_URL = "https://www.huia.com.br/";
-  window.WS_URL = "ws://www.huia.com.br:2657";
-}else if(window.location.href.indexOf("http://52.42.29.202") > -1) {
-  window.API_URL = "http://52.42.29.202:2052/api/";
-  window.ASSETS_URL = "http://52.42.29.202:2052/";
-  window.ROOT_URL = "http://52.42.29.202/";
-  window.WS_URL = "ws://52.42.29.202:2086";
-}else if(window.location.href.indexOf("http://sitenovo.huia.com.br") > -1) {
-  window.API_URL = "http://api.huia.com.br/api/";
-  window.ASSETS_URL = "http://api.huia.com.br/";
-  window.ROOT_URL = "http://sitenovo.huia.com.br/";
-  window.WS_URL = "ws://api.huia.com.br:2086";
-}else if(window.location.href.indexOf("http://www.huia.com.br") > -1) {
-  window.API_URL = "http://api.huia.com.br/api/";
-  window.ASSETS_URL = "http://api.huia.com.br/";
-  window.ROOT_URL = "http://www.huia.com.br/";
-  window.WS_URL = "ws://api.huia.com.br:2086";
-}else if(window.location.href.indexOf("http://www.sitenovo.huia.com.br") > -1) {
-  window.API_URL = "http://api.huia.com.br/api/";
-  window.ASSETS_URL = "http://api.huia.com.br/";
-  window.ROOT_URL = "http://www.sitenovo.huia.com.br/";
-  window.WS_URL = "ws://www.sitenovo.huia.com.br:2086";
-}
-else if(window.location.href.indexOf("https://sitenovo.huia.com.br") > -1) {
-  window.API_URL = "https://api.huia.com.br/api/";
-  window.ASSETS_URL = "https://api.huia.com.br/";
-  window.ROOT_URL = "https://www.sitenovo.huia.com.br/";
-  window.WS_URL = "ws://sitenovo.huia.com.br:2086";
-}
+}; 
+
+// else if(window.location.href.indexOf("172") > -1){
+//   window.API_URL = "http://172.20.129.21:3000/api/";
+//   window.ASSETS_URL = "http://172.20.129.21:3000/";
+//   window.ROOT_URL = "http://172.20.129.21:8080/";
+//   window.WS_URL = "ws://172.20.129.21:2657";
+// }else if(window.location.href.indexOf("192") > -1){
+//   window.API_URL = "http://52.42.29.202:2052/api/";
+//   window.ASSETS_URL = "http://52.42.29.202:2052/";
+//   window.ROOT_URL = "http://192.161.1.101:8080/";
+//   window.WS_URL = "ws://localhost:2657";
+// }else if(window.location.href.indexOf("http://107.170.19.138/") > -1) {
+//   window.API_URL = "http://107.170.19.138:3001/api/";
+//   window.ASSETS_URL = "http://107.170.19.138:3001/";
+//   window.ROOT_URL = "http://107.170.19.138/";
+//   window.WS_URL = "ws://107.170.19.138:2657";
+// }else if(window.location.href.indexOf("https://www.huia.com.br/") > -1) {
+//   window.API_URL = "https://www.huia.com.br:3001/api/";
+//   window.ASSETS_URL = "https://www.huia.com.br:3001/";
+//   window.ROOT_URL = "https://www.huia.com.br/";
+//   window.WS_URL = "ws://www.huia.com.br:2657";
+// }else if(window.location.href.indexOf("http://52.42.29.202") > -1) {
+//   window.API_URL = "http://52.42.29.202:2052/api/";
+//   window.ASSETS_URL = "http://52.42.29.202:2052/";
+//   window.ROOT_URL = "http://52.42.29.202/";
+//   window.WS_URL = "ws://52.42.29.202:2086";
+// }else if(window.location.href.indexOf("http://sitenovo.huia.com.br") > -1) {
+//   window.API_URL = "http://api.huia.com.br/api/";
+//   window.ASSETS_URL = "http://api.huia.com.br/";
+//   window.ROOT_URL = "http://sitenovo.huia.com.br/";
+//   window.WS_URL = "ws://api.huia.com.br:2086";
+// }else if(window.location.href.indexOf("http://www.huia.com.br") > -1) {
+//   window.API_URL = "http://api.huia.com.br/api/";
+//   window.ASSETS_URL = "http://api.huia.com.br/";
+//   window.ROOT_URL = "http://www.huia.com.br/";
+//   window.WS_URL = "ws://api.huia.com.br:2086";
+// }else if(window.location.href.indexOf("http://www.sitenovo.huia.com.br") > -1) {
+//   window.API_URL = "http://api.huia.com.br/api/";
+//   window.ASSETS_URL = "http://api.huia.com.br/";
+//   window.ROOT_URL = "http://www.sitenovo.huia.com.br/";
+//   window.WS_URL = "ws://www.sitenovo.huia.com.br:2086";
+// }
+// else if(window.location.href.indexOf("https://sitenovo.huia.com.br") > -1) {
+//   window.API_URL = "https://api.huia.com.br/api/";
+//   window.ASSETS_URL = "https://api.huia.com.br/";
+//   window.ROOT_URL = "https://www.sitenovo.huia.com.br/";
+//   window.WS_URL = "ws://sitenovo.huia.com.br:2086";
+// }
 
 router.beforeEach((to, from, next) => {
   ga('send', 'pageview', to.path);
@@ -86,21 +93,21 @@ router.beforeEach((to, from, next) => {
 });
 
 
-window.MOBILE_DETECT = new MobileDetect(window.navigator.userAgent);
+ window.MOBILE_DETECT = new MobileDetect(window.navigator.userAgent);
 
-function botCheck(){
-var botPattern = "(googlebot\/|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|dotbot|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|HeadlessChrome|bHeadlessChrome|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|Twitterbot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis)";
-          var re = new RegExp(botPattern, 'i');
-          var userAgent = navigator.userAgent;
-          if (re.test(userAgent)) {
-              return true;
-          }else{
-            return false;
-          }
-}
+// function botCheck(){
+// var botPattern = "(googlebot\/|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|dotbot|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|HeadlessChrome|bHeadlessChrome|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|Twitterbot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis)";
+//           var re = new RegExp(botPattern, 'i');
+//           var userAgent = navigator.userAgent;
+//           if (re.test(userAgent)) {
+//               return true;
+//           }else{
+//             return false;
+//           }
+// }
 
-window.IS_CRAWLER = botCheck();
-// window.IS_CRAWLER = true;
+// window.IS_CRAWLER = botCheck();
+// // window.IS_CRAWLER = true;
 
 (function(url) {
   // Create a new `Image` instance
