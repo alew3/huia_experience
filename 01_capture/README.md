@@ -2,59 +2,63 @@
 
 # 01 Capturing Data
 
-I created a simple Javascript page to capture images from the webcam. Instead of capturing the raw video feed, we are processing it with [TensorflowJS Posenet model](https://github.com/tensorflow/tfjs-models/tree/master/posenet) to do feature extraction and use this data to get the skeleton keypoints. We will be saving both keypoints and a generated image (PNG) to use for training for later use for training and compare if using images or data will generalize better our model.
+I created a simple Javascript app to capture images from the webcam. Instead of capturing the raw video feed, we are processing it with [TensorflowJS Posenet model](https://github.com/tensorflow/tfjs-models/tree/master/posenet) to do feature extraction and use this data to get the skeleton keypoints. We will be plotting the skeleton image (on the right) and save that image as well as the keypoints to train our model for pose recognition.
 
 
-## How to install and run
+# How to install and run
 
-You will need [NodeJS](https://nodejs.org/) >= 8.9 and [Yarn](https://yarnpkg.com/) >=1.15 installed (it might work on older versions but I didn't test it). 
+You will need [NodeJS](https://nodejs.org/) >= 8.9 and [Yarn](https://yarnpkg.com/) >=1.15 installed.
 
 
 Go to the directory **/01_capture** and run the following commands.
+``` bash
+# change to this folder
+$ cd 01_capture 
 
+# install modules 
+$ yarn
+
+# start node server
+# this will also open your browser on http://localhost:1234/
+$ yarn watch   
 ```
-$ cd 01_capture # change to this folder
-$ yarn install  # install modules 
-$ yarn watch    # start node server
-```
+
+# Capturing Data for Training
+
+![](../assets/huia_capture.png)
+
+Everytime you click the **Capture** button, it will generate and save a PNG image of the current *Skeleton Image*. It uses the *Pose Name* and *Initial Number* to name it as: 
+- **POSENAME_NUMBER.png**, e.g. fly_0.png
+
+After you finishing capturing the images, you can download them by clicking on the **Download Zip** button. If you need to start from scratch, just click **Create New Zip file**.
+
+I also included a timer feature that will take capture an image every 3 seconds until you tell it to stop. Just select the **Capture Multiple Frames** option. This is useful when you are alone and need to do self capturing of poses :-)
+
+Everytime you capture an image, a thumbnail will show up with the file name. 
+
+If you need to continue later, you can change the Initial Number, so that you don't have files with the same names.
+
+# Zip File Structure
+
+We save our captured images into the folder **/02_train/training_data** that will later be used to train our Neural Network model for pose detection.
 
 
-## Capturing Data for Training
-
-We are saving our captured images into the folder **/training_data** that will later be used to train our Neural Network model for pose detection.
-
-We are using the following file naming convention:
-
-**posename_number**
-
-For example, we could have the following files for the poses **jump** and **run**:
+For example, for the poses **jump** and **run** it would look something like this:
 ```
 \training_data
     \images
-        \jump_01.png
-        \jump_02.png
+        \jump_1.png
+        \jump_2.png
         ...
-        \run_01.png
-        \run_02.png
+        \run_1.png
+        \run_2.png
         ...
-    \keypoints
-        \jump_01.json
-        \jump_02.json
+    \json
+        \jump_1.json
+        \jump_2.json
         ...
-        \jump_01.json
-        \jump_02.json
+        \jump_1.json
+        \jump_2.json
         ...
         ... etc
 ```
-
-
-## How to use
-
-*Screen shot here*
-
-### Timer mode
-*Description here*
-
-
-### Manual mode
-*Description here*

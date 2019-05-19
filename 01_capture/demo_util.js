@@ -19,8 +19,8 @@ import * as tf from '@tensorflow/tfjs';
 
 const color = 'aqua';
 const boundingBoxColor = 'red';
-const lineWidth = 1;//8;
-const circleWidth = 3;// 6;
+const lineWidth = 8;
+const circleWidth = 6;
 
 const KeypColors = {
   'nose': 'yellow',
@@ -63,7 +63,6 @@ function toTuple({y, x}) {
 }
 
 export function drawPoint(ctx, y, x, r, color) {
-  color ='aqua';
   ctx.beginPath();
   ctx.arc(x, y, circleWidth, 0, 2 * Math.PI);
   ctx.fillStyle = color;
@@ -91,7 +90,6 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1, withLegs=
   let i = 0;
   adjacentKeyPoints.forEach((keypoints) => {
     let paintColor = segmentColors[keypoints[0].part + '|' + keypoints[1].part];
-    paintColor = 'aqua';
 
     if (!withLegs && !(keypoints[0].part=="leftKnee" || keypoints[0].part=="rightKnee" || (keypoints[0].part=="rightHip" && keypoints[1].part=="rightKnee") || (keypoints[0].part=="leftHip" && keypoints[1].part=="leftKnee")    )) {
           drawSegment(
