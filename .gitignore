@@ -1,7 +1,15 @@
 # dependencies
-node_modules/* 
-.cache/*
-dist/*
+node_modules 
+.cache
+dist
+
+# folders
+*/public/upload/*
+bkp
+models
+models_tfjs
+dist
+augmented_imgs
 
 # images
 02_train/training_data/augmented_imgs
@@ -16,6 +24,8 @@ logs
 yarn.lock
 yarn-debug.log*
 yarn-error.log*
+npm-debug.log*
+.yalc
 
 # misc
 .DS_Store
@@ -25,12 +35,4 @@ yarn-error.log*
 .env.production.local
 .vscode/*
 todo.txt
-bkp
-training_data
-models
-models_tfjs
 .ipy*
-01_capture/.cache/
-01_capture/dist/
-01_capture/node_modules/
-
