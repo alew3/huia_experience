@@ -8,4 +8,4 @@ services:
       container_name: huia-experience
       restart: unless-stopped
       ports:
-          - "8085:80"
+          - "8181:80"

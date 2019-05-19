@@ -21,17 +21,29 @@ Vue.use(VueClipboards);
 
 Vue.config.productionTip = false;
 
-if(window.location.href.indexOf("localhost") > -1){
+if(window.location.href.indexOf("localhost:8181") > -1){
   window.API_URL = "http://52.42.29.202:2052/api/";
   window.ASSETS_URL = "http://52.42.29.202:2052/";
-  window.ROOT_URL = "http://localhost:8080/";
+  window.ROOT_URL = "http://localhost:8181/";
   window.WS_URL = "ws://localhost:2657";
-} else if(window.location.href.indexOf("172") > -1){
-  window.API_URL = "http://172.20.129.21:3000/api/";
-  window.ASSETS_URL = "http://172.20.129.21:3000/";
-  window.ROOT_URL = "http://172.20.129.21:8080/";
-  window.WS_URL = "ws://172.20.129.21:2657";
-}; 
+} else if(window.location.href.indexOf("127.0.0.1:8181") > -1){
+  window.API_URL = "http://52.42.29.202:2052/api/";
+  window.ASSETS_URL = "http://52.42.29.202:2052/";
+  window.ROOT_URL = "http://127.0.0.1:8181/";
+  window.WS_URL = "ws://127.0.0.1:2657";
+}  else if(window.location.href.indexOf("https://experience.huia.haus/") > -1) { // with CDN
+   window.API_URL = "https://experience.huia.haus:3001/api/";
+   window.ASSETS_URL = "https://experience.huia.haus:3001/";
+   window.ROOT_URL = "https://experience.huia.haus/";
+   window.WS_URL = "ws://www.huia.com.br:2657";
+} 
+  else if(window.location.href.indexOf("https://experience.huia.com.br/") > -1) { // no CDN
+   window.API_URL = "https://experience.huia.com.br:3001/api/";
+   window.ASSETS_URL = "https://experience.huia.com.br:3001/";
+   window.ROOT_URL = "https://experience.huia.com.br/";
+   window.WS_URL = "ws://www.huia.com.br:2657";
+}
+console.log("setting root url:", window.ROOT_URL);
 
 // else if(window.location.href.indexOf("172") > -1){
 //   window.API_URL = "http://172.20.129.21:3000/api/";

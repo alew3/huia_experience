@@ -80,9 +80,10 @@ let last_moves = new Array();
 import * as tf from '@tensorflow/tfjs';
 import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
-const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
-// const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_huia_mob_224_final_q8/model.json';
+const MODEL_HUIA_URL =  window.location.protocol + "//" + window.location.host  + "/static/tfjs_poses/model.json";
+console.log("Model url",MODEL_HUIA_URL);
 
+// const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_huia_mob_224_final_q8/model.json';
 
 const POSE_CLASSES = {
 0: 'backpack',
