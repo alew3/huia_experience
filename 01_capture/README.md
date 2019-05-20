@@ -1,6 +1,6 @@
 # Huia Experience - 01 Capturing Data
 
-I created a simple Javascript app to capture images from the webcam. Instead of capturing the raw video feed, we are processing it with [TensorflowJS Posenet model](https://github.com/tensorflow/tfjs-models/tree/master/posenet) to do feature extraction and use this data to get the skeleton keypoints. We will be plotting the skeleton image (on the right) and save that image as well as the keypoints to train our model for pose recognition.
+I created a Javascript app to capture images from the webcam. Instead of capturing the raw video feed, we are processing it with [TensorflowJS Posenet model](https://github.com/tensorflow/tfjs-models/tree/master/posenet) to do feature extraction in order to get the skeleton keypoints. We will be plotting these onto an image (on the right) and save it together with the keypoints in a json file. This data is going to be used to train our model for pose recognition.
 
 # Learn more about this project
 

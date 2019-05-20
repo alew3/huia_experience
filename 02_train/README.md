@@ -30,15 +30,16 @@ This is our model architecture:
 
 # Notebooks
 
-## - train_huia_poses_keras
+## - train_huia_poses_keras_tf2.ipynb
 We are using TF2/Keras to train our model, as it will be running on the browser with  TensorflowJS
 
-## - train_huia_poses_fastai
+## - train_huia_poses_fast_ai.ipynb
 It is much simpler to have the same result with FASTAI, but converting it to run on the browser isn't so simple.
 
+## - convert_fastai_tfsj.ipynb
+Not working at the moment. I tried converting from the FASTAI model above in Pytorch to ONNX then to TFJS, but it isn't working.
 
-## - convert_fastai_tfsj
-Not working. I tried converting from the FASTAI model above in Pytorch to ONNX then to TFJS, but it isn't working.
 
-## start jupyter notebook
+# Copy final model to project
 
+After we train our model, we can copy the TFJS model to **03_experience/static/** and update the **MODEL_HUIA_URL** variable in **03_experience/src/scripts/App.vue**

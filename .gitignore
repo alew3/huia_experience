@@ -2,12 +2,11 @@
 node_modules 
 .cache
 dist
+__pycache__
 
 # folders
 */public/upload/*
 bkp
-models
-models_tfjs
 dist
 augmented_imgs
 
@@ -29,10 +28,11 @@ npm-debug.log*
 
 # misc
 .DS_Store
+*.pyc
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.vscode/*
+.vscode
 todo.txt
 .ipy*

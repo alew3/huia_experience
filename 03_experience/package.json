@@ -14,7 +14,7 @@
   "dependencies": {
     "@danehansen/event-dispatcher": "^0.2.0",
     "@tensorflow-models/posenet": "^1.0.3",
-    "@tensorflow/tfjs": "^1.1.0",
+    "@tensorflow/tfjs": "^1.1.2",
     "api-ai": "0.0.7",
     "api-ai-javascript": "^2.0.0-beta.21",
     "autolink-js": "^1.0.2",
