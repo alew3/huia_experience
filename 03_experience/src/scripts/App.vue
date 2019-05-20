@@ -29,15 +29,9 @@
 
       <div id="last_moves"></div>
       <Environment3d ref="environment3d" v-if="isDesktopEnvironment()"/>
-      <!--<Environment3dMobile ref="environment3dmobile" v-if="isMobileEnvironment()"/>-->
       <IntroLogo v-on:endAnim="onEndIntroLogo" v-if="preloaded && !introCompleted"/>
       <router-view v-if="introCompleted"/>
-     <!-- <div class="mobile-gradient" v-if="introCompleted && isMobile() && !experience"/>
-      <div class="mobile-gradient-bottom" v-if="introCompleted && isMobile() && !experience"/> -->
-      <!--<MainMenu v-if="introCompleted && !isMobile() && !experience"/>
-      <MainMenuMobile v-if="introCompleted && isMobile() && !experience"/>-->
-      <!-- <SectionTitle v-if="introCompleted && !experience"/> -->
-      <QualityAndSoundUI ref="qualitysound" v-if="introCompleted && !isMobile()" v-on:dragQualityChanged="onDragQualityChanged"/>
+      <!-- <QualityAndSoundUI ref="qualitysound" v-if="introCompleted" v-on:dragQualityChanged="onDragQualityChanged"/> -->
     </div>
     <div class="rotate-layer" v-if="isMobile()"><div class="gradient"></div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><path d="M27.252,71.997H7.48c-0.198,0-0.359-0.161-0.359-0.36V24.602c0-0.199,0.161-0.36,0.359-0.36h26.531   c0.199,0,0.36,0.161,0.36,0.36V51.57h1.889V19.206c0-2.186-1.772-3.957-3.958-3.957h-0.904c-0.057-0.123-0.18-0.21-0.325-0.21   h-3.447c-0.145,0-0.268,0.087-0.325,0.21H9.1c-2.186,0-3.958,1.771-3.958,3.957v5.112c-0.123,0.058-0.209,0.18-0.209,0.325v1.308   c0,0.145,0.086,0.268,0.209,0.324v1.521c-0.123,0.057-0.209,0.18-0.209,0.325v1.308c0,0.144,0.086,0.267,0.209,0.324v47.161   c0,2.186,1.772,3.957,3.958,3.957h18.152V71.997z M20.582,17.797c0.332,0,0.599,0.268,0.599,0.599c0,0.332-0.268,0.6-0.599,0.6   c-0.331,0-0.6-0.269-0.6-0.6C19.982,18.065,20.25,17.797,20.582,17.797z M18.483,20.615h4.497c0.199,0,0.359,0.161,0.359,0.359   c0,0.198-0.161,0.359-0.359,0.359h-4.497c-0.198,0-0.36-0.161-0.36-0.359C18.123,20.775,18.285,20.615,18.483,20.615z    M20.941,79.37c-1.719,0-3.117-1.397-3.117-3.116s1.398-3.117,3.117-3.117c1.72,0,3.118,1.398,3.118,3.117   S22.661,79.37,20.941,79.37z"></path><path d="M20.956,73.826c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.397,2.398,2.397c1.323,0,2.398-1.074,2.398-2.397   C23.354,74.902,22.278,73.826,20.956,73.826z"></path><path d="M33.667,66.631c-1.322,0-2.398,1.076-2.398,2.397c0,1.323,1.076,2.399,2.398,2.399s2.398-1.076,2.398-2.399   C36.064,67.707,34.989,66.631,33.667,66.631z"></path><path d="M94.672,75.391V57.188c0-2.187-1.77-3.957-3.958-3.957h-5.112c-0.055-0.124-0.179-0.21-0.324-0.21H83.97   c-0.144,0-0.268,0.086-0.322,0.21h-1.522c-0.057-0.124-0.181-0.21-0.326-0.21h-1.306c-0.146,0-0.268,0.086-0.324,0.21H33.007   c-2.186,0-3.957,1.771-3.957,3.957v23.203c0,2.187,1.771,3.957,3.957,3.957h57.707c2.188,0,3.958-1.771,3.958-3.957v-0.904   c0.123-0.057,0.21-0.179,0.21-0.325v-3.447C94.882,75.569,94.795,75.447,94.672,75.391z M33.667,72.146   c-1.719,0-3.118-1.397-3.118-3.118c0-1.718,1.399-3.118,3.118-3.118s3.118,1.4,3.118,3.118   C36.784,70.749,35.386,72.146,33.667,72.146z M85.68,82.1c0,0.199-0.163,0.359-0.361,0.359H38.283c-0.199,0-0.359-0.16-0.359-0.359   V55.568c0-0.199,0.161-0.359,0.359-0.359h47.035c0.198,0,0.361,0.16,0.361,0.359V82.1z M89.306,71.068   c0,0.197-0.161,0.359-0.359,0.359s-0.359-0.162-0.359-0.359v-4.497c0-0.199,0.161-0.36,0.359-0.36s0.359,0.161,0.359,0.36V71.068z    M91.523,69.268c-0.33,0-0.6-0.267-0.6-0.598s0.27-0.6,0.6-0.6c0.332,0,0.601,0.269,0.601,0.6S91.855,69.268,91.523,69.268z"></path><path d="M44.382,27.092l-1.828,1.692c9.584,0.961,14.145,6.547,16.289,11.157c2.386,5.135,2.343,10.049,2.343,10.256l-0.008,0.53   H59.74l0.008-0.549c0.004-0.046,0.031-4.835-2.231-9.674c-2.84-6.068-7.858-9.515-14.925-10.268l1.604,1.73l-2.07-0.079   l-2.344-2.53l2.53-2.345L44.382,27.092z"></path> </g></svg><p>Please, rotate your device.</p></div>
   </div>
@@ -48,13 +42,9 @@
 import ContentLoader from "./loaders/ContentLoader";
 import SoundsLoader from "./loaders/SoundsLoader";
 import Preloader from './components/preloader/Preloader';
-import MainMenu from './components/misc/MainMenu';
-import MainMenuMobile from './components/misc/MainMenuMobile';
 import QualityAndSoundUI from './components/misc/QualityAndSoundUI';
 import IntroLogo from './components/misc/IntroLogo';
-import SectionTitle from './components/misc/SectionTitle';
 import Environment3d from './components/environment3d/Environment3d';
-import Environment3dMobile from './components/environment3d/Environment3dMobile';
 import LanguageHelper from "./helpers/LanguageHelper";
 import Globals from "./core/Globals";
 import './vendors/DrawSVGPlugin.js';
@@ -67,11 +57,13 @@ import Stats from 'stats.js';
 import {drawBoundingBox, drawKeypoints, drawSkeleton, drawPoint, rescale} from './vendors/demo_util';
 import { EventBus } from './core/event-bus.js';
 
+// webcam image size
 let scale = 2.232;
 const videoWidth = 640/scale;
 const videoHeight = 500/scale;
 rescale(scale);
 
+// FPS Counter
 const stats = new Stats();
 let lastPredict = new Date();
 const hiddenCanvas = document.createElement('canvas');
@@ -88,9 +80,8 @@ let last_moves = new Array();
 import * as tf from '@tensorflow/tfjs';
 import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
- const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_poses/model.json';
-//const MODEL_HUIA_URL = 'http://localhost:8181/static/tfjs_huia_mob_224_final_q8/model.json';
-
+const MODEL_HUIA_URL =  window.location.protocol + "//" + window.location.host  + "/static/tfjs_poses/model.json"; //"/static/tfjs_poses/model.json";
+console.log("Model url",MODEL_HUIA_URL);
 
 const POSE_CLASSES = {
 0: 'backpack',
@@ -118,13 +109,18 @@ const TOPK_PREDICTIONS = Object.keys(POSE_CLASSES).length;
 
 
 
+
 navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
+if (navigator.mediaDevices) {
 navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
     navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
+  } else {
+    alert("you need a webcam to enjoy the experience");
+  }
 
-  navigator.mediaDevices.getUser
+//  navigator.mediaDevices.getUser
 // =======================  end pose info
 
 export default {
@@ -132,12 +128,8 @@ export default {
   name: 'app',
   components : {
     'Preloader' : Preloader,
-    'MainMenu' : MainMenu,
-    'MainMenuMobile' : MainMenuMobile,
     'IntroLogo' : IntroLogo,
-    'SectionTitle' : SectionTitle,
     'Environment3d' : Environment3d,
-    'Environment3dMobile' : Environment3dMobile,
     'QualityAndSoundUI' : QualityAndSoundUI,
   },
   data (){
@@ -165,16 +157,16 @@ export default {
       window.environment3d.setQuality(this.$refs.qualitysound.quality);
     },
     isCrawler () {
-      return window.IS_CRAWLER;
+      return false; //window.IS_CRAWLER;
     },
     isDesktopEnvironment (){
-      return !window.MOBILE_DETECT.mobile() && !window.IS_CRAWLER;
+      return true; // !window.MOBILE_DETECT.mobile() && !window.IS_CRAWLER;
     },
     isMobileEnvironment(){
-      return window.MOBILE_DETECT.mobile() && !window.IS_CRAWLER;
+      return false; //window.MOBILE_DETECT.mobile() && !window.IS_CRAWLER;
     },
     isMobile () {
-      return window.MOBILE_DETECT.mobile();
+      return false; //window.MOBILE_DETECT.mobile();
     },
     onCrawlerLoaded(){
       if(ContentLoader.PROGRESS == 100){
@@ -197,14 +189,14 @@ export default {
   mounted () {
     LanguageHelper.initialize();
     window.app = this;
-    if(window.MOBILE_DETECT.mobile()){
-      TweenMax.ticker.fps(60);
-    }
+   // if(window.MOBILE_DETECT.mobile()){
+     // TweenMax.ticker.fps(60);
+    //}
     var self = this;
-    if(window.IS_CRAWLER){
-      ContentLoader.preloadSite(this.onCrawlerProgress,this.onCrawlerLoaded);
-      return;
-    }
+    // if(window.IS_CRAWLER){
+    //   ContentLoader.preloadSite(this.onCrawlerProgress,this.onCrawlerLoaded);
+    //   return;
+    // }
     this.$refs.preloader.$on('preloaderComplete', ()=>{
       this.preloaded = true;
       Globals.SHOW_INTRO = false;
@@ -235,12 +227,13 @@ function isMobile() {
 
 const loadCustomMobilenet = async () => {
 
-  //status('Loading model...');
-  console.log('loading model: ', MODEL_HUIA_URL);
+  //console.log('loading model: ', MODEL_HUIA_URL);
   
-  customMobilenet = await tf.loadLayersModel(MODEL_HUIA_URL); //, {strict:false});
+  customMobilenet = await tf.loadLayersModel(MODEL_HUIA_URL); 
 
   const selLay = $('#layers');
+
+  /* list neural net layers on a drop down
   customMobilenet.layers.forEach((layer)=> {
     if (layer.layers!=null) {
       layer.layers.forEach((nestedLayer) => {
@@ -256,12 +249,7 @@ const loadCustomMobilenet = async () => {
       selLay.append(option);
     }
 
-  })
-
- // Warmup the model. This isn't necessary, but makes the first prediction
- // faster. Call `dispose` to release the WebGL memory allocated for the return
- // value of `predict`.
- //customMobilenet.predict(tf.zeros([1, IMAGE_SIZE, IMAGE_SIZE, 3])).dispose();
+  }) */
 
   predict(hiddenCanvas);
 

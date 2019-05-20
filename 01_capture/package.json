@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tensorflow-models/posenet": "^1.0.2",
-    "@tensorflow/tfjs": "^1.1.0",
+    "@tensorflow/tfjs": "^1.1.2",
     "core-js": "2",
     "dat.gui": "^0.7.6",
     "file-saver": "^2.0.1",
@@ -28,7 +28,6 @@
     "demo": "cross-env NODE_ENV=development parcel camera2.html --no-hmr --open ",
     "build": "cross-env NODE_ENV=production parcel build capture.html --no-minify --public-url /",
     "build-capture": "cross-env NODE_ENV=production parcel build capture.html  --no-minify --public-url /",
-    "console": "cross-env NODE_ENV=development parcel console.html --no-hmr --open --public-url /",
     "lint": "eslint ."
   },
   "devDependencies": {

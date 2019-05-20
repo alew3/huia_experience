@@ -1,8 +1,17 @@
 # dependencies
-node_modules
+node_modules 
 .cache
 dist
+__pycache__
 
+# folders
+*/public/upload/*
+bkp
+dist
+augmented_imgs
+
+# images
+02_train/training_data/augmented_imgs
 
 #logs
 npm-debug.log*
@@ -14,17 +23,16 @@ logs
 yarn.lock
 yarn-debug.log*
 yarn-error.log*
+npm-debug.log*
+.yalc
 
 # misc
 .DS_Store
+*.pyc
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 .vscode
 todo.txt
-bkp
-training_data
-models
-models_tfjs
 .ipy*

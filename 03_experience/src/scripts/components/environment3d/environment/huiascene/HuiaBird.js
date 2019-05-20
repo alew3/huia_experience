@@ -406,7 +406,6 @@ export default class HuiaBird extends THREE.Object3D {
           skeleton.bones[q].inirotation = {x : skeleton.bones[q].rotation.x, y : skeleton.bones[q].rotation.y, z : skeleton.bones[q].rotation.z};
           skeleton.bones[q].iniposition = skeleton.bones[q].position;
           var name = skeleton.bones[q].name.toLowerCase();
-          console.log(name);
 
           if(name.indexOf("head") > -1){
             this.headBone = skeleton.bones[q];
@@ -437,28 +436,10 @@ export default class HuiaBird extends THREE.Object3D {
           }else if(name.indexOf("t_beack") > -1){
             this.topBeak = skeleton.bones[q];
           } else if (name.indexOf("sphere001")>-1) {
-            console.log("ataching fire to bone");
+            //console.log("ataching fire to sphere bone");
             skeleton.bones[q].add(this.fire);
-
-
-            //"Sphere001"
-            // 3.722860097885132
-            // y: 6.098299980163574
-            //z: 14.793399810791016
-
-            // this.fire.position.x = 0
-            // this.fire.position.y = 4;
-            // this.fire.position.y = 0;
-        
             this.fire.rotation.z = -1.5;
         
-            // this.fire.material.uniforms.speed.value = 1.5;
-            // this.fire.material.uniforms.magnitude.value = 0.7; 
-            // this.fire.material.uniforms.lacunarity.value = 2.0;
-            // this.fire.material.uniforms.gain.value = 0.4;
-            // this.fire.fireMaterial.uniforms.noiseScaleX.value = 1.0;
-            // this.fire.fireMaterial.uniforms.noiseScaleY.value = 2.0;
-            // this.fire.fireMaterial.uniforms.noiseScaleZ.value = 1.0;
           } 
         }
 
@@ -490,17 +471,13 @@ export default class HuiaBird extends THREE.Object3D {
       window.bottomBeak = this.bottomBeak;
       window.topBeak = this.topBeak;
 
-              //console.log(mesh);
-      //console.log(mesh.geometry.name);
+
       if(mesh.geometry.name.indexOf("Sphere001") > -1) {
-        console.log("SPHERE REF", mesh)
         this.sphere = mesh;
-       // this.sphere.material =  this.basicShader; // 
         this.sphere.visible = false;
         
         
       } else if(mesh.geometry.name.indexOf("CHAPEU") > -1) {
-        console.log("CHAPEU REF", mesh)
        this.hat = mesh;
        this.hat.visible = false;
        this.hat.material = this.basicShader;
@@ -590,8 +567,7 @@ export default class HuiaBird extends THREE.Object3D {
       this.playAnimation(5,false);
 
       SoundsLoader.playSound("flyingloop", true, 0.3);
-      // }else if(index == 12){
-      //   this.playAnimation(13,false);
+
     }else if(index != 18){
       this.playAnimation(0,false);
       this.mixer.update(0);
@@ -641,19 +617,12 @@ export default class HuiaBird extends THREE.Object3D {
   jumpToSide() {
     this.mouseBlocked = true;
     this.playAnimation(12,false);
-    // TweenMax.to(this.position, this.walkingDuration*4.54, {x : -20, z : 20, ease : Linear.easeNone, onComplete:this.stopWalk.bind(this)});
   }
 
   lookBack (){
     this.mouseBlocked = true;
     this.playAnimation(13,false);
   }
-
-  // stopWalk () {
-  //
-  //   TweenMax.set(this.position, {x : 30, z : -25});
-  //   TweenMax.to(this.position, this.walkingDuration*4.54, {x : 0, z : 0, ease : Linear.easeNone, onComplete:this.reallyStopWalk.bind(this)})
-  // }
 
 
 
@@ -723,7 +692,6 @@ export default class HuiaBird extends THREE.Object3D {
     TweenMax.set(this.bones.bonesByName.CTRL_pelvis.position, {x : -0.4738});
     TweenMax.set(this.bones.bonesByName.CTRL_pelvis.rotation, {y : 0.3794});
     TweenMax.to(this.bones.bonesByName.CTRL_pelvis.rotation, 0.1, {y : rot, yoyo:true, ease : Quad.easeOut, repeat : 1, delay:del, repeatDelay:reptDel, onComplete:this.shakeTail.bind(this), overwrite:false});
-    // TweenMax.to(this.bones.bonesByName.CTRL_pelvis.position, 0.1, {x : -0.4738+(rot*2), yoyo:true, ease : Quad.easeOut, repeat : 1, delay:del, repeatDelay:reptDel});
     TweenMax.to(this.bones.bonesByName.Bone_C_Tail_01.rotation, 0.2, {y : num*5, ease : Back.easeOut, delay:del});
     TweenMax.to(this.bones.bonesByName.Bone_R_Tail_01.rotation, 0.2, {y : num*5, ease : Back.easeOut, delay:del});
     TweenMax.to(this.bones.bonesByName.Bone_L_Tail_01.rotation, 0.2, {y : num*5, ease : Back.easeOut, delay:del});
@@ -738,7 +706,6 @@ export default class HuiaBird extends THREE.Object3D {
     if(this.mouseBlocked) return;
     TweenMax.to(this.bones.bonesByName.Bone_neck_01.rotation, 0.1, {z : rand});
     TweenMax.to(this.bones.bonesByName.Bone_neck_02.rotation, 0.1, {z : rand});
-    // TweenMax.to(this.bones.bonesByName.Bone_spine_03.rotation, 0.1, {z : rand});
     TweenMax.to(this, 3 + Math.random()*3, {onComplete:this.moveNeck.bind(this)});
 
     if(!this.blockMixers){
@@ -747,7 +714,6 @@ export default class HuiaBird extends THREE.Object3D {
 
     TweenMax.to(this.bones.bonesByName.Bone_neck_01.rotation, 0.1, {z : 0, delay : 0.6, overwrite:false});
     TweenMax.to(this.bones.bonesByName.Bone_neck_02.rotation, 0.1, {z : 0, delay : 0.6, overwrite:false});
-    // TweenMax.to(this.bones.bonesByName.Bone_spine_03.rotation, 0.1, {z : 0, delay : 0.6, overwrite:false});
 
   }
 
@@ -789,7 +755,6 @@ export default class HuiaBird extends THREE.Object3D {
     TweenMax.to(this.bones.bonesByName.Bone_spine_01.rotation, dur*2, {z : (-coefx*0.1)});
     TweenMax.to(this.bones.bonesByName.CTRL_pelvis.rotation, dur*2, {z : (-coefx*0.05), z : -coefx*0.05, overwrite:false});
     TweenMax.to(this.bones.bonesByName.Bone_HEAD.rotation, dur, {x : Math.PI+(coefx*0.8), y : -1.4602+(coefy*0.2)});
-    // TweenMax.to(this.bones.bonesByName.Bone_HEAD.position, dur, {x : Math.PI+(coefx*0.8), y : -1.4602+(coefy*0.2)});
   }
 
   checkRotation(dir){
@@ -797,15 +762,6 @@ export default class HuiaBird extends THREE.Object3D {
 
     if(dir != this.lookingDirection){
       this.mouseBlocked = true;
-      // TweenMax.killTweensOf(this.bones.bonesByName.CTRL_pelvis.rotation);
-      // TweenMax.killTweensOf(this.bones.bonesByName.CTRL_pelvis.position);
-      // TweenMax.killTweensOf(this.bones.bonesByName.Bone_C_Tail_01.rotation);
-      // TweenMax.killTweensOf(this.bones.bonesByName.Bone_R_Tail_01.rotation);
-      // TweenMax.killTweensOf(this.bones.bonesByName.Bone_L_Tail_01.rotation);
-      // TweenMax.killTweensOf(this.bones.bonesByName.Bone_neck_01.rotation);
-      // TweenMax.killTweensOf(this.bones.bonesByName.Bone_neck_02.rotation);
-
-
     }
   }
 
@@ -837,17 +793,9 @@ export default class HuiaBird extends THREE.Object3D {
 
 
         
-    //this.basicShader.uniforms.time.needsUpdate = true;
-
-    //aqui eu atualizo os valores do shader de wireframe animado
     var elapsedMilliseconds = Date.now() - this.startTime;
     var elapsedSeconds = elapsedMilliseconds/1000;
 
- 
-    
-
-
-    //seto os valores das uniformes de tempo
     var sinToSet = (Math.abs(Math.sin(elapsedSeconds))*.8)+.2;
     var sinToSet2 = (Math.abs(Math.sin(elapsedSeconds*2.0))*.8)+.2;
     var sinToSet3 = (Math.abs(Math.sin(elapsedSeconds*5.0)));
@@ -861,13 +809,6 @@ export default class HuiaBird extends THREE.Object3D {
     this.animatedWireframe.uniforms.currentTimeValue.needsUpdate = true;
 
 
-
-    //o needsUpdate = true é uma coisa da propria ThreeJS, precisa aplicar para cada valor sempre
-
-
-    //aqui eu coloco um valor de teste automatico para a posicao do mouse perto do passaro
-    //na versao valendo precisa ver como pegar a posicao do mouse em transformar em valor válido que
-    //funcione com o shader nos intervalos de valoe esperados
     var sinToLightPos = Math.sin(elapsedSeconds*.5);
     var sinToLightPosFaster = Math.sin(elapsedSeconds*1.0);
 
@@ -886,39 +827,12 @@ export default class HuiaBird extends THREE.Object3D {
       this.mousemovementTimer = 0;
     }
 
-
-    //this.animatedWireframe.uniforms.lightPosition.value.x = 0.7+(0.3*sinToLightPos);
-    //this.animatedWireframe.uniforms.lightPosition.value.y = 3.8+(3.0*(sinToLightPos));
-
-    // this.animatedWireframe.uniforms.lightPosition.value.x = 0.7+(1.0*this.pointLight.position.x);
-    // this.animatedWireframe.uniforms.lightPosition.value.y = 3.8+(1.0*(this.pointLight.position.y));
-    // this.animatedWireframe.uniforms.lightPosition.value.z = 3.0+(5.0*sinToLightPos);
-
     this.animatedWireframe.uniforms.lightPosition.value.x = 0.0+(0.3);
     this.animatedWireframe.uniforms.lightPosition.value.y = this.getBirdMouseOverPosX(this.pointLight.position.x, this.pointLight.position.y);
     this.animatedWireframe.uniforms.lightPosition.value.z = 5.0+(15.0*this.pointLight.position.y);
     this.animatedWireframe.uniforms.lightPosition.needsUpdate = true;
 
-    //this.sphere.material.uniforms.deltinha.value = Math.random().toFixed(2);
-    //this.sphere.material.uniforms.delta.value.needsUpdate = true;
-    // this.hat.material.uniforms.deltinha.value =Math.random().toFixed(2);
-    // this.hat.material.needsUpdate = true;
-
-
-    //this.sphere.material.uniforms.viewVector.value = new THREE.Vector3().subVectors(); 
     this.sphere.material.needsUpdate = true;
-    //this.fireBallShader.uniforms.time.value = new Date(); 
-
-
-    // this.sphere.dynamic = true;
-    // this.sphere.geometry.verticesNeedUpdate = true;
-
-
-    //console.log(this.basicShader.uniforms.time);
-
-
-    //console.log("point lD: " , this.pointLightDirectional.position);
-    //console.log("point l: " + this.pointLight.position.x);
 
   } 
 

@@ -18,16 +18,6 @@ export default class BackgroundScene extends THREE.Scene{
     this.backgroundMesh.layers.set(5);
     this.add(this.backgroundMesh);
 
-    // this.backgroundPointLight = new THREE.SpotLight();
-    // this.backgroundPointLight.color = new THREE.Color(0x191923);
-    // this.backgroundPointLight.intensity = 4.5;
-    // this.backgroundPointLight.position.z = 54;
-    // this.backgroundPointLight.position.x = -5;
-    // this.backgroundPointLight.position.y = 5;
-    // this.backgroundPointLight.rotation.x = 90 * Math.PI/180;
-    // this.backgroundPointLight.layers.set(5);
-    // this.add(this.backgroundPointLight);
-
     this.backgroundAmbientLight = new THREE.AmbientLight();
     this.backgroundAmbientLight.intensity = 1.5;
     this.add(this.backgroundAmbientLight);

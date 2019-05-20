@@ -1,31 +1,47 @@
-# huia-site-2017
+# Huia Interactive - 03 Experience
 
-> Huia Website 2017 version
+# Learn more about this project
 
-## Build Setup
+Read my [medium article](https://medium.com/@alessandrocauduro/creating-an-interactive-artificial-intelligence-experience-on-the-browser-with-tensorflow-ea205ee08c02) about this project to learn about all the details necessary to build an artificial intelligence experience on the browser from end-to-end.
 
-install yarn
-install nodejs
-install npm
+# Setup
+
+You will need [NodeJS](https://nodejs.org/) >= 8.9 and [Yarn](https://yarnpkg.com/) >=1.15 installed.
 
 ``` bash
+# change directory
+$ cd 03_experience
+
 # install dependencies
-npm install
+$ yarn
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve with hot reload at localhost:8181
+$ yarn dev
 
-# build for production with minification
-npm run build
+# build for production with minification into dist folder
+$ yarn build
 
 # build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
+$ yarn build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+# Have Fun
+
+Try the [live demo](https://experience.huia.haus/?utm_source=github&utm_medium=link)
+
+
+These are the poses the Huia responds to:
+
+![](../assets/poses.png)
+
+
+# Docker
+We also provide a Dockerfile to build the project and run an ngingx server serving the files on [http://localhost:8181/](http://localhost:8181/).
+
+``` bash
+# build the docker
+$ docker-compose build
+
+# build project & start server on http://localhost:8181
+$ docker-compose up -d 
+```
