@@ -36,3 +36,5 @@ npm-debug.log*
 .vscode
 todo.txt
 .ipy*
+02_train/images_normalized.data-00000-of-00001
+02_train/images_normalized.index
