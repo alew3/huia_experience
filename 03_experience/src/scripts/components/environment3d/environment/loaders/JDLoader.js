@@ -63,7 +63,8 @@ export default function(THREE) {
                         var m = a.materials[j];
                         if (g = new THREE.Color(16777215), h = new THREE.Color(1644825), m.diffuse && g.fromArray(m.diffuse), m.specular && h.fromArray(m.specular), i = void 0 !== m.glossiness ? m.glossiness : 40, c = void 0, m.maps)
                             for (var n = 0; n < m.maps.length; ++n)
-                                if ("diffuse" == m.maps[n].type && "" != m.maps[n].file) {
+                                // false, don't load textures
+                                if (false && "diffuse" == m.maps[n].type && "" != m.maps[n].file) {
                                     var o = !1,
                                         p = m.maps[n].file.substring(m.maps[n].file.lastIndexOf(".") + 1);
                                     if (p = p.toLowerCase(), p = "jpg" == p ? "jpeg" : p, void 0 !== m.maps[n].data && ("bmp" == p || "png" == p || "jpeg" == p || "gif" == p)) {
