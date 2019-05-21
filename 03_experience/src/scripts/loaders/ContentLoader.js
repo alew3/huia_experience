@@ -10,16 +10,12 @@ import SoundsLoader from './SoundsLoader';
 
 class ContentLoader{
 
-  static DATA_MENU = null;
-  static DATA_CLIENTS = null;
-  static DATA_PROJECTS = null;
-  static DATA_STUDIOS = null;
+
   static DATA_TEXTS = null;
   static DATA_METATAGS = null;
   static DATA_COUNTRIES = null;
   static DATA_TEAM = null;
   static DATA_MODEL_HUIA = null;
-  static DATA_MODEL_CARTOLA = null;
   static SPRITESHEETS = [];
   static STUDIO_TECHNOLOGY = "technology";
   static STUDIO_MEDIA = "media";
@@ -71,11 +67,6 @@ class ContentLoader{
     this.dataQueue = new createjs.LoadQueue(true);
     this.dataQueue.maintainScriptOrder = false;
     this.dataQueue.setMaxConnections(10);
-    this.dataQueue.loadFile({id : "menu", src : window.API_URL + "menu", type : createjs.AbstractLoader.JSON});
-    this.dataQueue.loadFile({id : "clients", src : window.API_URL + "clients", type : createjs.AbstractLoader.JSON});
-    this.dataQueue.loadFile({id : "team", src : window.API_URL + "team", type : createjs.AbstractLoader.JSON});
-    this.dataQueue.loadFile({id : "projects", src : window.API_URL + "projects", type : createjs.AbstractLoader.JSON});
-    this.dataQueue.loadFile({id : "studios", src : window.API_URL + "studios", type : createjs.AbstractLoader.JSON});
     this.dataQueue.loadFile({id : "texts", src : "/static/json/texts.json", type : createjs.AbstractLoader.JSON});
     this.dataQueue.loadFile({id : "metatags", src : "/static/json/metatags.json", type : createjs.AbstractLoader.JSON});
     this.dataQueue.loadFile({id : "countries", src : "/static/json/countries.json", type : createjs.AbstractLoader.JSON});
@@ -294,49 +285,7 @@ class ContentLoader{
     });
   }
 
-  static loadExperience3DModel() {
-    var self = this;
-    JSZipUtils.getBinaryContent('/static/experience-models/models.zip', function(err, data) {
-        if(err) {
-            throw err; // or handle err
-        }
-        self.PROGRESS = 70;
-        self._onProgress();
 
-        JSZip.loadAsync(data).then(function (zip) {
-          self.PROGRESS = 75;
-          self._onProgress();
-          // console.log(zip);
-            zip.file("island.jd").async("string").then(function(txt){
-              ContentLoader.DATA_ISLAND = JSON.parse(txt);
-              self.PROGRESS = 80;
-              self._onProgress();
-
-              zip.file("huia.jd").async("string").then(function(txt){
-                ContentLoader.DATA_HUIA_LOW_POLY = JSON.parse(txt);
-
-                self.PROGRESS = 85;
-                self._onProgress();
-
-                zip.file("boat.json").async("string").then(function(txt){
-                  ContentLoader.DATA_BOAT = JSON.parse(txt);
-
-                  zip.file("tree.jd").async("string").then(function(txt){
-                    ContentLoader.DATA_TREE = JSON.parse(txt);
-
-                    // if(Globals.USER_DATA.userCity == "" || Globals.USER_DATA.userCountry == "" || Globals.USER_DATA.userCity == null || Globals.USER_DATA.userCountry == null){
-                    //   self.PROGRESS = 90;
-                    // }else{
-                      self.PROGRESS = 100;
-                      self._onProgress();
-                    // }
-                  });
-                });
-              });
-            });
-        });
-    });
-  }
 
   static getGeolocationData (onCompleteAddress) {
     var self = this;
@@ -354,36 +303,11 @@ class ContentLoader{
     });
   }
 
-  static loadAddress(lat,lng){
-    var self = this;
-    var objResponse = {};
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&key=AIzaSyAtwyLI5J4294iaBitBy0413izgA9pKfbE")
-    .then((data)=>{
-      for(var i = 0; i < data.data.results.length; i++){
-        if(data.data.results[i].types[0] == "street_address" || data.data.results[i].types[0] == "route"){
-          var objResult = data.data.results[i];
 
-          for(var q = 0; q < objResult.address_components.length; q++){
-            var el = objResult.address_components[q];
-            if(el.types[0] == "locality"){
-              objResponse.userCity = el.short_name;
-            }else if(el.types[0] == "administrative_area_level_1"){
-              objResponse.userCity += " - " + el.short_name;
-            }else if(el.types[0] == "country"){
-              objResponse.userCountry = el.short_name;
-              objResponse.userCountryName = el.long_name;
-            }
-          }
-        }
-      }
-
-      self._onCompleteAddress(objResponse);
-    });
-  }
 
 
   static load3DImages () {
-    var quality = "high";
+    var quality = "medium";
 
     // if(window.IS_CRAWLER){
     //   this.load3DModel();
@@ -461,24 +385,6 @@ class ContentLoader{
         this.imageQueue.loadFile({id : "glitch6-sound", src : "/static/sounds/glitch-6.mp3", type : createjs.AbstractLoader.SOUND});
         this.imageQueue.loadFile({id : "glitch7-sound", src : "/static/sounds/glitch-7.mp3", type : createjs.AbstractLoader.SOUND});
 
-
-
-      // }else{
-      //   this.imageQueue.loadFile({id : "huia-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "huia-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "huia-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_normal.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "huia-specular", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/huia_spec.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "feather-diffuse", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_diffuse.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "feather-roughness", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_roughness.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "feather-normalmap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_normalmap.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "feather-alphamap", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "feather-alphamap-plumes", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/feather_alpha_plumes.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "eye-ball", src : "/static/huia-model/textures/"+quality.toLowerCase()+"/eye_ball.jpg", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "particle1", src : "/static/images/particle1.png", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "particle2", src : "/static/images/particle2.png", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "body", src : "/static/huia-model/body.png", type : createjs.AbstractLoader.IMAGE});
-      //   this.imageQueue.loadFile({id : "body-alpha", src : "/static/huia-model/body-alpha.png", type : createjs.AbstractLoader.IMAGE});
-      // }
       this.imageQueue.loadFile({id : "notexture-noise-bg", src : "/static/images/noise.png", type : createjs.AbstractLoader.IMAGE});
       this.imageQueue.loadFile({id : "notexture-user-ballon", src : "/static/images/user-message-border.svg", type : createjs.AbstractLoader.IMAGE});
       this.imageQueue.loadFile({id : "notexture-bot-ballon", src : "/static/images/bot-message-border.svg", type : createjs.AbstractLoader.IMAGE});
@@ -529,134 +435,13 @@ class ContentLoader{
     this.imageQueue.load();
   }
 
-  static getProjectDetail(slug){
-    return this.DATA_PROJECTS_DETAILS[slug];
-  }
-
-  static setLoadProjectCallbacks(onProgress,onComplete){
-    this.onProgressDetail = onProgress;
-    this.onCompleteDetail = onComplete;
-  }
-
-  static loadProjectDetail(slug, onProgress, onComplete){
-    var self = this;
-
-    this.onProgressDetail = onProgress;
-    this.onCompleteDetail = onComplete;
-
-    axios.get(ContentLoader.getApiUrl() + 'projects/'+slug)
-    .then((data) => {
-      if(self.loadingWithProject){
-        self.PROGRESS = 70;
-        self._onProgress();
-      }else{
-        self.onProgressDetail(0.2);
-      }
-
-      var data = LanguageHelper.translateObject(data.data[0]);
-      self.DATA_PROJECTS_DETAILS[slug] = {data : data, imagesLoaded : false, images : []};
-      self.loadProjectImages(slug,data);
-    })
-    .catch((data)=>{
-      console.log("error", data);
-    });
-  }
 
 
-  static loadProjectImages(slug,data){
-    this.imagesQueue = new createjs.LoadQueue(false);
-    this.imagesQueue.setMaxConnections(10);
-    this.imagesQueue.maintainScriptOrder = false;
-
-    // if(window.IS_CRAWLER){
-
-    //   this.DATA_PROJECTS_DETAILS[slug].imagesLoaded = true;
-    //   this.PROGRESS = 100;
-    //   if(this.loadingWithProject){
-    //     this.loadingWithProject = null;
-    //     if(this.onCompleteDetail)
-    //       this.onCompleteDetail();
-    //   }else{
-    //     if(this.onCompleteDetail)
-    //       this.onCompleteDetail();
-    //   }
-
-    //   return;
-    // }
-
-    for(var i = 0; i < data.pages.length; i++){
-      var page = data.pages[i];
-
-      if(page.page_type == "singleimage"){
-        this.imagesQueue.loadFile({id : page.image.filename, src : window.ASSETS_URL + "upload/"+page.image.filename, type : createjs.AbstractLoader.IMAGE});
-      }
-      else if(page.page_type == "imagegallery"){
-        for(var q = 0; q < page.images.length; q++){
-          this.imagesQueue.loadFile({id : page.images[q].file.filename, src : window.ASSETS_URL + "upload/"+page.images[q].file.filename, type : createjs.AbstractLoader.IMAGE});
-        }
-      }
-      else if(page.page_type == "video"){
-        if(page.video_source == "youtube"){
-          this.imagesQueue.loadFile({id : "asfafas", src : "https://img.youtube.com/vi/"+page.video_id+"/0.jpg", type : createjs.AbstractLoader.IMAGE, crossOrigin : true});
-        }
-      }else if(page.page_type == "phoneframed"){
-        this.imagesQueue.loadFile({id : page.animation_phone.filename, src : window.ASSETS_URL + "upload/"+page.animation_phone.filename, type : createjs.AbstractLoader.IMAGE});
-        this.imagesQueue.loadFile({id : page.animation_print_phone.filename, src : window.ASSETS_URL + "upload/"+page.animation_print_phone.filename, type : createjs.AbstractLoader.IMAGE});
-      }else if(page.page_type == "computerframed"){
-        this.imagesQueue.loadFile({id : page.animation_computer.filename, src : window.ASSETS_URL + "upload/"+page.animation_computer.filename, type : createjs.AbstractLoader.IMAGE});
-        this.imagesQueue.loadFile({id : page.animation_print_computer.filename, src : window.ASSETS_URL + "upload/"+page.animation_print_computer.filename, type : createjs.AbstractLoader.IMAGE});
-      }
-    }
-
-    if(page.page_type == "phoneframed"){
-      this.imagesQueue.loadFile({id : "photoframe", src : '/static/images/phoneframe-'+page.phone_frame_color+'.png', type : createjs.AbstractLoader.IMAGE});
-    }
-    this.imagesQueue.loadFile({id : "computerframe", src : '/static/images/computer-frame.png', type : createjs.AbstractLoader.IMAGE});
-
-    var self = this;
-    this.imagesQueue.addEventListener('fileload', (data) => {
-      self.DATA_PROJECTS_DETAILS[slug].images[data.item.id] = data.rawResult;
-    });
-
-    this.imagesQueue.addEventListener('progress', (data) => {
-      if(self.loadingWithProject){
-        self.PROGRESS = 70 + Math.round(data.progress * 30);
-        self._onProgress();
-      }else{
-        if(self.onProgressDetail){
-          self.onProgressDetail(0.2 + (data.progress * 0.8));
-        }
-      }
-    });
-
-    this.imagesQueue.addEventListener('complete', (data) => {
-      self.DATA_PROJECTS_DETAILS[slug].imagesLoaded = true;
-
-      if(self.loadingWithProject){
-        self.loadingWithProject = null;
-      }else{
-        if(self.onCompleteDetail)
-          self.onCompleteDetail();
-      }
-    });
-
-    this.imagesQueue.load();
-  }
 
 
 
   static load3DModel(){
     var self = this;
-
-    // if(window.IS_CRAWLER){
-    //   if(self.loadingWithProject){
-    //     self.loadProjectDetail(self.loadingWithProject,self._onProgress,self._onComplete);
-    //   }else{
-    //     self.PROGRESS = 100;
-    //     self._onProgress();
-    //   }
-    //   return;
-    // }
 
     JSZipUtils.getBinaryContent('/static/huia-model/model.jd.zip' , function(err, data) {
         //console.log("downloading:"+data);

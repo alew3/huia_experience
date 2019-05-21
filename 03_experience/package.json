@@ -31,7 +31,7 @@
     "dropzone": "github:enyo/dropzone",
     "es6-enum": "^1.1.0",
     "flag-icon-css": "^2.8.0",
-    "gsap": "^1.19.1",
+    "gsap": "^2.1.3",
     "hammerjs": "^2.0.8",
     "html": "^1.0.0",
     "jquery": "^3.4.0",
