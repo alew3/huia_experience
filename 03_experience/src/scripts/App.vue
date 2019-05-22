@@ -20,8 +20,7 @@
       <div id="status"></div>
       <div id="icons" style="z-index:1000;"></div>
       <div id="layer">
-        <select id="layers">
-        </select>
+  
 
         <div id="visualize">
         </div>
@@ -78,7 +77,7 @@ let last_moves = new Array();
 
 // huia tf model
 import * as tf from '@tensorflow/tfjs';
-import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
+//import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
 const MODEL_HUIA_URL =  window.location.protocol + "//" + window.location.host  + "/static/tfjs_poses/model.json"; //"/static/tfjs_poses/model.json";
 console.log("Model url",MODEL_HUIA_URL);
@@ -796,21 +795,6 @@ async function predict(imgElement) {
   });
 
 
-  // status(`Done in ${Math.floor(totalTime1)} ms ` +
-  //     `(not including preprocessing: ${Math.floor(totalTime2)} ms)`);
-
-
-  //console.log("top probability:", classes[0].probability);
-  // Show the classes in the DOM.
-  // var prob = 'Probabilities: <BR/>';
-  // for (let i = 0; i < classes.length-1; i++) {
-  //   if (classes[i].probability>=0.85) {
-  //     prob+= "<span style='color:red;font-size:90px'>"
-  //     prob+= classes[i].className + " : " + classes[i].probability + "</span> <br/>";
-  //   } else {
-  //     prob+= classes[i].className + " : " + classes[i].probability + " <br/>";
-  //   }
-  // }
   let prob = "";
   const threshold = 0.94;
   // se probbilidade > .93 bota no array de moves
@@ -902,71 +886,6 @@ async function realTimePredict() {
   //await activationVisualization(hiddenCanvas)
 }
 
-// async function activationVisualization(hiddenCanvas) {
-//   const layerId = $("layers").prop("selectedIndex");
-//   activationShape = customMobilenet.layers[layerId].output.shape.slice(1);
-//   console.log(activationShape);  
-
-//   const shapes      = models.map(model => model.outputs[0].shape.slice(1))
-//   const collageDims = shapes.map(shape => toSquareish(shape[2]))
-
-//  const channelNormalize = false;
-//   tf.tidy(() => {
-//       // Feed the input through the model.
-//       let activation = customMobilenet.layers[layerId].predict(hiddenCanvas.expandDims(0)).squeeze();
-
-//       // // Normalize within each channel if the checkbox is checked.
-//       // if (channelNormalize) {
-//       //   // Global pool so we compute normalization params for each channel.
-//       //   const strides = 1; // Doesn't matter
-//       //   const pad = 0;
-//       //   const maxpool = activation.maxPool([activation.shape[0], activation.shape[1]], strides, pad);
-        
-//       //   const minpool = activation.neg().maxPool(
-//       //       [activation.shape[0], activation.shape[1]], strides, pad).neg()
-//       //       // To avoid dividing by zero.
-//       //       .add(tf.scalar(.0000001));
-
-//       //   activation = activation.sub(minpool).div(maxpool.sub(minpool));
-//       // }
-
-//       // Transpose the channels to the outer most dimension and then reshape the activation so we can show
-//       // it in a rectangular collage.
-    
-
-//       const reshaped = activation.transpose([2, 0, 1]).reshape(
-//         [collageDims[layerId][0], collageDims[layerId][1], activation.shape[0], activation.shape[1]]);
-
-//       // Split channels between rows and columns. [16, width, height] becomes [4, width, 4, height]
-//       const transposed = reshaped.transpose([0, 2, 1, 3]);
-
-//       // Combine channels. [4, height, 4, height] becomes [4 * height, 4 * height]
-//       let output = transposed.reshape(
-//         [transposed.shape[0] * transposed.shape[1], transposed.shape[2] * transposed.shape[3]]);
-
-//       // Normalize across the entire activation if the channelNormalize option isn't checked.
-//       if (!channelNormalize) {
-//         const min = output.min();
-//         const max = output.max();
-//         output = output.sub(min).div(max.sub(min));
-//       }
-//       return output.maximum(tf.scalar(0)).minimum(tf.scalar(1));
-//     });
-
-// } 
-
-function toSquareish(x) {
-    let sqrt = Math.sqrt(x);
-    if (Number.isInteger(sqrt)) {
-      return [sqrt, sqrt];
-    }
-    sqrt = Math.floor(sqrt);
-    // Who cares that this is slow.
-    while (!Number.isInteger(x / sqrt)) {
-      sqrt--;
-    }
-    return [sqrt, x / sqrt];
-}
 
 </script>
 <style src="../scss/fonts.css"></style>
