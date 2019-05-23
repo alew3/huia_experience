@@ -14,8 +14,8 @@
   "flap-en_us" : "flap wings",
   "flap-pt_br" : "bater asas",
 
-  "interact-pt_br" : "click to interact",
-  "interact-en_us" : "click to interact",
+  "interact-pt_br" : "use the webcam to interact",
+  "interact-en_us" : "use the webcam to interact",
 
   "copyLink-en_us" : "copy link",
   "copyLink-pt_br" : "copiar link",
