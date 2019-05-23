@@ -10,6 +10,7 @@ __pycache__
 bkp
 dist
 augmented_imgs
+models_tfjs
 
 # images
 02_train/training_data/augmented_imgs

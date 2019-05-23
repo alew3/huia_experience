@@ -79,7 +79,7 @@ let last_moves = new Array();
 import * as tf from '@tensorflow/tfjs';
 //import { activation } from '@tensorflow/tfjs-layers/dist/exports_layers';
 // pose model 
-const MODEL_HUIA_URL =  window.location.protocol + "//" + window.location.host  + "/static/tfjs_poses/model.json"; //"/static/tfjs_poses/model.json";
+const MODEL_HUIA_URL =  window.location.protocol + "//" + window.location.host  + "/static/huia_poses_final_q16ale/model.json"; //"/static/tfjs_poses/model.json";
 console.log("Model url",MODEL_HUIA_URL);
 
 const POSE_CLASSES = {
@@ -752,8 +752,8 @@ async function predict(imgElement) {
   let ctxT = tempCanvas.getContext('2d');
   tempCanvas.width = IMAGE_SIZE;
   tempCanvas.height = IMAGE_SIZE;
-  ctxT.imageSmoothingEnabled = true;
-  ctxT.imageSmoothingQuality = "high";
+  //ctxT.imageSmoothingEnabled = true;
+  //ctxT.imageSmoothingQuality = "high";
   ctxT.drawImage(imgElement,0,0,IMAGE_SIZE,IMAGE_SIZE);
 
   // The first start time includes the time it takes to extract the image
@@ -764,7 +764,7 @@ async function predict(imgElement) {
   let startTime2;
   const logits = tf.tidy(() => {
     // tf.browser.fromPixels() returns a Tensor from an image element.
-    const img = tf.browser.fromPixels(tempCanvas).toFloat();
+    const img = tf.browser.fromPixels(tempCanvas); //.toInt();
 
     // Normalize the image from [0, 255] to [-1, 1].
     const offset = tf.scalar(127.5);
@@ -783,6 +783,7 @@ async function predict(imgElement) {
 
   // Convert logits to probabilities and class names.
   const classes = await getTopKClasses(logits, TOPK_PREDICTIONS);
+  //console.log("predict",classes);
   const totalTime1 = performance.now() - startTime1;
   const totalTime2 = performance.now() - startTime2;
 
@@ -796,24 +797,23 @@ async function predict(imgElement) {
 
 
   let prob = "";
-  const threshold = 0.94;
-  // se probbilidade > .93 bota no array de moves
+  const threshold = 0.94; // pose threshold
  
-    // insere nova pose
-    var d = new Date();
-    last_moves.unshift( [d.getSeconds() + (d.getMilliseconds()/1000).toFixed(2) ,classes[0].className,classes[0].probability]);
+  // insere nova pose
+  var d = new Date();
+  last_moves.unshift( [d.getSeconds() + (d.getMilliseconds()/1000).toFixed(2) ,classes[0].className,classes[0].probability]);
 
 
-    // unselect icons
-    $('div[id^="id_"]').removeClass("selected");
-    
-    var strMoves = "";
-    let styleL = "";
-    last_moves.forEach ( (move) => {
-        styleL = (parseFloat(move[2])>=threshold ? "color:black; background:" + pColors[move[1]] : "");
-        strMoves += `<span style='${styleL}'>['${move[0]}','${move[1]}','${move[2].toFixed(3)}' ]</span><br/>`;
-    });
-    $('#last_moves').html(strMoves); 
+  // unselect icons
+  $('div[id^="id_"]').removeClass("selected");
+  
+  var strMoves = "";
+  let styleL = "";
+  last_moves.forEach ( (move) => {
+      styleL = (parseFloat(move[2])>=threshold ? "color:black; background:" + pColors[move[1]] : "");
+      strMoves += `<span style='${styleL}'>['${move[0]}','${move[1]}','${move[2].toFixed(3)}' ]</span><br/>`;
+  });
+  $('#last_moves').html(strMoves); 
 
     // vamos guardar só os últimos 20
     if (last_moves.length>60) {
