@@ -37,8 +37,8 @@ export default {
         loadCompleted : false,
         stepsLimit : 3,
         timeMin : (Globals.DEBUG) ? 4000 : 14000,
-        text : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>We are Huia, a tech studio dedicated to bringing ideas to life.</p><p>Huia was also a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Turn on the webcam and enjoy the experience.</p>"),
-        text2 : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>We are Huia, a tech studio dedicated to bringing ideas to life.</p><p>Huia was also a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Enjoy the experience.</p>")
+        text : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>Huia Interactive Experience.</p><p>Huia was a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Turn on the webcam and enjoy the experience.</p>"),
+        text2 : ((LanguageHelper.LANGUAGE == 'pt_br') ? "<p>PORTUGUESNeque porro quisquam est qui</p><p>dolorem ipsum quia dolor sit amet,</p><p>consectetur adipisci veli</p>" : "<p>Huia Interactive Experience.</p><p>Huia was a noble bird from New Zealand last seen in 1907.</p><p>In our site you can interact and imagine what the real bird was like.</p><p>Enjoy the experience.</p>")
     }
   },
 
