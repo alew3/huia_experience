@@ -53,7 +53,7 @@ nb-conda==2.2.1
 nb-conda-kernels==2.2.1
 nbconvert==5.5.0
 nbformat==4.4.0
-notebook==5.7.8
+notebook==6.4.10
 numexpr==2.6.9
 numpy==1.16.3
 nvidia-ml-py3==7.352.0
