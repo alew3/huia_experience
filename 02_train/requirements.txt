@@ -51,7 +51,7 @@ mock==3.0.5
 murmurhash==1.0.2
 nb-conda==2.2.1
 nb-conda-kernels==2.2.1
-nbconvert==5.5.0
+nbconvert==6.3.0
 nbformat==4.4.0
 notebook==5.7.8
 numexpr==2.6.9
