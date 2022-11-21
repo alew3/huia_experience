@@ -92,7 +92,7 @@ spacy==2.1.4
 srsly==0.0.5
 tb-nightly==1.14.0a20190301
 tensorboardX==1.6
-tensorflow-gpu==2.0.0a0
+tensorflow-gpu==2.9.3
 termcolor==1.1.0
 terminado==0.8.2
 testpath==0.4.2
